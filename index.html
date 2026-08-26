@@ -50,24 +50,27 @@
         <h1 class="text-lg leading-tight font-extrabold tracking-tight">Pringle&nbsp;Info (Jurie Spies)</h1>
         <p class="text-[11px] uppercase tracking-widest text-white/80 font-semibold">Overstrand · Emergency &amp; Community</p>
       </div>
-      <div class="flex items-center gap-2">
+      <div class="relative flex items-center gap-2">
+        <button id="menuBtn" type="button" title="Tools & guides" aria-label="Open tools and guides" aria-expanded="false" aria-controls="menuDropdown"
+          class="flex h-9 w-9 items-center justify-center rounded-md bg-white/15 hover:bg-white/25"></button>
         <button id="themeToggle" type="button" title="Toggle light / dark mode" aria-label="Toggle light and dark mode"
           class="flex h-9 w-9 items-center justify-center rounded-md bg-white/15 hover:bg-white/25"></button>
         <button id="installBtn" type="button" class="hidden sm:inline-flex items-center gap-1.5 rounded-md bg-white/15 hover:bg-white/25 text-xs font-bold px-3 py-2">Install</button>
+        <nav id="menuDropdown" class="absolute right-0 top-full mt-1 w-64 p-1.5 z-40 rounded-lg border border-stone-200 bg-white shadow-lg dark:border-stone-700 dark:bg-stone-900" hidden>
+          <button type="button" data-action="contacts" class="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-stone-700 hover:bg-stone-100 dark:text-stone-200 dark:hover:bg-stone-800/60">📋 <span>Emergency Directory</span></button>
+          <div class="mt-1 mb-1 border-t border-stone-200 dark:border-stone-700"></div>
+          <button type="button" data-action="checklist" class="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-stone-700 hover:bg-stone-100 dark:text-stone-200 dark:hover:bg-stone-800/60">🔥 <span>Preparedness Checklist</span></button>
+          <button type="button" data-action="firstaid" class="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-stone-700 hover:bg-stone-100 dark:text-stone-200 dark:hover:bg-stone-800/60">🩺 <span>First Aid Quick Guides</span></button>
+          <button type="button" data-action="helplines" class="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-stone-700 hover:bg-stone-100 dark:text-stone-200 dark:hover:bg-stone-800/60">☎ <span>National Helplines</span></button>
+        </nav>
       </div>
     </div>
 
     <!-- Lifeline: one-tap call -->
     <div id="lifelineGrid" class="grid grid-cols-2 gap-2" role="list" aria-label="Emergency numbers"></div>
 
-    <!-- Share my GPS location (kept inside the sticky header so it's always one tap away) -->
-    <button id="myLoc" type="button" class="mt-2.5 flex w-full items-center justify-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-bold text-stone-900 shadow-sm hover:bg-stone-50 dark:bg-stone-800 dark:text-white dark:hover:bg-stone-800/60">
-      <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
-      <span id="myLocLabel">Copy my GPS location"</span>
-    </button>
-
     <!-- Search -->
-    <div class="relative mt-2.5">
+    <div id="searchRow" class="relative mt-2.5">
       <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/70" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
       <input id="search" type="search" autocomplete="off" spellcheck="false"
         placeholder="Search"
@@ -101,6 +104,38 @@
     <div id="favList" class="space-y-2"></div>
   </section>
 
+  <!-- My area: entries for the reader's area move to the top of every list -->
+  <section id="areaRow" class="mb-4" aria-label="My area">
+    <div class="flex items-center gap-2">
+      <svg class="w-4 h-4 shrink-0 text-brand" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+      <label for="areaSelect" class="text-xs font-bold uppercase tracking-wide text-stone-600 dark:text-stone-300">My area</label>
+      <select id="areaSelect" aria-label="Choose your area"
+        class="flex-1 min-w-0 rounded-lg border border-stone-200 bg-white px-2 py-1.5 text-sm text-stone-900 outline-none ring-brand focus:ring-2 dark:border-stone-600 dark:bg-stone-800 dark:text-white">
+      </select>
+    </div>
+    <p id="areaHint" class="mt-1 text-[11px] text-stone-400">Places in your area move to the top of every list. Your location is used once to pick it, or choose your area above.</p>
+  </section>
+
+  <!-- Tools & Guides: checklist, first aid, helplines — burger menu view -->
+  <section id="toolsPanel" class="mb-4" aria-label="Tools and guides" hidden>
+    <div class="flex items-center gap-2 mb-2">
+      <h2 class="text-sm font-bold uppercase tracking-wide text-stone-600 dark:text-stone-300">Tools &amp; Guides</h2>
+      <span class="ml-auto text-[11px] text-stone-400">Preparedness · First aid · National helplines</span>
+    </div>
+    <div class="relative mt-0.5 mb-3">
+      <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
+      <input id="toolsSearch" type="search" autocomplete="off" spellcheck="false"
+        placeholder="Search first aid, helplines, checklist…"
+        aria-label="Search tools and guides"
+        class="w-full rounded-lg pl-9 pr-9 py-2.5 bg-white text-stone-900 text-sm placeholder:text-stone-400 outline-none ring-brand focus:ring-2 dark:bg-stone-800 dark:text-white dark:placeholder:text-stone-500">
+      <button id="clearToolsSearch" type="button" aria-label="Clear tools search" hidden
+        class="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 items-center justify-center rounded-full bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-300">
+        <svg class="w-3.5 h-3.5 mx-auto" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+    </div>
+    <div id="toolsBody" class="space-y-3"></div>
+  </section>
+
   <!-- Category accordions rendered by JS -->
   <div id="results" class="space-y-3"></div>
 
@@ -115,8 +150,6 @@
     <p class="mt-2">Issued by Overstrand Municipal Manager, Dean O'Neill · Built for the Pringle Bay &amp; Overstrand community</p>
   </footer>
 </main>
-
-<div id="toast" role="status" class="pointer-events-none fixed bottom-6 left-1/2 z-50 -translate-x-1/2 max-w-[90vw] truncate rounded-full bg-stone-900 px-4 py-2 text-sm font-semibold text-white opacity-0 shadow-lg transition-opacity duration-200 dark:bg-white dark:text-stone-900"></div>
 
 <noscript>
   <p class="max-w-2xl mx-auto px-4 py-6 text-center">This app needs JavaScript enabled to display the directory.</p>
@@ -154,18 +187,22 @@
     check: '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>',
     alert: '',
     chev: '<svg class="w-5 h-5" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>',
+    menu: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>',
+    close: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>',
     sun: '<svg class="w-5 h-5" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm-9 2h2v2H3v-2zm16 0h2v2h-2v-2zM11 3h2v2h-2V3zm0 16h2v2h-2v-2zM5.6 4.2l1.4 1.4-1.4 1.4L4.2 5.6l1.4-1.4zm11.4 12.8 1.4 1.4-1.4 1.4-1.4-1.4zM4.2 18.4l1.4-1.4 1.4 1.4-1.4 1.4-1.4-1.4zM17.2 5.6l1.4-1.4 1.4-1.4 1.4 1.4-1.4 1.4z"/></svg>',
     moon: '<svg class="w-5 h-5" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.3 2a9.9 9.9 0 0 0 9.7 9.7A10 10 0 1 1 12.3 2zm.9 2.1a8 8 0 1 0 6.7 6.7A8 8 0 0 1 13.2 4.1z"/></svg>',
     star: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>',
-    wa: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.55 14.89L2 22l5.25-1.44A9.9 9.9 0 1 0 12.04 2zm5.78 14.03c-.24.68-1.4 1.3-1.93 1.35-.52.05-1 .24-3.37-.7-2.85-1.13-4.65-4.07-4.79-4.26-.14-.19-1.14-1.52-1.14-2.9 0-1.38.72-2.06 1-2.34.25-.28.55-.35.74-.35l.53.01c.17 0 .4-.06.62.48.23.56.77 1.93.84 2.07.07.14.11.3.02.48-.6 1.17-1.2 1.13-.9 1.67 1.02 1.83 2.05 2.43 3.55 3.17.26.13.41.11.56-.06.15-.18.65-.76.82-1.02.17-.26.34-.22.58-.13.23.08 1.47.69 1.72.82.25.13.42.19.48.3.06.1.06.6-.18 1.28z"/></svg>',
-    nav: '<svg class="w-5 h-5 shrink-0" viewBox="0 0 60 60" fill="currentColor" aria-hidden="true"><path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M45.706,14.444L28.415,49.326c-0.17,0.345-0.521,0.556-0.896,0.556c-0.056,0-0.112-0.005-0.169-0.015c-0.436-0.074-0.771-0.427-0.824-0.865l-1.809-14.95L8.885,31.398c-0.434-0.072-0.769-0.419-0.826-0.854s0.175-0.857,0.574-1.041l35.761-16.412c0.383-0.177,0.84-0.091,1.135,0.213S45.895,14.064,45.706,14.444z"/></svg>'
+    wa: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.55 14.89L2 22l5.25-1.44A9.9 9.9 0 1 0 12.04 2zm5.78 14.03c-.24.68-1.4 1.3-1.93 1.35-.52.05-1 .24-3.37-.7-2.85-1.13-4.65-4.07-4.79-4.26-.14-.19-1.14-1.52-1.14-2.9 0-1.38.72-2.06 1-2.34.25-.28.55-.35.74-.35l.53.01c.17 0 .4-.06.62.48.23.56.77 1.93.84 2.07.07.14.11.3.02.48-.6 1.17-1.2 1.13-.9 1.67 1.02 1.83 2.05 2.43 3.55 3.17.26.13.41.11.56-.06.15-.18.65-.76.82-1.02.17-.26.34-.22.58-.13.23.08 1.47.69 1.72.82.25.13.42.19.48.3.06.1.06.6-.18 1.28z"/></svg>'
   };
 
   /* ---------- favourites ---------- */
   const FAV_KEY = "pi:favs";
   const favs = new Set(JSON.parse(localStorage.getItem(FAV_KEY) || "[]"));
   const saveFavs = () => { try { localStorage.setItem(FAV_KEY, JSON.stringify([...favs])); } catch (e) {} };
-  const favEntries = () => APP.categories.flatMap((c) => c.entries.filter((e) => favs.has(e.id)));
+  const favEntries = () => [
+    ...APP.categories.flatMap((c) => c.entries.filter((e) => favs.has(e.id))),
+    ...(APP.helplines ? APP.helplines.entries.filter((e) => favs.has(e.id)) : []),
+  ];
 
   /* ---------- WhatsApp — only SA mobile numbers works on WhatsApp ---------- */
   const waNum = (d) => {
@@ -176,54 +213,6 @@
     return "27" + n.slice(1);
   };
 
-  /* ---------- GPS — real coordinates from OpenStreetMap (Nominatim). ----------
-     Entries with a known address carry their own gps/gloc in data.js; everything
-     else falls back to the real town / feature coordinates below. */
-  const GPS_TOWNS = [
-    ["Betty's Bay", [-34.353611, 18.917778]],
-    ["Pringle Bay", [-34.349859, 18.833741]],
-    ["Kleinmond", [-34.338889, 19.025278]],
-    ["Hermanus", [-34.417500, 19.236111]],
-    ["Gansbaai", [-34.582778, 19.352222]],
-    ["Stanford", [-34.439364, 19.454480]],
-    ["Somerset West", [-34.082220, 18.848934]],
-    ["Stony Point", [-34.374262, 18.894836]]
-  ];
-  const fmtGPS = (c) => c.map((v) => v.toFixed(5)).join(", ");
-  const entryLoc = (e) => {
-    if (e.gps) {
-      const town = GPS_TOWNS.find(([t]) => (e.t + " " + (e.m || "")).includes(t))?.[0] || "";
-      return { town: e.gloc || town, gps: fmtGPS(e.gps) };
-    }
-    const hay = e.t + " " + (e.m || "");
-    for (const [town, coords] of GPS_TOWNS) if (hay.includes(town)) return { town, gps: fmtGPS(coords) };
-    return null;
-  };
-
-  /* ---------- toast + clipboard ---------- */
-  let toastTimer;
-  function toast(msg) {
-    const t = $("#toast");
-    t.textContent = msg;
-    t.classList.remove("opacity-0");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => t.classList.add("opacity-0"), 2400);
-  }
-  function copyText(text, okMsg) {
-    const done = () => toast(okMsg || "Copied");
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(done).catch(() => legacyCopy(text, done));
-    } else legacyCopy(text, done);
-  }
-  function legacyCopy(text, done) {
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    ta.style.cssText = "position:fixed;opacity:0";
-    document.body.appendChild(ta);
-    ta.select();
-    try { document.execCommand("copy"); done(); } catch (e) { toast("Couldn't copy — long-press to select"); }
-    ta.remove();
-  }
   $("#lifelineGrid").innerHTML = APP.lifeline.map((t) => `
     <a class="flex items-center gap-2 rounded-md bg-white/15 hover:bg-white/25 active:bg-white/30 px-3 py-2" href="${telFrom(t.d)}" role="listitem">
       <span class="min-w-0">
@@ -253,7 +242,6 @@
         ${wa ? `<a class="flex w-12 shrink-0 items-center justify-center rounded-lg bg-green-500 text-white hover:bg-green-600" href="https://wa.me/${wa}" target="_blank" rel="noopener" aria-label="Message ${esc(x.d)} on WhatsApp">${ICONS.wa}</a>` : ""}
       </div>`;
     }).join("");
-    const loc = entryLoc(e);
 
     return `<article class="relative rounded-lg border border-stone-200 bg-white p-3 dark:border-stone-700 dark:bg-stone-800" data-q="${esc(catQ + " " + entryQuery(e))}">
       <button type="button" class="star absolute right-2.5 top-2.5 z-10 flex h-8 w-8 items-center justify-center rounded-md text-stone-300 hover:text-amber-400 ${fav ? "text-amber-400" : ""}" data-fav="${esc(e.id)}" aria-pressed="${fav}" aria-label="${fav ? "Remove from quick access" : "Add to quick access"}">${ICONS.star}</button>
@@ -261,13 +249,6 @@
       ${e.m ? `<p class="text-[13px] text-stone-500 mt-0.5 dark:text-stone-400">${esc(e.m)}</p>` : ""}
       ${e.note ? `<p class="text-[13px] text-stone-500 mt-1 dark:text-stone-400">${linkify(e.note)}</p>` : ""}
       ${rows ? `<div class="mt-2 space-y-2">${rows}</div>` : ""}
-      ${loc ? `<div class="mt-2 flex items-center justify-between gap-2 rounded-md border border-stone-200 bg-stone-50 px-2.5 py-1.5 dark:border-stone-600 dark:bg-stone-700/40">
-        <span class="min-w-0 text-[11px] leading-tight text-stone-500 dark:text-stone-400">
-          <span class="font-bold uppercase tracking-wide">GPS · ${esc(loc.town)}</span><br>
-          <span class="font-mono text-stone-700 dark:text-stone-200">${loc.gps}</span>
-        </span>
-        <a class="gps-nav flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-stone-300 bg-white text-stone-700 hover:border-brand hover:text-brand dark:border-stone-500 dark:bg-stone-800 dark:text-stone-200" href="https://www.google.com/maps/dir/?api=1&destination=${loc.gps}" target="_blank" rel="noopener" data-gps="${loc.gps}" title="Navigate to ${esc(loc.town)}" aria-label="Navigate to ${esc(loc.town)} with maps">${ICONS.nav}</a>
-      </div>` : ""}
     </article>`;
   }
 
@@ -281,13 +262,43 @@
       <div>${lines.map(l => `<p class="leading-snug${lines.length > 1 ? " mb-1" : ""}">${esc(l)}</p>`).join("")}</div>
     </div>`;
 
+  /* ---------- my area: local places first ---------- */
+  const AREA_KEY = "pi:area";
+  const areaById = (id) => APP.areas.find((a) => a.id === id) || null;
+  let myArea = (() => {
+    const saved = localStorage.getItem(AREA_KEY);
+    return saved && saved !== "off" ? areaById(saved) : null;
+  })();
+  let userPicked = false;
+  // Nearest Overstrand town centre within 30 km, else nothing (leave default order).
+  const nearestArea = (lat, lng) => {
+    let best = null, bestKm = Infinity;
+    for (const a of APP.areas) {
+      const dLat = (a.lat - lat) * 111.32;
+      const dLng = (a.lng - lng) * 111.32 * Math.cos((lat * Math.PI) / 180);
+      const km = Math.sqrt(dLat * dLat + dLng * dLng);
+      if (km < bestKm) { bestKm = km; best = a; }
+    }
+    return bestKm <= 30 ? best : null;
+  };
+  const localFirst = (list) => {
+    if (!myArea) return list;
+    const locals = [], rest = [];
+    list.forEach((e) =>
+      (myArea.aliases.some((al) => entryQuery(e).includes(al)) ? locals : rest).push(e)
+    );
+    return locals.concat(rest); // stable: locals in order, then the rest in order
+  };
+
   /* ---------- category accordions ---------- */
   const results = $("#results");
-  results.innerHTML = APP.categories.map((c) => {
-    const catQ = norm([c.t, c.intro || "", (c.alert || []).join(" ")].join(" "));
-    const cards = c.entries.map((e) => cardHTML(e, catQ)).join("");
-    const open = c.id === "response"; // keep the top emergency section open on load
-    return `
+  function renderResults() {
+    const wasOpen = new Set($$("#results .cat").filter((d) => d.open).map((d) => d.id));
+    results.innerHTML = APP.categories.map((c) => {
+      const catQ = norm([c.t, c.intro || "", (c.alert || []).join(" ")].join(" "));
+      const cards = localFirst(c.entries).map((e) => cardHTML(e, catQ)).join("");
+      const open = c.id === "response"; // keep the top emergency section open on load
+      return `
       <details id="cat-${c.id}" class="cat rounded-lg border border-stone-200 bg-white shadow-sm overflow-hidden dark:border-stone-700 dark:bg-stone-900" ${open ? "open" : ""}>
         <summary class="flex cursor-pointer select-none items-center gap-3 px-4 py-3.5 hover:bg-stone-50 dark:hover:bg-stone-800/60">
           <span class="flex items-center justify-center w-8 h-8 shrink-0 rounded-md bg-brand text-white text-sm font-extrabold">${esc(c.num)}</span>
@@ -301,20 +312,58 @@
           ${cards ? `<div class="space-y-2">${cards}</div>` : ""}
         </div>
       </details>`;
-  }).join("");
+    }).join("");
+    wasOpen.forEach((id) => { const d = $("#" + id); if (d && !d.open) d.open = true; });
+    const s = $("#search");
+    if (s && s.value) applySearch(); // keep a typed query applied after a re-render
+  }
+  renderResults();
+
+  /* ---------- my area selector ---------- */
+  const areaSelect = $("#areaSelect");
+  areaSelect.innerHTML =
+    '<option value="">Off — default order</option>' +
+    APP.areas.map((a) => `<option value="${esc(a.id)}">${esc(a.t)}</option>`).join("");
+  areaSelect.value = myArea ? myArea.id : "";
+  areaSelect.addEventListener("change", () => {
+    userPicked = true;
+    const id = areaSelect.value;
+    myArea = id ? areaById(id) : null;
+    try { localStorage.setItem(AREA_KEY, id || "off"); } catch (e) {}
+    renderResults();
+  });
+
+  /* ---------- auto-detect area from location (first visit only) ---------- */
+  if (navigator.geolocation && !localStorage.getItem(AREA_KEY)) {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        if (userPicked) return; // don't override a selection made meanwhile
+        const a = nearestArea(pos.coords.latitude, pos.coords.longitude);
+        if (a) {
+          myArea = a;
+          try { localStorage.setItem(AREA_KEY, a.id); } catch (e) {}
+          areaSelect.value = a.id;
+          renderResults();
+        }
+      },
+      () => {}, // denied / unavailable → the reader can still pick from the selector
+      { timeout: 5000, maximumAge: 600000 },
+    );
+  }
 
   /* ---------- checklist ---------- */
+  const toolsBody = $("#toolsBody");
   const CHECK_KEY = "pi:check";
   const checks = JSON.parse(localStorage.getItem(CHECK_KEY) || "{}");
   const totalChecks = APP.checklist.groups.reduce((a, g) => a + g.items.length, 0);
   const countDone = () => APP.checklist.groups.reduce((a, g) => a + g.items.filter(it => checks[it.id]).length, 0);
 
-  results.insertAdjacentHTML("beforeend", `
-    <details id="cat-checklist" class="cat rounded-lg border border-brand/30 bg-white shadow-sm overflow-hidden dark:border-brand-light/40 dark:bg-stone-900" open>
+  toolsBody.insertAdjacentHTML("beforeend", `
+    <details id="cat-checklist" style="scroll-margin-top:240px" class="cat rounded-lg border border-brand/30 bg-white shadow-sm overflow-hidden dark:border-brand-light/40 dark:bg-stone-900" open>
       <summary class="flex cursor-pointer select-none items-center gap-3 px-4 py-3.5 hover:bg-brand-light/10">
         <span class="flex items-center justify-center w-8 h-8 shrink-0 rounded-md bg-stone-800 text-white text-sm font-extrabold">✓</span>
         <span class="flex-1 min-w-0">
-          <span class="block text-[15px] font-bold leading-tight">Preparedness Checklist</span>
+          <span class="block text-[15px] font-bold leading-tight">Fire Season Preparedness Checklist</span>
           <span class="block text-xs text-stone-500 dark:text-stone-400" id="ckSummary">0 of ${totalChecks} done</span>
         </span>
         <span class="chevron shrink-0 text-stone-400">${ICONS.chev}</span>
@@ -326,18 +375,81 @@
         </div>
         ${APP.checklist.groups.map(g => {
           const rows = g.items.map(it => `
-            <label class="flex items-start gap-3 cursor-pointer rounded-md px-2 py-2 hover:bg-stone-50 dark:hover:bg-stone-800/60">
+            <label data-q="${norm(it.t)}" class="flex items-start gap-3 cursor-pointer rounded-md px-2 py-2 hover:bg-stone-50 dark:hover:bg-stone-800/60">
               <input type="checkbox" data-id="${it.id}" class="peer sr-only" ${checks[it.id] ? "checked" : ""}>
               <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 border-stone-300 bg-white text-transparent peer-checked:border-brand peer-checked:bg-brand peer-checked:text-white dark:border-stone-600 dark:bg-stone-900">${ICONS.check}</span>
               <span class="text-[14px] leading-snug peer-checked:text-stone-400 peer-checked:line-through dark:peer-checked:text-stone-500">${esc(it.t)}</span>
             </label>`).join("");
           return `
-            <div class="mb-2">
+            <div class="ck-group mb-2">
               <h4 class="text-[13px] font-bold uppercase tracking-wide text-stone-500 mb-1 dark:text-stone-400">${esc(g.t)}</h4>
               ${g.alert ? alertHTML([g.alert]) : ""}
               <div class="space-y-0.5">${rows}</div>
             </div>`;
         }).join("")}
+      </div>
+    </details>`);
+
+  /* ---------- first aid quick guides ---------- */
+  toolsBody.insertAdjacentHTML("beforeend", `
+    <details id="cat-firstaid" style="scroll-margin-top:240px" class="cat rounded-lg border border-red-300 bg-white shadow-sm overflow-hidden dark:border-red-500/40 dark:bg-stone-900" open>
+      <summary class="flex cursor-pointer select-none items-center gap-3 px-4 py-3.5 hover:bg-red-50 dark:hover:bg-stone-800/60">
+        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-red-600 text-white text-base">🩺</span>
+        <span class="flex-1 min-w-0">
+          <span class="block text-[15px] font-bold leading-tight">First Aid Quick Guides</span>
+          <span class="block text-xs text-stone-500 dark:text-stone-400">${esc(APP.firstAid.intro)}</span>
+        </span>
+        <span class="chevron shrink-0 text-stone-400">${ICONS.chev}</span>
+      </summary>
+      <div class="px-4 pb-4 pt-1 border-t border-red-100 space-y-3 dark:border-red-500/20">
+        ${alertHTML(["First-aid guidance is a quick reference when professional help isn't there yet — always call emergency services first; it's not a substitute for trained care."])}
+        ${APP.firstAid.groups.map(g => `
+          <div class="fa-group">
+            <h4 class="text-[13px] font-bold uppercase tracking-wide text-stone-500 mt-2 dark:text-stone-400">${esc(g.t)}</h4>
+            <div class="space-y-2 mt-1">
+              ${g.guides.map(gd => {
+                const q = norm([gd.t, gd.e || "", ...(gd.signs||[]), ...(gd.do||[]), ...(gd.dont||[])].join(" "));
+                const call = (gd.call||[]).map(c => `
+                  <a class="dial inline-flex items-center gap-2 rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 font-extrabold text-stone-900 hover:border-brand hover:bg-brand hover:text-white dark:border-stone-600 dark:bg-stone-700/40 dark:text-stone-100"
+                     href="tel:${digits(c.d)}">${ICONS.phone}${esc(c.d)} <span class="font-semibold text-xs opacity-80">${esc(c.l||"")}</span></a>`).join("");
+                const block = (label, items, cls) => (items && items.length) ? `
+                  <div class="mt-2">
+                    <div class="text-[11px] font-bold uppercase tracking-wide ${cls}">${label}</div>
+                    <ul class="text-[13px] leading-snug space-y-0.5 mt-0.5">${items.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
+                  </div>` : "";
+                return `
+                  <details class="cat rounded-lg border border-stone-200 bg-stone-50 overflow-hidden dark:border-stone-700 dark:bg-stone-800">
+                    <summary class="flex cursor-pointer select-none items-center gap-2 px-3 py-2.5 hover:bg-stone-100 dark:hover:bg-stone-700/50">
+                      <span class="flex-1 min-w-0 text-[14px] font-bold leading-tight">${gd.e ? esc(gd.e) + " " : ""}${esc(gd.t)}</span>
+                      <span class="chevron shrink-0 text-stone-400">${ICONS.chev}</span>
+                    </summary>
+                    <article class="border-t border-stone-200 p-3 dark:border-stone-700" data-q="${esc(q)}">
+                      ${block("Signs", gd.signs, "text-red-600 dark:text-red-400")}
+                      ${block("What to do", gd.do, "text-green-700 dark:text-green-400")}
+                      ${block("Avoid", gd.dont, "text-orange-600 dark:text-orange-400")}
+                      ${call ? `<div class="mt-2 flex flex-wrap gap-2">${call}</div>` : ""}
+                    </article>
+                  </details>`;
+              }).join("")}
+            </div>
+          </div>`).join("")}
+      </div>
+    </details>`);
+
+  /* ---------- national helplines ---------- */
+  toolsBody.insertAdjacentHTML("beforeend", `
+    <details id="cat-helplines" style="scroll-margin-top:240px" class="cat rounded-lg border border-stone-200 bg-white shadow-sm overflow-hidden dark:border-stone-700 dark:bg-stone-900">
+      <summary class="flex cursor-pointer select-none items-center gap-3 px-4 py-3.5 hover:bg-stone-50 dark:hover:bg-stone-800/60">
+        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-stone-700 text-white text-sm font-extrabold">☎</span>
+        <span class="flex-1 min-w-0">
+          <span class="block text-[15px] font-bold leading-tight">National Helplines (SA)</span>
+          <span class="block text-xs text-stone-500 dark:text-stone-400">${esc(APP.helplines.intro)}</span>
+        </span>
+        <span class="text-xs font-semibold text-stone-400 tabular-nums">${APP.helplines.entries.length}</span>
+        <span class="chevron shrink-0 text-stone-400">${ICONS.chev}</span>
+      </summary>
+      <div class="px-4 pb-4 pt-1 border-t border-stone-100 space-y-2">
+        ${APP.helplines.entries.map(e => cardHTML(e, "helplines")).join("")}
       </div>
     </details>`);
 
@@ -347,7 +459,7 @@
     $("#ckBar").style.width = (totalChecks ? (done / totalChecks) * 100 : 0) + "%";
   }
   updateCk();
-  results.addEventListener("change", (e) => {
+  document.addEventListener("change", (e) => {
     const box = e.target.closest('input[type="checkbox"][data-id]');
     if (!box) return;
     checks[box.dataset.id] = box.checked;
@@ -388,7 +500,6 @@
       if (hit) any = true;
     });
     $$("#results .cat").forEach((s) => {
-      if (s.id === "cat-checklist") { s.hidden = !!q; return; }
       const visible = $$("article[data-q]", s).some((c) => !c.hidden);
       s.hidden = !visible;
       if (q && visible && !s.open) s.open = true; // reveal matching categories
@@ -400,7 +511,97 @@
   searchInput.addEventListener("input", applySearch);
   clearBtn.addEventListener("click", () => { searchInput.value = ""; applySearch(); searchInput.focus(); });
 
-  /* ---------- delegated: favourites star, my GPS location ---------- */
+  /* ---------- tools & guides (burger menu) ---------- */
+  const toolsPanel = $("#toolsPanel");
+  const menuBtn = $("#menuBtn");
+  const menuDropdown = $("#menuDropdown");
+
+  function closeMenu() {
+    menuDropdown.hidden = true;
+    $("#menuIcon").hidden = false;
+    $("#menuCloseIcon").hidden = true;
+    menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.setAttribute("aria-label", "Open tools and guides");
+  }
+  function showToolsView() {
+    toolsPanel.hidden = false;
+    ["#searchRow", "#areaRow", "#favSection", "#results", "#noResults"].forEach((s) => ($(s).hidden = true));
+  }
+  function showContactsView() {
+    toolsPanel.hidden = true;
+    $("#searchRow").hidden = false;
+    $("#areaRow").hidden = false;
+    $("#results").hidden = false;
+    $("#noResults").hidden = false;
+    renderFavs();
+    applySearch();
+  }
+
+  menuBtn.innerHTML =
+    '<span id="menuIcon">' + ICONS.menu + '</span><span id="menuCloseIcon" hidden>' + ICONS.close + '</span>';
+  menuBtn.addEventListener("click", () => {
+    if (menuDropdown.hidden) {
+      menuDropdown.hidden = false;
+      $("#menuIcon").hidden = true;
+      $("#menuCloseIcon").hidden = false;
+      menuBtn.setAttribute("aria-expanded", "true");
+      menuBtn.setAttribute("aria-label", "Close tools and guides");
+    } else closeMenu();
+  });
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("#menuDropdown") && !e.target.closest("#menuBtn")) closeMenu();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
+  });
+  $$("#menuDropdown [data-action]").forEach((b) =>
+    b.addEventListener("click", () => {
+      if (toolsSearch.value) { toolsSearch.value = ""; applyToolsSearch(); }
+      const act = b.dataset.action;
+      if (act === "contacts") {
+        showContactsView();
+      } else {
+        showToolsView();
+        const id = act === "checklist" ? "cat-checklist" : act === "firstaid" ? "cat-firstaid" : "cat-helplines";
+        const sec = $("#" + id);
+        sec.hidden = false;
+        sec.open = true;
+        sec.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      closeMenu();
+    }),
+  );
+
+  /* ---------- tools search (first aid, helplines, checklist) ---------- */
+  const toolsSearch = $("#toolsSearch");
+  const clearToolsSearch = $("#clearToolsSearch");
+  function applyToolsSearch() {
+    const q = norm(toolsSearch.value);
+    clearToolsSearch.hidden = !toolsSearch.value;
+    $$("#cat-checklist label[data-q]").forEach((l) => (l.hidden = !!q && !l.dataset.q.includes(q)));
+    $$("#cat-checklist .ck-group").forEach((g) => (g.hidden = !$$("label[data-q]", g).some((l) => !l.hidden)));
+    $$("#cat-firstaid article[data-q]").forEach((a) => (a.hidden = !!q && !a.dataset.q.includes(q)));
+    $$("#cat-firstaid details.cat").forEach((d) => {
+      const art = $("article[data-q]", d);
+      const visible = art && !art.hidden;
+      d.hidden = !visible;
+      if (q && visible) d.open = true;
+    });
+    $$("#cat-firstaid .fa-group").forEach((g) => (g.hidden = !$$("details.cat", g).some((d) => !d.hidden)));
+    $$("#cat-helplines article[data-q]").forEach((a) => (a.hidden = !!q && !a.dataset.q.includes(q)));
+    $$("#toolsBody > details").forEach((s) => {
+      const visible =
+        s.id === "cat-checklist"
+          ? $$("label[data-q]", s).some((l) => !l.hidden)
+          : $$("article[data-q]", s).some((a) => !a.hidden);
+      s.hidden = !!q && !visible;
+      if (q && s.id === "cat-helplines" && visible && !s.open) s.open = true;
+    });
+  }
+  toolsSearch.addEventListener("input", applyToolsSearch);
+  clearToolsSearch.addEventListener("click", () => { toolsSearch.value = ""; applyToolsSearch(); toolsSearch.focus(); });
+
+  /* ---------- delegated: favourites star ---------- */
   document.addEventListener("click", (e) => {
     const star = e.target.closest(".star");
     if (star && star.dataset.fav) {
@@ -410,23 +611,6 @@
       saveFavs();
       renderFavs();
       return;
-    }
-    const locBtn = e.target.closest("#myLoc");
-    if (locBtn) {
-      const label = $("#myLocLabel");
-      const reset = () => { label.textContent = "Copy my GPS location"; locBtn.disabled = false; };
-      if (!navigator.geolocation) return toast("GPS not supported on this device");
-      locBtn.disabled = true;
-      label.textContent = "Locating…";
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const txt = pos.coords.latitude.toFixed(6) + ", " + pos.coords.longitude.toFixed(6);
-          reset();
-          copyText(txt, `GPS copied: ${txt}`);
-        },
-        () => { reset(); toast("Location unavailable — enable GPS & allow access"); },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
-      );
     }
   });
 

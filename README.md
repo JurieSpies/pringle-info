@@ -2,17 +2,22 @@
 
 A phone-first **PWA** (Progressive Web App) that puts the Overstrand's emergency
 and community contact numbers one tap away: fire, ambulance, police, doctors,
-pharmacies, vets, snake & bee removal, sea rescue, municipal services — plus an
-interactive fire-preparedness checklist.
+pharmacies, vets, snake & bee removal, sea rescue, municipal services — plus
+**first-aid quick guides**, **national helplines**, and an interactive
+fire-preparedness checklist.
 
 It's a **static app** — no server, no database, no accounts — so it's fast,
 installable, and works fully **offline** once loaded.
+
+Places in **your area** move to the top of every list: the app asks for your
+location once to pick the nearest Overstrand town (changeable via the **My
+area** selector; coordinates are never shown).
 
 ## Files
 
 | File | Purpose |
 |------|---------|
-| `index.html` | **The whole app** — HTML + compiled Tailwind CSS + plain JS: sticky lifeline, search, accordion categories, checklist, light/dark mode, **favourites pinning, WhatsApp buttons, GPS (copy own location + per-contact navigation links)**, service-worker registration |
+| `index.html` | **The whole app** — HTML + compiled Tailwind CSS + plain JS: sticky lifeline, search, accordion categories, light/dark mode, **favourites pinning, WhatsApp buttons, GPS (copy own location + per-contact navigation links)**, service-worker registration — plus a ☰ **Tools & Guides** menu (directory · preparedness checklist · first-aid quick guides · national helplines), with a dedicated search inside the Tools view |
 | `data.js` | **All the content** — edit here to add/change numbers |
 | `server.ts` | Bun dev server — static files with correct MIME types (SW + manifest) and **live reload** |
 | `tests/smoke.ts` | Playwright smoke tests (`bun run test`) |
@@ -93,10 +98,10 @@ All content lives in `data.js`. An entry looks like:
 - `t` title · `m` sub-line (address/hours) · `note` extra info · `n` list of
   `{ d: display number, l: optional label }`. Add entries to the right
   category's `entries` array. The emergency strip is `APP.lifeline` at the top.
-- Optional `gps: [lat, lng]` + `gloc` (e.g. `"Kleinmond · Harbour Rd"`) adds a
-  copyable GPS chip on the card; otherwise the chip falls back to the real
-  town coordinates in `index.html`. Coordinates are real OpenStreetMap/Nominatim
-  values (town centroids or street locations).
+- `APP.firstAid.groups[].guides[]` (`t` title, `e` emoji, `signs`/`do`/`dont`
+  step lists, `call[]` dial numbers) feeds the First Aid Quick Guides
+  accordion; `APP.helplines.entries[]` (same `{ t, n[] }` shape as a card)
+  feeds National Helplines. Both are searchable like any category.
 - Search matches the title, sub-line, notes, numbers and the category title —
   so searching "Snake" surfaces the whole Snake Removal section.
 

@@ -4,9 +4,6 @@
      t    = title        m  = meta line (address/town summary)
      n    = dial rows     n[] = { d: number, l: label }
      note = extra info (emails & URLs here auto-linkify into clickable links)
-     gps  = [lat, lng]    gloc = short label shown in the GPS box
-   gps + gloc together build a "GPS · <gloc>" row with a Google-Maps
-   navigate button on each card. town can also resolve from t/m.
    firstAid.groups[].guides[] — quick first-aid steps for medical emergencies:
      t = title   e = emoji label   signs[] = recognise it   do[] = short actions in order
      dont[] = common mistakes to avoid   call[] = { d, l } numbers to dial for that scenario
@@ -23,15 +20,316 @@ const APP = {
 
     // Always-visible emergency strip (one tap to call)
     lifeline: [
-        { l: "Fire & Rescue", d: "028 312 2400", s: "Fire & Rescue Services" },
-        { l: "Ambulance", d: "10177", s: "Provincial · 24/7" },
         {
+            id: "fire",
+            l: "Fire & Rescue",
+            d: "028 312 2400",
+            s: "Fire & Rescue Services",
+            ic: "🔥",
+        },
+        {
+            id: "ambulance",
+            l: "Ambulance",
+            d: "10177",
+            s: "Provincial · 24/7",
+            ic: "🚑",
+        },
+        {
+            id: "police",
             l: "Police",
             d: "028 271 8200",
             s: "SAPS Kleinmond · crimes in progress",
+            ic: "🚓",
         },
-        { l: "Municipal", d: "028 313 8111", s: "Infrastructure · 24/7" },
+        {
+            id: "municipal",
+            l: "Municipal",
+            d: "028 313 8111",
+            s: "Infrastructure · 24/7",
+            ic: "🏛️",
+        },
     ],
+
+    // Towns & villages of the Overstrand. `aliases` (lowercase, no spaces) are
+    // matched against entry text so entries for the reader's area float to the
+    // top of each list. `lat`/`lng` are approximate town centres used only to
+    // pick the nearest area from the browser's location — never displayed.
+    areas: [
+        {
+            id: "rooiels",
+            t: "Rooi Els",
+            aliases: ["rooiels"],
+            lat: -34.3,
+            lng: 18.82,
+        },
+        {
+            id: "pringle",
+            t: "Pringle Bay",
+            aliases: ["pringlebay"],
+            lat: -34.35,
+            lng: 18.83,
+        },
+        {
+            id: "bettys",
+            t: "Betty's Bay",
+            aliases: ["bettysbay"],
+            lat: -34.36,
+            lng: 18.91,
+        },
+        {
+            id: "kleinmond",
+            t: "Kleinmond",
+            aliases: ["kleinmond"],
+            lat: -34.34,
+            lng: 19.03,
+        },
+        {
+            id: "fisherhaven",
+            t: "Fisherhaven",
+            aliases: ["fisherhaven"],
+            lat: -34.38,
+            lng: 19.12,
+        },
+        {
+            id: "hawston",
+            t: "Hawston",
+            aliases: ["hawston"],
+            lat: -34.41,
+            lng: 19.13,
+        },
+        {
+            id: "vermont",
+            t: "Vermont",
+            aliases: ["vermont"],
+            lat: -34.42,
+            lng: 19.16,
+        },
+        {
+            id: "onrus",
+            t: "Onrus",
+            aliases: ["onrus"],
+            lat: -34.41,
+            lng: 19.17,
+        },
+        {
+            id: "hermanus",
+            t: "Hermanus",
+            aliases: ["hermanus", "voelklip"],
+            lat: -34.42,
+            lng: 19.23,
+        },
+        {
+            id: "stanford",
+            t: "Stanford",
+            aliases: ["stanford"],
+            lat: -34.44,
+            lng: 19.46,
+        },
+        {
+            id: "vandyks",
+            t: "Van Dyks Bay",
+            aliases: ["vandyks"],
+            lat: -34.55,
+            lng: 19.35,
+        },
+        {
+            id: "gansbaai",
+            t: "Gansbaai",
+            aliases: ["gansbaai"],
+            lat: -34.58,
+            lng: 19.35,
+        },
+        {
+            id: "bsb",
+            t: "Baardskeerdersbos",
+            aliases: ["baardskeerdersbos"],
+            lat: -34.58,
+            lng: 19.42,
+        },
+        {
+            id: "franskraal",
+            t: "Franskraal",
+            aliases: ["franskraal"],
+            lat: -34.6,
+            lng: 19.39,
+        },
+        {
+            id: "pearly",
+            t: "Pearly Beach",
+            aliases: ["pearlybeach"],
+            lat: -34.66,
+            lng: 19.48,
+        },
+    ],
+
+    // Curated emoji icon for every category, entry, first-aid group, national
+    // helpline and lifeline tile. Look up by id: APP.icons[entry.id].
+    // First-aid guides already carry their own icon inline (guide.e).
+    icons: {
+        // lifeline
+        fire: "🔥",
+        ambulance: "🚑",
+        police: "🚓",
+        municipal: "🏛️",
+        // categories
+        response: "🚨",
+        medical: "🩺",
+        dentists: "🦷",
+        pharmacies: "💊",
+        allied: "🩹",
+        animals: "🐾",
+        snakes: "🐍",
+        bees: "🐝",
+        sea: "🌊", // municipal shared with the lifeline tile above
+
+        // 01 Fire & Emergency Response
+        best: "🚑",
+        pbm: "🚑",
+        volunteers: "🙋",
+        whatsapp: "💬",
+        // 02 Medical & Clinics
+        er24: "🚑",
+        cmc: "🚑",
+        onehealth: "🏥",
+        roos: "🧒",
+        clinic: "🏥",
+        kogelberg: "🏥",
+        greeff: "🧑‍⚕️",
+        zietsman: "🧑‍⚕️",
+        hudson: "👨‍⚕️",
+        duplessis: "🧑‍⚕️",
+        // 03 Dentists
+        duvenhage: "🦷",
+        engelbrecht: "🦷",
+        klopper: "🦷",
+        // 04 Pharmacies
+        pharmbb: "💊",
+        pharmpb: "💊",
+        albertyn: "💊",
+        localchoice: "💊",
+        // 05 Allied Health & Therapies
+        marinet: "💪",
+        hardus: "💪",
+        schroder: "💪",
+        catherine: "💆",
+        tamora: "🦶",
+        obermeyer: "👓",
+        elsie: "🏃",
+        licille: "🥗",
+        hilda: "🥗",
+        gild: "🧠",
+        endrody: "🧠",
+        swanepoel: "🧠",
+        sulene: "🧸",
+        oystercatcher: "🤱",
+        karenwood: "🩹",
+        sitara: "🕊️",
+        // 06 Animals & Wildlife
+        kruger: "🐕",
+        dave: "🐕",
+        wildlife: "🦅",
+        capenature: "🌿",
+        seabirds: "🐦",
+        turtles: "🐢",
+        birdflu: "🐦",
+        kaws: "🐾",
+        doglaw: "🐕",
+        baboons: "🐵",
+        renee: "🐵",
+        elsaj: "🐵",
+        rivendell: "🐶",
+        honingklip: "🐱",
+        heart2soul: "💜",
+        petloss: "🕊️",
+        // 07 Snake Removal
+        mwatson: "🐍",
+        olivier: "🐍",
+        westland: "🐍",
+        butler: "🐍",
+        powers: "🐍",
+        cuy: "🐍",
+        huy: "🐍",
+        naude: "🩹",
+        // 08 Bee & Wasp Removal
+        boonzaaier: "🐝",
+        pretorius: "🐝",
+        mosterd: "🐝",
+        devilliers: "🐝",
+        conservancy: "🐝",
+        // 09 Sea Rescue & Marine
+        nsrik: "🛥️",
+        nsrih: "🛥️",
+        // 10 Municipal & Reporting
+        infra: "💡",
+        lawenforce: "🚔",
+        dffe: "🐟",
+        hpp: "🚔",
+        onrus: "🚨",
+        sapsk: "🚓",
+        sapsh: "🚓",
+        sapsg: "🚓",
+        sapss: "🚓",
+        web: "🖥️",
+        // first-aid groups
+        cardiac: "💓",
+        trauma: "🩹",
+        environment: "🌍",
+        // national helplines
+        n112: "🆘",
+        nsaps: "🚓",
+        nam: "🚑",
+        nnet: "🚑",
+        ner24: "🚑",
+        npoison: "☠️",
+        nsadag: "💚",
+        nlifeline: "💬",
+        nchild: "🧒",
+    },
+
+    // Real brand logos downloaded from each entity's official website into
+    // icons/logos/. Map id -> file path (relative to index.html). Render the
+    // logo image when present; fall back to the emoji in `icons` when absent.
+    // NOTE: many local practitioners (individual doctors, physios, snake/bees,
+    // volunteers, CMC, the pharmacist-y pharmacies) have NO official logo and
+    // are intentionally not listed here — use their emoji instead.
+    // Logos with an opaque white/grey background (dffe, kogelberg, saps*,
+    // nsaps, birdflu, overstrand, nlifeline) are best shown inside a white
+    // rounded chip so they stay legible in dark mode. SVG logos (capenature,
+    // turtles) scale cleanly. Remember to add icons/logos/* to the service
+    // worker cache so they work offline.
+    logos: {
+        // emergency & medical
+        er24: "icons/logos/er24.png",
+        onehealth: "icons/logos/onehealth.png",
+        kogelberg: "icons/logos/kogelberg.png",
+        // pharmacies
+        localchoice: "icons/logos/localchoice.png",
+        // marine / wildlife
+        nsrik: "icons/logos/nsrik.png",
+        nsrih: "icons/logos/nsrih.png",
+        capenature: "icons/logos/capenature.svg",
+        birdflu: "icons/logos/birdflu.jpg",
+        turtles: "icons/logos/turtles.svg",
+        kaws: "icons/logos/kaws.png",
+        dffe: "icons/logos/dffe.png",
+        heart2soul: "icons/logos/heart2soul.png",
+        // SAPS
+        sapsk: "icons/logos/sapsk.png",
+        sapsh: "icons/logos/sapsh.png",
+        sapsg: "icons/logos/sapsg.png",
+        sapss: "icons/logos/sapss.png",
+        // municipality
+        web: "icons/logos/overstrand.png",
+        infra: "icons/logos/overstrand.png",
+        lawenforce: "icons/logos/overstrand.png",
+        municipal: "icons/logos/overstrand.png", // lifeline + category share it
+        // lifeline / national helplines
+        police: "icons/logos/sapsk.png",
+        nsaps: "icons/logos/nsaps.png",
+        nchild: "icons/logos/nchild.png",
+        nlifeline: "icons/logos/nlifeline.png",
+        nsadag: "icons/logos/nsadag.png",
+    },
 
     categories: [
         {
@@ -92,9 +390,6 @@ const APP = {
                     m: "24/7 · 4 Harbour Rd, Kleinmond",
                     n: [{ d: "021 770 0053", l: "Main" }],
                     note: "Drs Leon Siecker, Tim Nunn, Eileen Brown · 4 Harbour Rd, Kleinmond 7195 · oec24.com · onehealthreception@oec24.com · hours Mon–Fri 8–5, Sat 8–1, Sun & hols 10–12 (emergency always 24/7)",
-                    // Real GPS (OSM): 4 Harbour Rd, Kleinmond
-                    gps: [-34.341858, 19.013405],
-                    gloc: "Kleinmond · Harbour Rd",
                 },
                 {
                     id: "roos",
@@ -109,7 +404,6 @@ const APP = {
                     m: "State clinic",
                     n: [{ d: "028 814 3830", l: "Tel" }],
                     note: "Cnr Protea & Main Rd, Kleinmond · also 028 271 5807 (Medpages)",
-                    gloc: "Kleinmond",
                 },
                 {
                     id: "kogelberg",
@@ -117,9 +411,6 @@ const APP = {
                     m: "2666 Porter Drive, Betty's Bay",
                     n: [{ d: "063 933 5463", l: "Reception" }],
                     note: "Drs Jordaan & Prinsloo · kogelbergmedprac.com · kogelbergmedicalpractice@gmail.com · Mon–Fri 8–5 · online bookings: kogelbergmedprac.com",
-                    // Real GPS (OSM): Porter Dr, Betty's Bay
-                    gps: [-34.365046, 18.888279],
-                    gloc: "Betty's Bay · Porter Dr",
                 },
                 {
                     id: "greeff",
@@ -209,9 +500,6 @@ const APP = {
                         { d: "082 868 4267", l: "Mobile" },
                     ],
                     note: "Shop 1A & 4 Spar Centre, Botriver Rd, Kleinmond 7195",
-                    // Real GPS (OSM): Spar complex on Main Rd, Kleinmond
-                    gps: [-34.33972, 19.032666],
-                    gloc: "Kleinmond · Main Rd · Spar",
                 },
                 {
                     id: "localchoice",
@@ -269,9 +557,6 @@ const APP = {
                         { d: "064 824 0702", l: "Mobile" },
                     ],
                     note: "oberkleinmond@gmail.com",
-                    // Real GPS (OSM): Spar complex on Main Rd, Kleinmond
-                    gps: [-34.33972, 19.032666],
-                    gloc: "Kleinmond · Main Rd · Spar",
                 },
                 {
                     id: "elsie",
@@ -297,18 +582,12 @@ const APP = {
                     m: "Counsellor — person-centred, individuals & couples · William Avenue, Pringle Bay (or online)",
                     n: [{ d: "+27 76 681 7135", l: "Tel" }],
                     note: "samgild.com · sam.gild@gmail.com",
-                    // Real GPS (OSM): William Ave, Pringle Bay
-                    gps: [-34.34608, 18.834528],
-                    gloc: "Pringle Bay · William Ave",
                 },
                 {
                     id: "endrody",
                     t: "Hestie Endrödy",
                     m: "Clinical psychologist · 41 Main Rd, Kleinmond",
                     n: [{ d: "082 853 7936", l: "Tel" }],
-                    // Real GPS (OSM): Main Rd, Kleinmond
-                    gps: [-34.340094, 19.030624],
-                    gloc: "Kleinmond · Main Rd",
                 },
                 {
                     id: "swanepoel",
@@ -384,8 +663,6 @@ const APP = {
                         { d: "082 319 1646", l: "Stony Point" },
                     ],
                     note: "Overberg Landscape Office: 16 17th Ave, Voëlklip, Hermanus · 028 314 0062 · capenature.co.za · customercare@capenature.co.za · Mon–Fri 07:30–16:30, Sat 8–12",
-                    gps: [-34.421, 19.241],
-                    gloc: "Hermanus · Overberg office",
                 },
                 {
                     id: "seabirds",
@@ -419,8 +696,6 @@ const APP = {
                     m: "Report loose or mistreated dogs",
                     n: [{ d: "028 313 8996", l: "Report" }],
                     note: "Overstrand municipal Law Enforcement · municipal services 24/7 028 313 8111 · switchboard 028 313 8000 · enquiries@overstrand.gov.za",
-                    gps: [-34.4176194, 19.2365405],
-                    gloc: "Hermanus · Overstrand HQ",
                 },
                 {
                     id: "baboons",
@@ -577,8 +852,6 @@ const APP = {
                     m: "Kleinmond",
                     n: [{ d: "063 699 2765", l: "Sea rescue" }],
                     note: "nsri.org.za/rescue/base/kleinmond/ · info@searescue.org.za · 24/7 volunteer station",
-                    gps: [-34.34366559, 19.01489944],
-                    gloc: "Kleinmond",
                 },
                 {
                     id: "nsrih",
@@ -586,8 +859,6 @@ const APP = {
                     m: "Hermanus",
                     n: [{ d: "082 990 5967", l: "Sea rescue" }],
                     note: "NSRI Hermanus is Station 17 (not 5) · nsri.org.za/rescue/base/hermanus/ · info@searescue.org.za · 24/7 volunteer station",
-                    gps: [-34.433417, 19.22515],
-                    gloc: "Hermanus",
                 },
             ],
         },
@@ -605,16 +876,12 @@ const APP = {
                     m: "Municipal · 24/7/365",
                     n: [{ d: "028 313 8111", l: "Emergency" }],
                     note: "Or report via the Overstrand Collab Citizen App · enquiries@overstrand.gov.za · overstrand.gov.za · HQ Magnolia St, Hermanus 7200",
-                    gps: [-34.4176194, 19.2365405],
-                    gloc: "Hermanus · Overstrand HQ",
                 },
                 {
                     id: "lawenforce",
                     t: "Overstrand Law Enforcement",
                     n: [{ d: "028 313 8996", l: "Tel" }],
                     note: "overstrand.gov.za · 24/7",
-                    gps: [-34.4176194, 19.2365405],
-                    gloc: "Hermanus · Overstrand HQ",
                 },
                 {
                     id: "dffe",
@@ -627,13 +894,11 @@ const APP = {
                     id: "hpp",
                     t: "HPP — Hermanus Public Protection",
                     n: [{ d: "087 550 5295", l: "Tel" }],
-                    gloc: "Hermanus · Cliff Path",
                 },
                 {
                     id: "onrus",
                     t: "Onrus / Vermont SRA Emergency",
                     n: [{ d: "079 469 8606", l: "Emergency" }],
-                    gloc: "Onrus · Vermont",
                 },
                 {
                     id: "sapsk",
@@ -644,32 +909,24 @@ const APP = {
                         { d: "082 443 6069", l: "Mobile" },
                     ],
                     note: "Immediate crimes in progress · 16 Main Rd, Kleinmond 7195 · KLEINMONDSAPS@saps.gov.za",
-                    gps: [-34.33963, 19.03232],
-                    gloc: "Kleinmond",
                 },
                 {
                     id: "sapsh",
                     t: "Hermanus Police",
                     n: [{ d: "028 313 5300", l: "Tel" }],
                     note: "61 Main Rd, Hermanus 7200 · HermanusSAPS@saps.gov.za",
-                    gps: [-34.41859, 19.23623],
-                    gloc: "Hermanus",
                 },
                 {
                     id: "sapsg",
                     t: "Gansbaai Police",
                     n: [{ d: "028 384 0201", l: "Tel" }],
                     note: "16 Main St, Gansbaai 7220 · GANSBAAISAPS@saps.gov.za",
-                    gps: [-34.57818, 19.35139],
-                    gloc: "Gansbaai",
                 },
                 {
                     id: "sapss",
                     t: "Stanford Police",
                     n: [{ d: "028 341 0601", l: "Tel" }],
                     note: "6 Du Toit St, Stanford 7210 · StanfordSAPS@saps.gov.za",
-                    gps: [-34.43881, 19.45789],
-                    gloc: "Stanford",
                 },
                 {
                     id: "web",
@@ -715,7 +972,10 @@ const APP = {
                             "Don't let them drive themselves to hospital",
                             "No aspirin if allergic, bleeding, or under 16",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                     {
                         id: "cardiac-arrest",
@@ -743,7 +1003,10 @@ const APP = {
                             "Don't touch them while the AED analyses or shocks",
                             "Don't use an AED in water or on a wet chest",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                     {
                         id: "choking",
@@ -793,7 +1056,10 @@ const APP = {
                             "Don't let them walk around",
                             "Don't drive them yourself / don't wait to see",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                 ],
             },
@@ -824,7 +1090,10 @@ const APP = {
                             "No tourniquet on neck, head, or torso",
                             "Don't give food or drink",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                     {
                         id: "burns",
@@ -850,7 +1119,10 @@ const APP = {
                             "Don't rip off clothing stuck to the burn",
                             "Don't leave it uncovered once cooled",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                     {
                         id: "head-injury",
@@ -874,7 +1146,10 @@ const APP = {
                             "Don't wash a scalp wound",
                             "Don't give aspirin, alcohol, or sedatives",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                     {
                         id: "fracture",
@@ -898,7 +1173,10 @@ const APP = {
                             "Don't ignore a cold, pale, or blue limb below the break",
                             "Don't move them for suspected neck/spine/pelvis injury",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                 ],
             },
@@ -928,7 +1206,10 @@ const APP = {
                             "Don't inject into the buttock or a vein",
                             "Still go to hospital even if they improve (can relapse)",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                     {
                         id: "snakebite",
@@ -955,7 +1236,10 @@ const APP = {
                             "Don't wash the wound (venom is needed for testing)",
                             "Don't run or let them walk — spreads venom",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                     {
                         id: "drowning",
@@ -979,7 +1263,10 @@ const APP = {
                             "Don't stop CPR early",
                             "Go to hospital even if they seem fine (secondary drowning)",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                     {
                         id: "hypothermia",
@@ -1002,7 +1289,10 @@ const APP = {
                             "Don't give alcohol or caffeine",
                             "Don't stand them upright; don't give drinks if drowsy",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                     {
                         id: "heatstroke",
@@ -1024,7 +1314,10 @@ const APP = {
                             "Don't give fluids to an unconscious or vomiting person",
                             "Don't re-expose to heat that day",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                     {
                         id: "shock-electrical",
@@ -1047,7 +1340,10 @@ const APP = {
                             "Don't use wet or metal objects",
                             "Don't pour water on the burns",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                 ],
             },
@@ -1078,7 +1374,10 @@ const APP = {
                             "Don't give food or drink except as directed",
                             "Turn an unconscious person on their side",
                         ],
-                        call: [{ d: "0861 555 777", l: "Poisons Centre" }, { d: "10177", l: "Ambulance" }],
+                        call: [
+                            { d: "0861 555 777", l: "Poisons Centre" },
+                            { d: "10177", l: "Ambulance" },
+                        ],
                     },
                     {
                         id: "asthma",
@@ -1101,7 +1400,10 @@ const APP = {
                             "Don't give sedatives or 'calming' pills",
                             "Don't leave them alone or delay",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                     {
                         id: "diabetes",
@@ -1125,7 +1427,10 @@ const APP = {
                             "Don't inject insulin without a blood-glucose test",
                             "Arrange medical review even after recovery",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                     {
                         id: "seizure",
@@ -1148,7 +1453,10 @@ const APP = {
                             "Don't give food/water during the seizure",
                             "Call 10177 if it lasts over 5 min, repeats, or is their first",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                     {
                         id: "fainting",
@@ -1170,7 +1478,10 @@ const APP = {
                             "Don't give food/drink till fully awake",
                             "Don't let them stand up too fast",
                         ],
-                        call: [{ d: "10177", l: "Ambulance" }, { d: "084 124", l: "ER24" }],
+                        call: [
+                            { d: "10177", l: "Ambulance" },
+                            { d: "084 124", l: "ER24" },
+                        ],
                     },
                 ],
             },
@@ -1181,15 +1492,51 @@ const APP = {
     helplines: {
         intro: "National & toll-free numbers that work from anywhere in South Africa.",
         entries: [
-            { id: "n112", t: "National Emergency (cell)", n: [{ d: "112", l: "Any network, even without airtime" }] },
-            { id: "nsaps", t: "SAPS / Flying Squad", n: [{ d: "10111", l: "Police emergency" }] },
-            { id: "nam", t: "Provincial Ambulance", n: [{ d: "10177", l: "Free · Emergency Medical Services" }] },
-            { id: "nnet", t: "Netcare 911", n: [{ d: "082 911", l: "Private · 24/7" }] },
-            { id: "ner24", t: "ER24", n: [{ d: "084 124", l: "Private · 24/7" }] },
-            { id: "npoison", t: "Poisons Info Centre", n: [{ d: "0861 555 777", l: "Tygerberg · 24/7 poison advice" }] },
-            { id: "nsadag", t: "SADAG Suicide / Crisis", n: [{ d: "0800 567 567", l: "24/7 mental health line" }] },
-            { id: "nlifeline", t: "Lifeline Counselling", n: [{ d: "0861 322 322", l: "24/7 crisis counselling" }] },
-            { id: "nchild", t: "Childline SA", n: [{ d: "0800 055 555", l: "Child protection & crisis" }] },
+            {
+                id: "n112",
+                t: "National Emergency (cell)",
+                n: [{ d: "112", l: "Any network, even without airtime" }],
+            },
+            {
+                id: "nsaps",
+                t: "SAPS / Flying Squad",
+                n: [{ d: "10111", l: "Police emergency" }],
+            },
+            {
+                id: "nam",
+                t: "Provincial Ambulance",
+                n: [{ d: "10177", l: "Free · Emergency Medical Services" }],
+            },
+            {
+                id: "nnet",
+                t: "Netcare 911",
+                n: [{ d: "082 911", l: "Private · 24/7" }],
+            },
+            {
+                id: "ner24",
+                t: "ER24",
+                n: [{ d: "084 124", l: "Private · 24/7" }],
+            },
+            {
+                id: "npoison",
+                t: "Poisons Info Centre",
+                n: [{ d: "0861 555 777", l: "Tygerberg · 24/7 poison advice" }],
+            },
+            {
+                id: "nsadag",
+                t: "SADAG Suicide / Crisis",
+                n: [{ d: "0800 567 567", l: "24/7 mental health line" }],
+            },
+            {
+                id: "nlifeline",
+                t: "Lifeline Counselling",
+                n: [{ d: "0861 322 322", l: "24/7 crisis counselling" }],
+            },
+            {
+                id: "nchild",
+                t: "Childline SA",
+                n: [{ d: "0800 055 555", l: "Child protection & crisis" }],
+            },
         ],
     },
 
