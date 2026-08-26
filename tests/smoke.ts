@@ -1,5 +1,5 @@
 // Overstrand Lifeline smoke test — `bun run test` (server must be running: `bun run dev`)
-// Playwright checks: rendering, tools menu, search, favourites, WhatsApp, offline PWA.
+// Playwright checks: rendering, tools menu, location sharing, search, favourites, WhatsApp, offline PWA.
 import { chromium } from "playwright";
 
 // ?hot=0 asks the dev server not to inject its live-reload script and to leave
@@ -66,8 +66,8 @@ assert(
     "tools menu: dropdown paints above the search bar",
 );
 assert(
-    (await page.locator("#menuDropdown [data-action]").count()) === 4,
-    "tools menu: 4 items (directory + 3 sections)",
+    (await page.locator("#menuDropdown [data-action]").count()) === 5,
+    "tools menu: 5 items (directory + 3 sections + copy location)",
 );
 await page.locator('#menuDropdown [data-action="firstaid"]').click();
 await page.waitForTimeout(300);
@@ -157,6 +157,9 @@ await page.fill("#search", "");
 await page.waitForTimeout(300);
 
 // ---- favourites ----
+// All sections start collapsed — open the top emergency section first.
+await page.click("#cat-response summary");
+await page.waitForTimeout(200);
 await page.locator('.star[data-fav="best"]').first().click();
 await page.waitForTimeout(300);
 assert(
@@ -175,9 +178,10 @@ assert(
 );
 
 // ---- local-first (my area) ----
-await ctx.grantPermissions(["geolocation"], {
-    origin: "http://localhost:8080",
-});
+await ctx.grantPermissions(
+    ["geolocation", "clipboard-read", "clipboard-write"],
+    { origin: "http://localhost:8080" },
+);
 await ctx.setGeolocation({ latitude: -34.35, longitude: 18.83, accuracy: 100 });
 await page.reload({ waitUntil: "networkidle" });
 await page.waitForTimeout(1500);
@@ -209,6 +213,21 @@ pharm = await page.locator("#cat-pharmacies article h3").allTextContents();
 assert(
     pharm[0] === "Pharmacy Betty's Bay" && pharm[1] === "Pringle Bay Pharmacy",
     "local-first: 'Off' restores the default order",
+);
+
+// ---- copy my location (burger menu) ----
+await page.click("#menuBtn");
+await page.waitForTimeout(200);
+await page.locator('#menuDropdown [data-action="location"]').click();
+await page.waitForTimeout(400);
+assert(
+    (await page.evaluate(() => navigator.clipboard.readText())) ===
+        "https://maps.google.com/?q=-34.350000,18.830000",
+    "copy location: shareable map link copied (granted Pringle Bay coords)",
+);
+assert(
+    await page.locator("#toast").isVisible(),
+    "copy location: confirmation toast shown",
 );
 
 // ---- offline (service worker) ----

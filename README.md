@@ -17,11 +17,12 @@ area** selector; coordinates are never shown).
 
 | File | Purpose |
 |------|---------|
-| `index.html` | **The whole app** — HTML + compiled Tailwind CSS + plain JS: sticky lifeline, search, accordion categories, light/dark mode, **favourites pinning, WhatsApp buttons**, service-worker registration — plus a ☰ **Tools & Guides** menu (directory · preparedness checklist · first-aid quick guides · national helplines), with a dedicated search inside the Tools view |
+| `index.html` | **The whole app** — HTML + compiled Tailwind CSS + plain JS: sticky lifeline, search, accordion categories, light/dark mode, **favourites pinning, WhatsApp buttons**, service-worker registration — plus a **Tools & Guides** menu (directory · preparedness checklist · first-aid quick guides · national helplines · copy my location), with a dedicated search inside the Tools view |
 | `data.js` | **All the content** — edit here to add/change numbers |
 | `server.ts` | Bun dev server — static files with correct MIME types (SW + manifest) and **live reload** |
 | `tests/smoke.ts` | Playwright smoke tests (`bun run test`) |
 | `tailwind.css` | Compiled Tailwind utility classes (generated, ~19 KB) |
+| `DESIGN.md` | Notion-style design system reference the UI follows (colors, type, components) |
 | `tailwind.config.js` + `tailwind.source.css` | Source for rebuilding `tailwind.css` |
 | `manifest.json` | Enables "Add to Home Screen" |
 | `sw.js` | Service worker — caches the app for offline use |
@@ -94,7 +95,7 @@ tab) deploys the app to GitHub Pages:
 
 ## Install on your phone
 
-- **Android (Chrome):** ⋮ menu → *Add to Home screen*
+- **Android (Chrome):** menu → *Add to Home screen*
 - **iPhone/iPad (Safari):** Share → *Add to Home Screen*
 
 ## Adding or editing a number
@@ -109,7 +110,7 @@ All content lives in `data.js`. An entry looks like:
 - `t` title · `m` sub-line (address/hours) · `note` extra info · `n` list of
   `{ d: display number, l: optional label }`. Add entries to the right
   category's `entries` array. The emergency strip is `APP.lifeline` at the top.
-- `APP.firstAid.groups[].guides[]` (`t` title, `e` emoji, `signs`/`do`/`dont`
+- `APP.firstAid.groups[].guides[]` (`t` title, `signs`/`do`/`dont`
   step lists, `call[]` dial numbers) feeds the First Aid Quick Guides
   accordion; `APP.helplines.entries[]` (same `{ t, n[] }` shape as a card)
   feeds National Helplines. Both are searchable like any category.

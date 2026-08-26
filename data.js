@@ -5,7 +5,7 @@
      n    = dial rows     n[] = { d: number, l: label }
      note = extra info (emails & URLs here auto-linkify into clickable links)
    firstAid.groups[].guides[] — quick first-aid steps for medical emergencies:
-     t = title   e = emoji label   signs[] = recognise it   do[] = short actions in order
+     t = title   signs[] = recognise it   do[] = short actions in order
      dont[] = common mistakes to avoid   call[] = { d, l } numbers to dial for that scenario
    helplines.entries[] — national SA toll-free numbers (same { t, n[] } shape as a category card).
    All first-aid content distilled from AHA, Red Cross, St John Ambulance, ERC & WHO guidance.
@@ -25,35 +25,32 @@ const APP = {
             l: "Fire & Rescue",
             d: "028 312 2400",
             s: "Fire & Rescue Services",
-            ic: "🔥",
         },
         {
             id: "ambulance",
             l: "Ambulance",
             d: "10177",
             s: "Provincial · 24/7",
-            ic: "🚑",
         },
         {
             id: "police",
             l: "Police",
             d: "028 271 8200",
             s: "SAPS Kleinmond · crimes in progress",
-            ic: "🚓",
         },
         {
             id: "municipal",
             l: "Municipal",
             d: "028 313 8111",
             s: "Infrastructure · 24/7",
-            ic: "🏛️",
         },
     ],
 
     // Towns & villages of the Overstrand. `aliases` (lowercase, no spaces) are
     // matched against entry text so entries for the reader's area float to the
-    // top of each list. `lat`/`lng` are approximate town centres used only to
-    // pick the nearest area from the browser's location — never displayed.
+    // top of each list. `lat`/`lng` are approximate town centres used to pick
+    // the nearest area from the browser's location and as the "Copy my location"
+    // fallback — never displayed.
     areas: [
         {
             id: "rooiels",
@@ -162,139 +159,11 @@ const APP = {
         },
     ],
 
-    // Curated emoji icon for every category, entry, first-aid group, national
-    // helpline and lifeline tile. Look up by id: APP.icons[entry.id].
-    // First-aid guides already carry their own icon inline (guide.e).
-    icons: {
-        // lifeline
-        fire: "🔥",
-        ambulance: "🚑",
-        police: "🚓",
-        municipal: "🏛️",
-        // categories
-        response: "🚨",
-        medical: "🩺",
-        dentists: "🦷",
-        pharmacies: "💊",
-        allied: "🩹",
-        animals: "🐾",
-        snakes: "🐍",
-        bees: "🐝",
-        sea: "🌊", // municipal shared with the lifeline tile above
-
-        // 01 Fire & Emergency Response
-        best: "🚑",
-        pbm: "🚑",
-        volunteers: "🙋",
-        whatsapp: "💬",
-        // 02 Medical & Clinics
-        er24: "🚑",
-        cmc: "🚑",
-        onehealth: "🏥",
-        roos: "🧒",
-        clinic: "🏥",
-        kogelberg: "🏥",
-        greeff: "🧑‍⚕️",
-        zietsman: "🧑‍⚕️",
-        hudson: "👨‍⚕️",
-        duplessis: "🧑‍⚕️",
-        // 03 Dentists
-        duvenhage: "🦷",
-        engelbrecht: "🦷",
-        klopper: "🦷",
-        // 04 Pharmacies
-        pharmbb: "💊",
-        pharmpb: "💊",
-        albertyn: "💊",
-        localchoice: "💊",
-        // 05 Allied Health & Therapies
-        marinet: "💪",
-        hardus: "💪",
-        schroder: "💪",
-        catherine: "💆",
-        tamora: "🦶",
-        obermeyer: "👓",
-        elsie: "🏃",
-        licille: "🥗",
-        hilda: "🥗",
-        gild: "🧠",
-        endrody: "🧠",
-        swanepoel: "🧠",
-        sulene: "🧸",
-        oystercatcher: "🤱",
-        karenwood: "🩹",
-        sitara: "🕊️",
-        // 06 Animals & Wildlife
-        kruger: "🐕",
-        dave: "🐕",
-        wildlife: "🦅",
-        capenature: "🌿",
-        seabirds: "🐦",
-        turtles: "🐢",
-        birdflu: "🐦",
-        kaws: "🐾",
-        doglaw: "🐕",
-        baboons: "🐵",
-        renee: "🐵",
-        elsaj: "🐵",
-        rivendell: "🐶",
-        honingklip: "🐱",
-        heart2soul: "💜",
-        petloss: "🕊️",
-        // 07 Snake Removal
-        mwatson: "🐍",
-        olivier: "🐍",
-        westland: "🐍",
-        butler: "🐍",
-        powers: "🐍",
-        cuy: "🐍",
-        huy: "🐍",
-        naude: "🩹",
-        // 08 Bee & Wasp Removal
-        boonzaaier: "🐝",
-        pretorius: "🐝",
-        mosterd: "🐝",
-        devilliers: "🐝",
-        conservancy: "🐝",
-        // 09 Sea Rescue & Marine
-        nsrik: "🛥️",
-        nsrih: "🛥️",
-        // 10 Municipal & Reporting
-        infra: "💡",
-        lawenforce: "🚔",
-        dffe: "🐟",
-        hpp: "🚔",
-        onrus: "🚨",
-        sapsk: "🚓",
-        sapsh: "🚓",
-        sapsg: "🚓",
-        sapss: "🚓",
-        web: "🖥️",
-        // first-aid groups
-        cardiac: "💓",
-        trauma: "🩹",
-        environment: "🌍",
-        // national helplines
-        n112: "🆘",
-        nsaps: "🚓",
-        nam: "🚑",
-        nnet: "🚑",
-        ner24: "🚑",
-        npoison: "☠️",
-        nsadag: "💚",
-        nlifeline: "💬",
-        nchild: "🧒",
-    },
-
     // Real brand logos downloaded from each entity's official website into
-    // icons/logos/. Map id -> file path (relative to index.html). Render the
-    // logo image when present; fall back to the emoji in `icons` when absent.
-    // NOTE: many local practitioners (individual doctors, physios, snake/bees,
-    // volunteers, CMC, the pharmacist-y pharmacies) have NO official logo and
-    // are intentionally not listed here — use their emoji instead.
-    // All logos are transparent-background PNGs or SVG, ready for light or
-    // dark cards. Remember to add icons/logos/* to the service worker cache
-    // so they work offline.
+    // icons/logos/. Map id -> file path (relative to index.html); not currently
+    // rendered by index.html. Many local practitioners have no official logo
+    // and are not listed here. Remember to add icons/logos/* to the service
+    // worker cache so they work offline.
     logos: {
         // emergency & medical
         er24: "icons/logos/er24.png",
@@ -745,9 +614,9 @@ const APP = {
             num: "07",
             t: "Snake Removal",
             alert: [
-                "Rescuers charge a service fee.",
-                "Keep 3–5 m between you and the snake — never corner it. Stay calm and keep your eyes on it from a safe distance until the catcher arrives.",
-                "Deadly snakes in the Overstrand: Puff Adder · Cape Cobra · Rinkhals · Boomslang. In the unlikely event of a snakebite, seek emergency medical attention immediately.",
+                "Catchers charge a call-out fee for the removal.",
+                "Stay well back — a snake can strike about half its body length, so give it a wide berth and never corner, poke, or try to kill it. Most bites happen when people try to catch or kill the snake.",
+                "The Overstrand is home to four dangerously venomous snakes: Puff Adder · Cape Cobra · Rinkhals · Boomslang. If anyone is bitten, treat it as a medical emergency and get to a hospital straight away — don't wait for symptoms.",
             ],
             entries: [
                 {
@@ -805,8 +674,8 @@ const APP = {
             num: "08",
             t: "Bee & Wasp Removal",
             alert: [
-                "These services charge for their work.",
-                "The Cape Honey Bee Conservancy focuses on saving local bees and removing German & European wasps, using an eco-friendly solution.",
+                "Bee keepers charge for their call-outs.",
+                "The Cape Honey Bee Conservancy rescues honey bee swarms — they are re-homed rather than destroyed — and clears German & European wasp nests using eco-friendly methods.",
             ],
             entries: [
                 {
@@ -865,7 +734,7 @@ const APP = {
             num: "10",
             t: "Municipal & Reporting",
             alert: [
-                "When you report, include: exact location (beach name or GPS pin) · what you see (divers, bags of marine life, suspicious boats) · descriptions (number of people, clothing, vehicles, boat registration numbers).",
+                "When you report a sighting, give as much detail as you can: the exact spot (beach, bay, or a pin on your map app) · what you saw and when (people, vehicles, boats, equipment) · anything identifiable, like boat registration numbers or clothing. Don't confront anyone — let the authorities handle it.",
             ],
             entries: [
                 {
@@ -950,7 +819,6 @@ const APP = {
                     {
                         id: "heart-attack",
                         t: "Heart Attack",
-                        e: "💓",
                         signs: [
                             "Crushing chest pain spreading to arm, jaw or back",
                             "Shortness of breath with cold, clammy skin",
@@ -978,7 +846,6 @@ const APP = {
                     {
                         id: "cardiac-arrest",
                         t: "Cardiac Arrest & CPR",
-                        e: "💗",
                         signs: [
                             "Collapses suddenly, unresponsive",
                             "Not breathing, or only gasping",
@@ -1009,7 +876,6 @@ const APP = {
                     {
                         id: "choking",
                         t: "Choking (Adult & Child)",
-                        e: "🗣️",
                         signs: [
                             "Can't speak, cough, or breathe; hands clutch throat",
                             "Face turns red then blue; silent ineffective cough",
@@ -1033,7 +899,6 @@ const APP = {
                     {
                         id: "stroke",
                         t: "Stroke — FAST",
-                        e: "🧠",
                         signs: [
                             "F — Face: one side droops, can't smile",
                             "A — Arms: one arm drifts down when both raised",
@@ -1068,7 +933,6 @@ const APP = {
                     {
                         id: "bleeding",
                         t: "Severe Bleeding",
-                        e: "🩸",
                         signs: [
                             "Blood spurting or pooling; bright red blood",
                             "Soaked clothing or dressings; pallor, rapid weak pulse",
@@ -1096,7 +960,6 @@ const APP = {
                     {
                         id: "burns",
                         t: "Burns & Scalds",
-                        e: "🔥",
                         signs: [
                             "RED = painful, dry (1st degree)",
                             "Red + blisters + swelling = 2nd degree",
@@ -1125,7 +988,6 @@ const APP = {
                     {
                         id: "head-injury",
                         t: "Head Injury & Concussion",
-                        e: "🤕",
                         signs: [
                             "Confusion, drowsiness, or brief blackout",
                             "Vomiting, unequal pupils, blurred vision",
@@ -1152,7 +1014,6 @@ const APP = {
                     {
                         id: "fracture",
                         t: "Broken Bone / Fracture",
-                        e: "🦴",
                         signs: [
                             "Obvious deformity, swelling, bruising",
                             "Severe pain on movement or standing",
@@ -1185,7 +1046,6 @@ const APP = {
                     {
                         id: "anaphylaxis",
                         t: "Severe Allergic Reaction",
-                        e: "💉",
                         signs: [
                             "Swelling of face, lips, tongue, or throat",
                             "Wheezing or trouble breathing; hives",
@@ -1212,7 +1072,6 @@ const APP = {
                     {
                         id: "snakebite",
                         t: "Snakebite (SA)",
-                        e: "🐍",
                         signs: [
                             "One or two puncture marks; pain, burning, swelling",
                             "Nausea, blurred vision, weakness, sweating",
@@ -1242,7 +1101,6 @@ const APP = {
                     {
                         id: "drowning",
                         t: "Drowning / Near-Drowning",
-                        e: "🌊",
                         signs: [
                             "Not moving, face-down, or gasping in the water",
                             "After rescue: no breathing, no response, blue lips",
@@ -1269,7 +1127,6 @@ const APP = {
                     {
                         id: "hypothermia",
                         t: "Hypothermia / Cold",
-                        e: "🥶",
                         signs: [
                             "Violent shivering that then STOPS (dangerous)",
                             "Cold, pale skin; slow pulse; confusion, drowsiness, slurred speech",
@@ -1295,7 +1152,6 @@ const APP = {
                     {
                         id: "heatstroke",
                         t: "Heat Stroke / Exhaustion",
-                        e: "☀️",
                         signs: [
                             "Heat stroke: HOT, DRY, RED skin — no sweating, confusion, fainting (EMERGENCY)",
                             "Exhaustion: heavy sweating, pale clammy skin, cramps, nausea",
@@ -1320,7 +1176,6 @@ const APP = {
                     {
                         id: "shock-electrical",
                         t: "Electric Shock",
-                        e: "⚡",
                         signs: [
                             "Collapsed near an electrical source; muscle spasms",
                             "Burns at entry/exit points; may stop breathing",
@@ -1352,7 +1207,6 @@ const APP = {
                     {
                         id: "poisoning",
                         t: "Poisoning",
-                        e: "🧪",
                         signs: [
                             "Burns/stains around the mouth; odd breath odour",
                             "Nausea, vomiting, drowsiness, confusion, seizures",
@@ -1380,7 +1234,6 @@ const APP = {
                     {
                         id: "asthma",
                         t: "Severe Asthma Attack",
-                        e: "🌬️",
                         signs: [
                             "Too breathless to speak in full sentences",
                             "Wheezing (or silent chest — very severe), blue lips",
@@ -1406,7 +1259,6 @@ const APP = {
                     {
                         id: "diabetes",
                         t: "Diabetic Emergency (Low Sugar)",
-                        e: "🩸",
                         signs: [
                             "Shakiness, sweating, pale skin, rapid heartbeat",
                             "Confusion, slurred speech, odd behaviour",
@@ -1433,7 +1285,6 @@ const APP = {
                     {
                         id: "seizure",
                         t: "Seizure / Epilepsy",
-                        e: "🌀",
                         signs: [
                             "Sudden collapse with stiff body and jerking limbs",
                             "Eyes roll back, foaming at mouth, loss of bladder control",
@@ -1459,7 +1310,6 @@ const APP = {
                     {
                         id: "fainting",
                         t: "Fainting & Recovery Position",
-                        e: "😵",
                         signs: [
                             "Sudden dizziness, blurry vision, pale clammy skin",
                             "Brief loss of consciousness (seconds to a minute)",

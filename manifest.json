@@ -7,7 +7,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#F5F5F4",
-  "theme_color": "#C1292E",
+  "theme_color": "#f6f5f4",
   "lang": "en",
   "categories": ["utilities", "health", "safety"],
   "icons": [

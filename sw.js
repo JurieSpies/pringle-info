@@ -1,5 +1,5 @@
 /* Overstrand Lifeline — service worker: cache the app shell for offline use */
-const VERSION = "v2.5.0";
+const VERSION = "v2.6.0"; // v2.6.0 — Notion-style redesign (paper/ink/blue, emoji-free)
 const CACHE = `pringle-info-${VERSION}`;
 
 const ASSETS = [

@@ -78,14 +78,27 @@ Default section order:
 
 When the user requests a durable behavior change, record it here or in the relevant child AGENTS.md
 
-- The Overstrand Lifeline app must never display GPS coordinates. The per-card GPS
-  chips ("GPS · …" + coordinates + navigate link) and the header "Copy my GPS
-  location" button were removed at the user's request; do not re-add them.
+- The Overstrand Lifeline app must never display GPS coordinates in the UI. The
+  per-card GPS chips ("GPS · …" + coordinates + navigate link) stay removed; raw
+  lat/lng never render anywhere.
+- The burger menu has a "Copy my location" action: it copies a shareable map link
+  (`https://maps.google.com/?q=lat,lng`) to the clipboard so the reader can paste
+  it into a message. It shows no coordinates in the app. If GPS is denied or
+  unavailable it falls back to the chosen "My area" town centre and labels the
+  copy as an approximate link.
 - Category lists can be reordered so entries in the reader's area appear first
   ("My area" selector). The app requests the browser location once to pick the
   nearest area, stores the choice in `localStorage` under `pi:area`, and never
   shows the coordinates. The `areas` town-centre `lat`/`lng` values in
-  `data.js` exist only for nearest-area detection; never display them.
+  `data.js` exist only for nearest-area detection and as the "Copy my location"
+  fallback; never display them.
+- The app follows the Notion-inspired design system in `DESIGN.md` (warm paper
+  canvas, near-black ink type, hairline borders, one blue accent for chrome).
+  Crisis red is reserved strictly for emergency call actions (lifeline tiles,
+  dial buttons, first-aid & helpline badges).
+- No emojis anywhere in the app or its data — use inline SVG icons only
+  (`index.html` ICONS map, menu SVGs). Do not re-add `ic:`/`e:`/`icons` emoji
+  fields to `data.js`.
 
 ## Deployment
 
