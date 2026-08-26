@@ -1,4 +1,4 @@
-/* Pringle Info — Overstrand Emergency & Community Directory
+/* Overstrand Lifeline — Overstrand Emergency & Community Directory
    Structured contact data. Edit here to add or change entries.
    Fields the renderer displays (index.html):
      t    = title        m  = meta line (address/town summary)
@@ -15,7 +15,7 @@
    left with their original data only.
 */
 const APP = {
-    name: "Pringle Info by Jurie Spies",
+    name: "Overstrand Lifeline",
     subtitle: "Overstrand · Coastal Directory",
 
     // Always-visible emergency strip (one tap to call)
@@ -292,11 +292,9 @@ const APP = {
     // NOTE: many local practitioners (individual doctors, physios, snake/bees,
     // volunteers, CMC, the pharmacist-y pharmacies) have NO official logo and
     // are intentionally not listed here — use their emoji instead.
-    // Logos with an opaque white/grey background (dffe, kogelberg, saps*,
-    // nsaps, birdflu, overstrand, nlifeline) are best shown inside a white
-    // rounded chip so they stay legible in dark mode. SVG logos (capenature,
-    // turtles) scale cleanly. Remember to add icons/logos/* to the service
-    // worker cache so they work offline.
+    // All logos are transparent-background PNGs or SVG, ready for light or
+    // dark cards. Remember to add icons/logos/* to the service worker cache
+    // so they work offline.
     logos: {
         // emergency & medical
         er24: "icons/logos/er24.png",
@@ -308,7 +306,7 @@ const APP = {
         nsrik: "icons/logos/nsrik.png",
         nsrih: "icons/logos/nsrih.png",
         capenature: "icons/logos/capenature.svg",
-        birdflu: "icons/logos/birdflu.jpg",
+        birdflu: "icons/logos/birdflu.png",
         turtles: "icons/logos/turtles.svg",
         kaws: "icons/logos/kaws.png",
         dffe: "icons/logos/dffe.png",

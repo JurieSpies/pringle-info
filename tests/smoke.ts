@@ -1,4 +1,4 @@
-// Pringle Info smoke test — `bun run test` (server must be running: `bun run dev`)
+// Overstrand Lifeline smoke test — `bun run test` (server must be running: `bun run dev`)
 // Playwright checks: rendering, tools menu, search, favourites, WhatsApp, offline PWA.
 import { chromium } from "playwright";
 

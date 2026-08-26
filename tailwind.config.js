@@ -1,4 +1,4 @@
-/** Tailwind config for Pringle Info — used by `tailwind.source.css` to build `tailwind.css`. */
+/** Tailwind config for Overstrand Lifeline — used by `tailwind.source.css` to build `tailwind.css`. */
 module.exports = {
     darkMode: "class",
     content: ["./index.html"],

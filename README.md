@@ -1,4 +1,4 @@
-# Pringle Info — Overstrand Emergency Directory
+# Overstrand Lifeline — Overstrand Emergency Directory
 
 A phone-first **PWA** (Progressive Web App) that puts the Overstrand's emergency
 and community contact numbers one tap away: fire, ambulance, police, doctors,
@@ -17,7 +17,7 @@ area** selector; coordinates are never shown).
 
 | File | Purpose |
 |------|---------|
-| `index.html` | **The whole app** — HTML + compiled Tailwind CSS + plain JS: sticky lifeline, search, accordion categories, light/dark mode, **favourites pinning, WhatsApp buttons, GPS (copy own location + per-contact navigation links)**, service-worker registration — plus a ☰ **Tools & Guides** menu (directory · preparedness checklist · first-aid quick guides · national helplines), with a dedicated search inside the Tools view |
+| `index.html` | **The whole app** — HTML + compiled Tailwind CSS + plain JS: sticky lifeline, search, accordion categories, light/dark mode, **favourites pinning, WhatsApp buttons**, service-worker registration — plus a ☰ **Tools & Guides** menu (directory · preparedness checklist · first-aid quick guides · national helplines), with a dedicated search inside the Tools view |
 | `data.js` | **All the content** — edit here to add/change numbers |
 | `server.ts` | Bun dev server — static files with correct MIME types (SW + manifest) and **live reload** |
 | `tests/smoke.ts` | Playwright smoke tests (`bun run test`) |

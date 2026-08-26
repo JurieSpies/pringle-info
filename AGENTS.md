@@ -78,7 +78,7 @@ Default section order:
 
 When the user requests a durable behavior change, record it here or in the relevant child AGENTS.md
 
-- The Pringle Info app must never display GPS coordinates. The per-card GPS
+- The Overstrand Lifeline app must never display GPS coordinates. The per-card GPS
   chips ("GPS · …" + coordinates + navigate link) and the header "Copy my GPS
   location" button were removed at the user's request; do not re-add them.
 - Category lists can be reordered so entries in the reader's area appear first

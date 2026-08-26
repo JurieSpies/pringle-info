@@ -1,5 +1,5 @@
-/* Pringle Info — service worker: cache the app shell for offline use */
-const VERSION = "v2.4.0";
+/* Overstrand Lifeline — service worker: cache the app shell for offline use */
+const VERSION = "v2.5.0";
 const CACHE = `pringle-info-${VERSION}`;
 
 const ASSETS = [

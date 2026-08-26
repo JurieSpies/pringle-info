@@ -1,6 +1,6 @@
 {
-  "name": "Pringle Info — Overstrand Emergency Directory",
-  "short_name": "Pringle Info by Jurie Spies",
+  "name": "Overstrand Lifeline — Overstrand Emergency & Community Directory",
+  "short_name": "Lifeline",
   "description": "One-tap access to fire, medical, police and community emergency numbers for Pringle Bay, Betty's Bay, Kleinmond and the Overstrand. Works offline.",
   "start_url": "./",
   "scope": "./",
