@@ -25,7 +25,8 @@ area** selector; coordinates are never shown).
 | `tailwind.config.js` + `tailwind.source.css` | Source for rebuilding `tailwind.css` |
 | `manifest.json` | Enables "Add to Home Screen" |
 | `sw.js` | Service worker — caches the app for offline use |
-| `icons/` | App icons (`make_icons.py` regenerates the PNGs) |
+| `icons/` | App icons and partner logos (`make_icons.py` regenerates the PNGs) |
+| `.github/workflows/deploy-pages.yml` | GitHub Actions — publishes the app to GitHub Pages on push to `develop` |
 
 To rebuild the compiled CSS after editing `index.html`:
 
@@ -80,6 +81,16 @@ bun run build      # rebuild tailwind.css after editing index.html
 bun run watch:css  # rebuild automatically while developing
 bun run test       # Playwright smoke tests (dev server must be running)
 ```
+
+## Deployment (GitHub Pages)
+
+Pushing to `develop` (or running the workflow manually from the **Actions**
+tab) deploys the app to GitHub Pages:
+
+- Live: https://juriespies.github.io/pringle-info/
+- The workflow copies only the app files (`index.html`, `data.js`,
+  `tailwind.css`, `manifest.json`, `sw.js`, `icons/`) into the published
+  folder, so dev files (`node_modules/`, `tests/`, `server.ts`) never go live.
 
 ## Install on your phone
 

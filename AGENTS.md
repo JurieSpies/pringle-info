@@ -87,6 +87,16 @@ When the user requests a durable behavior change, record it here or in the relev
   shows the coordinates. The `areas` town-centre `lat`/`lng` values in
   `data.js` exist only for nearest-area detection; never display them.
 
+## Deployment
+
+- The app deploys to GitHub Pages from the `develop` branch via
+  `.github/workflows/deploy-pages.yml`. Push to `develop` (or a manual run
+  from the Actions tab) publishes only the app files — `index.html`,
+  `data.js`, `tailwind.css`, `manifest.json`, `sw.js`, `icons/` — to
+  https://juriespies.github.io/pringle-info/
+- Dev-only files (`node_modules/`, `tests/`, `server.ts`, …) are not
+  published.
+
 ## Child DOX Index
 
 - No child AGENTS.md files are needed for the current repository structure.
