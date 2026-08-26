@@ -1,0 +1,5 @@
+/* Source for the compiled `tailwind.css`. Rebuild with:
+   npx tailwindcss -i tailwind.source.css -o tailwind.css -m -c tailwind.config.js */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
