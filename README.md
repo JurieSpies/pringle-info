@@ -12,7 +12,7 @@ installable, and works fully **offline** once loaded.
 Places in **your area** move to the top of every list: the app asks for your
 location once to pick the nearest Overstrand town (changeable via the **My
 area** selector; coordinates are never shown).
-
+ 
 ## Files
 
 | File | Purpose |
