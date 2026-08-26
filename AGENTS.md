@@ -95,7 +95,8 @@ When the user requests a durable behavior change, record it here or in the relev
 - The app follows the Notion-inspired design system in `DESIGN.md` (warm paper
   canvas, near-black ink type, hairline borders, one blue accent for chrome).
   Crisis red is reserved strictly for emergency call actions (lifeline tiles,
-  dial buttons, first-aid & helpline badges).
+  dial buttons, first-aid & helpline badges). Display headings use the
+  self-hosted Space Grotesk font (`fonts/`); body and phone numbers stay Inter.
 - No emojis anywhere in the app or its data — use inline SVG icons only
   (`index.html` ICONS map, menu SVGs). Do not re-add `ic:`/`e:`/`icons` emoji
   fields to `data.js`.

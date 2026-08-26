@@ -27,6 +27,7 @@ area** selector; coordinates are never shown).
 | `manifest.json` | Enables "Add to Home Screen" |
 | `sw.js` | Service worker — caches the app for offline use |
 | `icons/` | App icons and partner logos (`make_icons.py` regenerates the PNGs) |
+| `fonts/` | Self-hosted Space Grotesk display font (woff2) — keeps headings branded offline |
 | `.github/workflows/deploy-pages.yml` | GitHub Actions — publishes the app to GitHub Pages on push to `develop` |
 
 To rebuild the compiled CSS after editing `index.html`:

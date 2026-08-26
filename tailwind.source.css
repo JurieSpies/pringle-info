@@ -1,5 +1,16 @@
 /* Source for the compiled `tailwind.css`. Rebuild with:
    npx tailwindcss -i tailwind.source.css -o tailwind.css -m -c tailwind.config.js */
+
+/* Space Grotesk — display headings. Self-hosted (latin subset, variable 300–700)
+   so the brand look survives offline; Inter stays the body/number face. */
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("fonts/space-grotesk-latin.woff2") format("woff2");
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

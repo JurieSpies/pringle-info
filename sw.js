@@ -1,5 +1,5 @@
 /* Overstrand Lifeline — service worker: cache the app shell for offline use */
-const VERSION = "v2.6.0"; // v2.6.0 — Notion-style redesign (paper/ink/blue, emoji-free)
+const VERSION = "v2.7.0"; // v2.7.0 — Space Grotesk display font; v2.6.0 — Notion redesign
 const CACHE = `pringle-info-${VERSION}`;
 
 const ASSETS = [
@@ -13,6 +13,7 @@ const ASSETS = [
     "./icons/icon-512.png",
     "./icons/icon-maskable-512.png",
     "./icons/apple-touch-icon.png",
+    "./fonts/space-grotesk-latin.woff2",
 ];
 
 self.addEventListener("install", (e) => {

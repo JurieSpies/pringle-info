@@ -49,8 +49,8 @@
   <div class="max-w-2xl mx-auto px-4 pt-3 pb-3">
     <div class="flex items-center justify-between mb-2">
       <div>
-        <h1 class="text-lg leading-tight font-bold tracking-tight">Overstrand&nbsp;Lifeline</h1>
-        <p class="text-[11px] uppercase tracking-widest text-ink-muted font-semibold dark:text-stone-400">Overstrand · Emergency &amp; Community</p>
+        <h1 class="font-display text-lg leading-tight font-bold tracking-tight">Overstrand&nbsp;Lifeline</h1>
+        <p class="font-display text-[11px] uppercase tracking-widest text-ink-muted font-semibold dark:text-stone-400">Overstrand · Emergency &amp; Community</p>
       </div>
       <div class="relative flex items-center gap-2">
         <button id="menuBtn" type="button" title="Tools & guides" aria-label="Open tools and guides" aria-expanded="false" aria-controls="menuDropdown"
@@ -98,7 +98,7 @@
   <!-- Quick access favourites -->
   <section id="favSection" class="mb-4" aria-label="Quick access favourites" hidden>
     <div class="flex items-center gap-2 mb-2">
-      <h2 class="text-sm font-bold uppercase tracking-wide text-stone-600 dark:text-stone-300">Quick Access</h2>
+      <h2 class="font-display text-sm font-bold uppercase tracking-wide text-stone-600 dark:text-stone-300">Quick Access</h2>
       <span id="favCount" class="text-xs font-semibold text-stone-400"></span>
       <span class="ml-auto text-[11px] text-stone-400">Tap the star on any card to pin it</span>
     </div>
@@ -109,7 +109,7 @@
   <section id="areaRow" class="mb-4" aria-label="My area">
     <div class="flex items-center gap-2">
       <svg class="w-4 h-4 shrink-0 text-primary dark:text-primary-light" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
-      <label for="areaSelect" class="text-xs font-bold uppercase tracking-wide text-stone-600 dark:text-stone-300">My area</label>
+      <label for="areaSelect" class="font-display text-xs font-bold uppercase tracking-wide text-stone-600 dark:text-stone-300">My area</label>
       <select id="areaSelect" aria-label="Choose your area"
         class="flex-1 min-w-0 rounded-lg border border-stone-200 bg-white px-2 py-1.5 text-sm text-ink outline-none ring-primary focus:ring-2 dark:border-stone-600 dark:bg-stone-800 dark:text-white">
       </select>
@@ -119,7 +119,7 @@
   <!-- Tools & Guides: checklist, first aid, helplines — burger menu view -->
   <section id="toolsPanel" class="mb-4" aria-label="Tools and guides" hidden>
     <div class="flex items-center gap-2 mb-2">
-      <h2 class="text-sm font-bold uppercase tracking-wide text-stone-600 dark:text-stone-300">Tools &amp; Guides</h2>
+      <h2 class="font-display text-sm font-bold uppercase tracking-wide text-stone-600 dark:text-stone-300">Tools &amp; Guides</h2>
       <span class="ml-auto text-[11px] text-stone-400">Preparedness · First aid · National helplines</span>
     </div>
     <div class="relative mt-0.5 mb-3">
@@ -219,7 +219,7 @@
   $("#lifelineGrid").innerHTML = APP.lifeline.map((t) => `
     <a class="flex items-center gap-2 rounded-lg bg-crisis px-3 py-2.5 text-white shadow-sm hover:bg-crisis-dark active:bg-crisis-dark" href="${telFrom(t.d)}" role="listitem">
       <span class="min-w-0">
-        <span class="block text-[13px] font-bold leading-tight">${esc(t.l)}</span>
+        <span class="font-display block text-[13px] font-bold leading-tight">${esc(t.l)}</span>
         <span class="block text-[15px] font-extrabold leading-tight tracking-tight tabular-nums">${esc(t.d)}</span>
         <span class="block text-[10px] text-white/75 leading-tight">${esc(t.s || "")}</span>
       </span>
@@ -248,7 +248,7 @@
 
     return `<article class="relative rounded-xl border border-stone-200 bg-white p-3 shadow-sm dark:border-stone-700 dark:bg-stone-800" data-q="${esc(catQ + " " + entryQuery(e))}">
       <button type="button" class="star absolute right-2.5 top-2.5 z-10 flex h-8 w-8 items-center justify-center rounded-md text-stone-300 hover:text-amber-400 ${fav ? "text-amber-400" : ""}" data-fav="${esc(e.id)}" aria-pressed="${fav}" aria-label="${fav ? "Remove from quick access" : "Add to quick access"}">${ICONS.star}</button>
-      <h3 class="pr-8 text-[15px] font-bold leading-snug">${esc(e.t)}</h3>
+      <h3 class="font-display pr-8 text-[15px] font-bold leading-snug">${esc(e.t)}</h3>
       ${e.m ? `<p class="text-[13px] text-stone-500 mt-0.5 dark:text-stone-400">${esc(e.m)}</p>` : ""}
       ${e.note ? `<p class="text-[13px] text-stone-500 mt-1 dark:text-stone-400">${linkify(e.note)}</p>` : ""}
       ${rows ? `<div class="mt-2 space-y-2">${rows}</div>` : ""}
@@ -303,7 +303,7 @@
       <details id="cat-${c.id}" class="cat rounded-lg border border-stone-200 bg-white shadow-sm overflow-hidden dark:border-stone-700 dark:bg-stone-900">
         <summary class="flex cursor-pointer select-none items-center gap-3 px-4 py-3.5 hover:bg-stone-50 dark:hover:bg-stone-800/60">
           <span class="shrink-0 rounded-full bg-primary-soft px-2.5 py-1 text-xs font-bold text-primary tabular-nums dark:bg-primary/20 dark:text-primary-light">${esc(c.num)}</span>
-          <span class="flex-1 min-w-0 text-[15px] font-bold leading-tight">${esc(c.t)}</span>
+          <span class="font-display flex-1 min-w-0 text-[15px] font-bold leading-tight">${esc(c.t)}</span>
           <span class="shrink-0 text-xs font-semibold text-stone-400 tabular-nums">${c.entries.length}</span>
           <span class="chevron shrink-0 text-stone-400">${ICONS.chev}</span>
         </summary>
@@ -364,7 +364,7 @@
       <summary class="flex cursor-pointer select-none items-center gap-3 px-4 py-3.5 hover:bg-primary/5 dark:hover:bg-stone-800/60">
         <span class="flex items-center justify-center w-8 h-8 shrink-0 rounded-md bg-primary text-white">${ICONS.check}</span>
         <span class="flex-1 min-w-0">
-          <span class="block text-[15px] font-bold leading-tight">Fire Season Preparedness Checklist</span>
+          <span class="font-display block text-[15px] font-bold leading-tight">Fire Season Preparedness Checklist</span>
           <span class="block text-xs text-stone-500 dark:text-stone-400" id="ckSummary">0 of ${totalChecks} done</span>
         </span>
         <span class="chevron shrink-0 text-stone-400">${ICONS.chev}</span>
@@ -397,7 +397,7 @@
       <summary class="flex cursor-pointer select-none items-center gap-3 px-4 py-3.5 hover:bg-red-50 dark:hover:bg-stone-800/60">
         <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-crisis text-white">${ICONS.pulse}</span>
         <span class="flex-1 min-w-0">
-          <span class="block text-[15px] font-bold leading-tight">First Aid Quick Guides</span>
+          <span class="font-display block text-[15px] font-bold leading-tight">First Aid Quick Guides</span>
           <span class="block text-xs text-stone-500 dark:text-stone-400">${esc(APP.firstAid.intro)}</span>
         </span>
         <span class="chevron shrink-0 text-stone-400">${ICONS.chev}</span>
@@ -421,7 +421,7 @@
                 return `
                   <details class="cat rounded-lg border border-stone-200 bg-stone-50 overflow-hidden dark:border-stone-700 dark:bg-stone-800">
                     <summary class="flex cursor-pointer select-none items-center gap-2 px-3 py-2.5 hover:bg-stone-100 dark:hover:bg-stone-700/50">
-                      <span class="flex-1 min-w-0 text-[14px] font-bold leading-tight">${esc(gd.t)}</span>
+                      <span class="font-display flex-1 min-w-0 text-[14px] font-bold leading-tight">${esc(gd.t)}</span>
                       <span class="chevron shrink-0 text-stone-400">${ICONS.chev}</span>
                     </summary>
                     <article class="border-t border-stone-200 p-3 dark:border-stone-700" data-q="${esc(q)}">
@@ -443,7 +443,7 @@
       <summary class="flex cursor-pointer select-none items-center gap-3 px-4 py-3.5 hover:bg-stone-50 dark:hover:bg-stone-800/60">
         <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-crisis text-white">${ICONS.phone}</span>
         <span class="flex-1 min-w-0">
-          <span class="block text-[15px] font-bold leading-tight">National Helplines (SA)</span>
+          <span class="font-display block text-[15px] font-bold leading-tight">National Helplines (SA)</span>
           <span class="block text-xs text-stone-500 dark:text-stone-400">${esc(APP.helplines.intro)}</span>
         </span>
         <span class="text-xs font-semibold text-stone-400 tabular-nums">${APP.helplines.entries.length}</span>

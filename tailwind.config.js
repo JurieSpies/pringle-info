@@ -29,6 +29,17 @@ module.exports = {
                 },
             },
             fontFamily: {
+                display: [
+                    "'Space Grotesk'",
+                    "Inter",
+                    "-apple-system",
+                    "BlinkMacSystemFont",
+                    '"Segoe UI"',
+                    "Roboto",
+                    "Helvetica",
+                    "Arial",
+                    "sans-serif",
+                ],
                 sans: [
                     "Inter",
                     "-apple-system",

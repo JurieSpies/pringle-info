@@ -508,3 +508,8 @@ applied only to emergency call actions (lifeline tiles, dial buttons, first-aid
 `primary` paints search focus, links, the install pill and the checklist
 progress; amber carries warning alerts; green stays on WhatsApp buttons. The
 app is emoji-free — all icons are inline SVG, never emoji glyphs.
+
+Typography adds one face beyond the Notion base: **Space Grotesk** (variable,
+self-hosted in `fonts/`) is the display face for the wordmark, all headings,
+eyebrows and section titles — `font-display` in `index.html`. Inter stays the
+body and phone-number face for maximum legibility and tabular digits.
