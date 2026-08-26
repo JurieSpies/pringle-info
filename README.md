@@ -17,7 +17,7 @@ area** selector; coordinates are never shown).
 
 | File | Purpose |
 |------|---------|
-| `index.html` | **The whole app** — HTML + compiled Tailwind CSS + plain JS: sticky lifeline, search, accordion categories, light/dark mode, **favourites pinning, WhatsApp rows**, service-worker registration — plus a **Tools & Guides** menu (directory · preparedness checklist · first-aid quick guides · national helplines · copy my location), with a dedicated search inside the Tools view |
+| `index.html` | **The whole app** — HTML + compiled Tailwind CSS + plain JS: sticky lifeline, search, accordion categories, light/dark mode, **favourites pinning, WhatsApp rows**, service-worker registration — plus a **Tools & Guides** menu (directory · preparedness checklist · first-aid quick guides · national helplines · copy my location · share this page), with a dedicated search inside the Tools view |
 | `data.js` | **All the content** — edit here to add/change numbers |
 | `server.ts` | Bun dev server — static files with correct MIME types (SW + manifest) and **live reload** |
 | `tests/smoke.ts` | Playwright smoke tests (`bun run test`) |

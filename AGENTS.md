@@ -90,6 +90,10 @@ When the user requests a durable behavior change, record it here or in the relev
   it into a message. It shows no coordinates in the app. If GPS is denied or
   unavailable it falls back to the chosen "My area" town centre and labels the
   copy as an approximate link.
+- The burger menu has a "Share this page" action: it opens the native
+  share sheet (`navigator.share`) where available so the reader can share the
+  app's URL; where sharing isn't supported it falls back to copying the link to
+  the clipboard. It never renders coordinates.
 - Category lists can be reordered so entries in the reader's area appear first
   ("My area" selector). The app requests the browser location once to pick the
   nearest area, stores the choice in `localStorage` under `pi:area`, and never

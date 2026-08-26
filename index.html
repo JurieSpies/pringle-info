@@ -68,6 +68,7 @@
           <button type="button" data-action="helplines" class="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-stone-700 hover:bg-stone-100 dark:text-stone-200 dark:hover:bg-stone-800/60"><svg class="w-4 h-4 shrink-0 text-ink-faint dark:text-stone-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span>National Helplines</span></button>
           <div class="mt-1 mb-1 border-t border-stone-200 dark:border-stone-700"></div>
           <button type="button" data-action="location" class="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-stone-700 hover:bg-stone-100 dark:text-stone-200 dark:hover:bg-stone-800/60"><svg class="w-4 h-4 shrink-0 text-ink-faint dark:text-stone-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <span>Copy my location</span></button>
+          <button type="button" data-action="share" class="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-stone-700 hover:bg-stone-100 dark:text-stone-200 dark:hover:bg-stone-800/60"><svg class="w-4 h-4 shrink-0 text-ink-faint dark:text-stone-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> <span>Share</span></button>
         </nav>
       </div>
     </div>
@@ -604,6 +605,8 @@
         showContactsView();
       } else if (act === "location") {
         copyMyLocation(); // stays on the current view — just copies to the clipboard
+      } else if (act === "share") {
+        sharePage(); // stays on the current view — shares the app URL
       } else {
         showToolsView();
         const id = act === "checklist" ? "cat-checklist" : act === "firstaid" ? "cat-firstaid" : "cat-helplines";
@@ -690,6 +693,25 @@
       approx,
       { timeout: 5000, maximumAge: 600000 },
     );
+  };
+
+  /* ---------- share this page (burger menu) ---------- */
+  // Uses the native share sheet where available, else copies the URL.
+  const sharePage = () => {
+    const url = location.href;
+    const data = { title: document.title, text: document.title, url };
+    if (navigator.share) {
+      navigator.share(data).catch((e) => {
+        if (e && e.name === "AbortError") return; // user dismissed the sheet
+        copyText(url).then((ok) =>
+          showToast(ok ? "Link copied — paste it into a message" : "Couldn't copy — try again"),
+        );
+      });
+    } else {
+      copyText(url).then((ok) =>
+        showToast(ok ? "Link copied — paste it into a message" : "Couldn't copy — try again"),
+      );
+    }
   };
 
   /* ---------- delegated: favourites star ---------- */
