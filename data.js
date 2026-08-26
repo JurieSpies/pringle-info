@@ -3,7 +3,13 @@
    Fields the renderer displays (index.html):
      t    = title        m  = meta line (address/town summary)
      n    = dial rows     n[] = { d: number, l: label }
-     note = extra info (emails & URLs here auto-linkify into clickable links)
+     note = extra info (URLs here auto-linkify into clickable links)
+     geo  = navigable street address (optional). ONLY entries with a geo field get a
+            small map/navigate icon on their card; tapping it opens a maps link to that
+            address. Coordinates are never rendered as text anywhere in the app.
+     email = mailto link shown as a row on the card (optional)
+     hours = business hours shown on their own line under the meta (optional)
+     logos (below) — brand logo per entry id; rendered as a small chip on the card
    firstAid.groups[].guides[] — quick first-aid steps for medical emergencies:
      t = title   signs[] = recognise it   do[] = short actions in order
      dont[] = common mistakes to avoid   call[] = { d, l } numbers to dial for that scenario
@@ -18,7 +24,8 @@ const APP = {
     name: "Overstrand Lifeline",
     subtitle: "Overstrand · Coastal Directory",
 
-    // Always-visible emergency strip (one tap to call)
+    // Emergency strip: 4 expandable items in the header — tap a row to reveal
+    // the service line + a call button; tapping the number dials immediately.
     lifeline: [
         {
             id: "fire",
@@ -160,10 +167,10 @@ const APP = {
     ],
 
     // Real brand logos downloaded from each entity's official website into
-    // icons/logos/. Map id -> file path (relative to index.html); not currently
-    // rendered by index.html. Many local practitioners have no official logo
-    // and are not listed here. Remember to add icons/logos/* to the service
-    // worker cache so they work offline.
+    // icons/logos/. Map id -> file path (relative to index.html); rendered as a
+    // small chip on the card whose entry id matches a key. Many local
+    // practitioners have no official logo and are not listed here. Remember to
+    // add icons/logos/* to the service worker cache so they work offline.
     logos: {
         // emergency & medical
         er24: "icons/logos/er24.png",
@@ -196,6 +203,7 @@ const APP = {
         nchild: "icons/logos/nchild.png",
         nlifeline: "icons/logos/nlifeline.png",
         nsadag: "icons/logos/nsadag.png",
+        ner24: "icons/logos/er24.png", // helplines entry reuses the ER24 mark
     },
 
     categories: [
@@ -255,8 +263,11 @@ const APP = {
                     id: "onehealth",
                     t: "OneHealth Medical & Wellness Centre",
                     m: "24/7 · 4 Harbour Rd, Kleinmond",
+                    geo: "4 Harbour Rd, Kleinmond 7195",
                     n: [{ d: "021 770 0053", l: "Main" }],
-                    note: "Drs Leon Siecker, Tim Nunn, Eileen Brown · 4 Harbour Rd, Kleinmond 7195 · oec24.com · onehealthreception@oec24.com · hours Mon–Fri 8–5, Sat 8–1, Sun & hols 10–12 (emergency always 24/7)",
+                    email: "onehealthreception@oec24.com",
+                    hours: "Mon–Fri 8–5, Sat 8–1, Sun & hols 10–12 · emergency always 24/7",
+                    note: "Drs Leon Siecker, Tim Nunn, Eileen Brown · 4 Harbour Rd, Kleinmond 7195 · oec24.com",
                 },
                 {
                     id: "roos",
@@ -269,6 +280,7 @@ const APP = {
                     id: "clinic",
                     t: "Kleinmond Clinic",
                     m: "State clinic",
+                    geo: "Cnr Protea & Main Rd, Kleinmond",
                     n: [{ d: "028 814 3830", l: "Tel" }],
                     note: "Cnr Protea & Main Rd, Kleinmond · also 028 271 5807 (Medpages)",
                 },
@@ -276,8 +288,11 @@ const APP = {
                     id: "kogelberg",
                     t: "Kogelberg Medical Practice",
                     m: "2666 Porter Drive, Betty's Bay",
+                    geo: "2666 Porter Drive, Betty's Bay",
                     n: [{ d: "063 933 5463", l: "Reception" }],
-                    note: "Drs Jordaan & Prinsloo · kogelbergmedprac.com · kogelbergmedicalpractice@gmail.com · Mon–Fri 8–5 · online bookings: kogelbergmedprac.com",
+                    email: "kogelbergmedicalpractice@gmail.com",
+                    hours: "Mon–Fri 8–5",
+                    note: "Drs Jordaan & Prinsloo · kogelbergmedprac.com · online bookings: kogelbergmedprac.com",
                 },
                 {
                     id: "greeff",
@@ -367,6 +382,7 @@ const APP = {
                         { d: "082 868 4267", l: "Mobile" },
                     ],
                     note: "Shop 1A & 4 Spar Centre, Botriver Rd, Kleinmond 7195",
+                    geo: "Shop 1A & 4 Spar Centre, Botriver Rd, Kleinmond 7195",
                 },
                 {
                     id: "localchoice",
@@ -413,17 +429,19 @@ const APP = {
                     id: "tamora",
                     t: "Tamora",
                     m: "Therapeutic foot massage / reflexology · Kogelberg Medical Centre, Betty's Bay",
+                    geo: "Kogelberg Medical Centre, 2666 Porter Drive, Betty's Bay",
                     n: [{ d: "082 465 0558", l: "WhatsApp for appointment" }],
                 },
                 {
                     id: "obermeyer",
                     t: "Philip Obermeyer",
                     m: "Optometrist · 17 Spar Centre, Kleinmond",
+                    geo: "17 Spar Centre, Kleinmond",
                     n: [
                         { d: "028 271 3119", l: "Tel" },
                         { d: "064 824 0702", l: "Mobile" },
                     ],
-                    note: "oberkleinmond@gmail.com",
+                    email: "oberkleinmond@gmail.com",
                 },
                 {
                     id: "elsie",
@@ -447,13 +465,16 @@ const APP = {
                     id: "gild",
                     t: "Dr Samuel Gild",
                     m: "Counsellor — person-centred, individuals & couples · William Avenue, Pringle Bay (or online)",
+                    geo: "William Avenue, Pringle Bay",
                     n: [{ d: "+27 76 681 7135", l: "Tel" }],
-                    note: "samgild.com · sam.gild@gmail.com",
+                    email: "sam.gild@gmail.com",
+                    note: "samgild.com",
                 },
                 {
                     id: "endrody",
                     t: "Hestie Endrödy",
                     m: "Clinical psychologist · 41 Main Rd, Kleinmond",
+                    geo: "41 Main Rd, Kleinmond",
                     n: [{ d: "082 853 7936", l: "Tel" }],
                 },
                 {
@@ -482,7 +503,7 @@ const APP = {
                     t: "Karen Wood",
                     m: "Private nurse practitioner — advanced wound care",
                     n: [{ d: "073 797 0381", l: "Tel" }],
-                    note: "kwood56@hotmail.com",
+                    email: "kwood56@hotmail.com",
                 },
                 {
                     id: "sitara",
@@ -524,12 +545,15 @@ const APP = {
                 {
                     id: "capenature",
                     t: "Cape Nature",
+                    geo: "16 17th Ave, Voëlklip, Hermanus",
                     n: [
                         { d: "082 783 8585", l: "Duty phone" },
                         { d: "087 087 9262", l: "Office hours" },
                         { d: "082 319 1646", l: "Stony Point" },
                     ],
-                    note: "Overberg Landscape Office: 16 17th Ave, Voëlklip, Hermanus · 028 314 0062 · capenature.co.za · customercare@capenature.co.za · Mon–Fri 07:30–16:30, Sat 8–12",
+                    email: "customercare@capenature.co.za",
+                    hours: "Mon–Fri 07:30–16:30, Sat 8–12",
+                    note: "Overberg Landscape Office: 16 17th Ave, Voëlklip, Hermanus · 028 314 0062 · capenature.co.za",
                 },
                 {
                     id: "seabirds",
@@ -562,7 +586,8 @@ const APP = {
                     t: "Law Enforcement",
                     m: "Report loose or mistreated dogs",
                     n: [{ d: "028 313 8996", l: "Report" }],
-                    note: "Overstrand municipal Law Enforcement · municipal services 24/7 028 313 8111 · switchboard 028 313 8000 · enquiries@overstrand.gov.za",
+                    email: "enquiries@overstrand.gov.za",
+                    note: "Overstrand municipal Law Enforcement · municipal services 24/7 028 313 8111 · switchboard 028 313 8000",
                 },
                 {
                     id: "baboons",
@@ -599,7 +624,8 @@ const APP = {
                     t: "Heart2Soul Connection — Gayle",
                     m: "Animal communication services",
                     n: [{ d: "063 636 3216", l: "Tel" }],
-                    note: "heart2soulconnection.com · info@heart2soulconnection.com",
+                    email: "info@heart2soulconnection.com",
+                    note: "heart2soulconnection.com",
                 },
                 {
                     id: "petloss",
@@ -718,14 +744,16 @@ const APP = {
                     t: "NSRI Station 42",
                     m: "Kleinmond",
                     n: [{ d: "063 699 2765", l: "Sea rescue" }],
-                    note: "nsri.org.za/rescue/base/kleinmond/ · info@searescue.org.za · 24/7 volunteer station",
+                    email: "info@searescue.org.za",
+                    note: "nsri.org.za/rescue/base/kleinmond/ · 24/7 volunteer station",
                 },
                 {
                     id: "nsrih",
                     t: "NSRI",
                     m: "Hermanus",
                     n: [{ d: "082 990 5967", l: "Sea rescue" }],
-                    note: "NSRI Hermanus is Station 17 (not 5) · nsri.org.za/rescue/base/hermanus/ · info@searescue.org.za · 24/7 volunteer station",
+                    email: "info@searescue.org.za",
+                    note: "NSRI Hermanus is Station 17 (not 5) · nsri.org.za/rescue/base/hermanus/ · 24/7 volunteer station",
                 },
             ],
         },
@@ -741,8 +769,10 @@ const APP = {
                     id: "infra",
                     t: "Infrastructure Emergencies",
                     m: "Municipal · 24/7/365",
+                    geo: "Magnolia St, Hermanus",
                     n: [{ d: "028 313 8111", l: "Emergency" }],
-                    note: "Or report via the Overstrand Collab Citizen App · enquiries@overstrand.gov.za · overstrand.gov.za · HQ Magnolia St, Hermanus 7200",
+                    email: "enquiries@overstrand.gov.za",
+                    note: "Or report via the Overstrand Collab Citizen App · overstrand.gov.za · HQ Magnolia St, Hermanus 7200",
                 },
                 {
                     id: "lawenforce",
@@ -770,37 +800,47 @@ const APP = {
                 {
                     id: "sapsk",
                     t: "Kleinmond SAPS",
+                    geo: "16 Main Rd, Kleinmond 7195",
                     n: [
                         { d: "028 271 8200", l: "Tel" },
                         { d: "028 271 8202", l: "Alt" },
                         { d: "082 443 6069", l: "Mobile" },
                     ],
-                    note: "Immediate crimes in progress · 16 Main Rd, Kleinmond 7195 · KLEINMONDSAPS@saps.gov.za",
+                    email: "KLEINMONDSAPS@saps.gov.za",
+                    note: "Immediate crimes in progress · 16 Main Rd, Kleinmond 7195",
                 },
                 {
                     id: "sapsh",
                     t: "Hermanus Police",
+                    geo: "61 Main Rd, Hermanus",
                     n: [{ d: "028 313 5300", l: "Tel" }],
-                    note: "61 Main Rd, Hermanus 7200 · HermanusSAPS@saps.gov.za",
+                    email: "HermanusSAPS@saps.gov.za",
+                    note: "61 Main Rd, Hermanus 7200",
                 },
                 {
                     id: "sapsg",
                     t: "Gansbaai Police",
+                    geo: "16 Main St, Gansbaai",
                     n: [{ d: "028 384 0201", l: "Tel" }],
-                    note: "16 Main St, Gansbaai 7220 · GANSBAAISAPS@saps.gov.za",
+                    email: "GANSBAAISAPS@saps.gov.za",
+                    note: "16 Main St, Gansbaai 7220",
                 },
                 {
                     id: "sapss",
                     t: "Stanford Police",
+                    geo: "6 Du Toit St, Stanford",
                     n: [{ d: "028 341 0601", l: "Tel" }],
-                    note: "6 Du Toit St, Stanford 7210 · StanfordSAPS@saps.gov.za",
+                    email: "StanfordSAPS@saps.gov.za",
+                    note: "6 Du Toit St, Stanford 7210",
                 },
                 {
                     id: "web",
                     t: "Overstrand Important Numbers",
                     m: "Municipal website",
+                    geo: "Magnolia St, Hermanus",
                     n: [],
-                    note: "Full list: overstrand.gov.za/important-numbers-2 · Switchboard 028 313 8000 · enquiries@overstrand.gov.za · Fire & Rescue 028 312 2400 · Traffic 028 313 1044 · HQ Magnolia St, Hermanus",
+                    email: "enquiries@overstrand.gov.za",
+                    note: "Full list: overstrand.gov.za/important-numbers-2 · Switchboard 028 313 8000 · Fire & Rescue 028 312 2400 · Traffic 028 313 1044 · HQ Magnolia St, Hermanus",
                 },
             ],
         },

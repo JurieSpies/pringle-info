@@ -1,5 +1,5 @@
 /* Overstrand Lifeline — service worker: cache the app shell for offline use */
-const VERSION = "v2.7.0"; // v2.7.0 — Space Grotesk display font; v2.6.0 — Notion redesign
+const VERSION = "v2.9.0"; // v2.9.0 — email rows + hours line; v2.8.0 — brand logos on cards; v2.7.0 — Space Grotesk display font; v2.6.0 — Notion redesign
 const CACHE = `pringle-info-${VERSION}`;
 
 const ASSETS = [
@@ -14,6 +14,28 @@ const ASSETS = [
     "./icons/icon-maskable-512.png",
     "./icons/apple-touch-icon.png",
     "./fonts/space-grotesk-latin.woff2",
+    // brand logos rendered on directory cards (icons/logos/*)
+    "./icons/logos/birdflu.png",
+    "./icons/logos/capenature.svg",
+    "./icons/logos/dffe.png",
+    "./icons/logos/er24.png",
+    "./icons/logos/heart2soul.png",
+    "./icons/logos/kaws.png",
+    "./icons/logos/kogelberg.png",
+    "./icons/logos/localchoice.png",
+    "./icons/logos/nchild.png",
+    "./icons/logos/nlifeline.png",
+    "./icons/logos/nsadag.png",
+    "./icons/logos/nsaps.png",
+    "./icons/logos/nsrih.png",
+    "./icons/logos/nsrik.png",
+    "./icons/logos/onehealth.png",
+    "./icons/logos/overstrand.png",
+    "./icons/logos/sapsg.png",
+    "./icons/logos/sapsh.png",
+    "./icons/logos/sapsk.png",
+    "./icons/logos/sapss.png",
+    "./icons/logos/turtles.svg",
 ];
 
 self.addEventListener("install", (e) => {

@@ -17,7 +17,7 @@ area** selector; coordinates are never shown).
 
 | File | Purpose |
 |------|---------|
-| `index.html` | **The whole app** — HTML + compiled Tailwind CSS + plain JS: sticky lifeline, search, accordion categories, light/dark mode, **favourites pinning, WhatsApp buttons**, service-worker registration — plus a **Tools & Guides** menu (directory · preparedness checklist · first-aid quick guides · national helplines · copy my location), with a dedicated search inside the Tools view |
+| `index.html` | **The whole app** — HTML + compiled Tailwind CSS + plain JS: sticky lifeline, search, accordion categories, light/dark mode, **favourites pinning, WhatsApp rows**, service-worker registration — plus a **Tools & Guides** menu (directory · preparedness checklist · first-aid quick guides · national helplines · copy my location), with a dedicated search inside the Tools view |
 | `data.js` | **All the content** — edit here to add/change numbers |
 | `server.ts` | Bun dev server — static files with correct MIME types (SW + manifest) and **live reload** |
 | `tests/smoke.ts` | Playwright smoke tests (`bun run test`) |
@@ -26,7 +26,7 @@ area** selector; coordinates are never shown).
 | `tailwind.config.js` + `tailwind.source.css` | Source for rebuilding `tailwind.css` |
 | `manifest.json` | Enables "Add to Home Screen" |
 | `sw.js` | Service worker — caches the app for offline use |
-| `icons/` | App icons and partner logos (`make_icons.py` regenerates the PNGs) |
+| `icons/` | App icons + partner logos — `icon.svg` / `icon-maskable.svg` are the source of truth; `make_icons.py` rasterizes the PNGs (requires ImageMagick) |
 | `fonts/` | Self-hosted Space Grotesk display font (woff2) — keeps headings branded offline |
 | `.github/workflows/deploy-pages.yml` | GitHub Actions — publishes the app to GitHub Pages on push to `develop` |
 

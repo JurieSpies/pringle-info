@@ -506,7 +506,8 @@ system above with one deliberate addition: a **crisis red** (`crisis` ~`#C1292E`
 applied only to emergency call actions (lifeline tiles, dial buttons, first-aid
 & helpline badges). Everything else stays monochrome-plus-blue: the blue
 `primary` paints search focus, links, the install pill and the checklist
-progress; amber carries warning alerts; green stays on WhatsApp buttons. The
+progress; amber carries warning alerts; green stays on WhatsApp rows (the
+WhatsApp icon + number row mirrors the blue email row's shape). The
 app is emoji-free — all icons are inline SVG, never emoji glyphs.
 
 Typography adds one face beyond the Notion base: **Space Grotesk** (variable,

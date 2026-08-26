@@ -34,10 +34,42 @@ assert(
     "106 contact cards",
 );
 assert(
-    (await page.locator("#lifelineGrid a").count()) === 4,
-    "lifeline: 4 one-tap tiles",
+    (await page.locator("#lifelineGrid details").count()) === 4,
+    "lifeline: 4 expandable items",
 );
-assert((await page.locator('a[href^="tel:"]').count()) === 143, "tel: links");
+assert(
+    (await page.locator("#lifelineGrid a[href^='tel:']").count()) === 8,
+    "lifeline: 4 direct-dial numbers + 4 call buttons",
+);
+assert((await page.locator('a[href^="tel:"]').count()) === 147, "tel: links");
+
+// ---- lifeline expand/collapse ----
+assert(
+    !(await page.locator("#ll-fire").evaluate((el) => el.open)),
+    "lifeline: items start collapsed",
+);
+await page.click("#ll-fire .chevron");
+await page.waitForTimeout(200);
+assert(
+    await page.locator("#ll-fire div.bg-crisis-dark").isVisible(),
+    "lifeline: tapping the row expands it",
+);
+assert(
+    await page.locator("#ll-fire").evaluate((el) => el.open),
+    "lifeline: expanded item is open",
+);
+await page.click("#ll-fire summary a[href^='tel:']");
+await page.waitForTimeout(200);
+assert(
+    await page.locator("#ll-fire").evaluate((el) => el.open),
+    "lifeline: tapping the number dials without collapsing",
+);
+await page.click("#ll-fire .chevron");
+await page.waitForTimeout(200);
+assert(
+    !(await page.locator("#ll-fire").evaluate((el) => el.open)),
+    "lifeline: tapping the row collapses it again",
+);
 assert(
     (await page.locator('a[href^="https://wa.me/"]').count()) === 62,
     "WhatsApp links (mobile numbers only)",

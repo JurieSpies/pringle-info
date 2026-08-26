@@ -78,9 +78,13 @@ Default section order:
 
 When the user requests a durable behavior change, record it here or in the relevant child AGENTS.md
 
-- The Overstrand Lifeline app must never display GPS coordinates in the UI. The
-  per-card GPS chips ("GPS · …" + coordinates + navigate link) stay removed; raw
-  lat/lng never render anywhere.
+- The app never displays GPS coordinates as text anywhere. Navigation is a
+  light blue navigate row (nav icon + street address) that appears when a
+  `data.js` entry has a `geo` field (a real street address), and tapping it
+  opens a map navigation link (`https://maps.google.com/?q=<address>`). Cards
+  without a `geo` field (mobile/at-home practitioners, town-only) get no row.
+  Raw lat/lng values never render; the `areas` town-centre coords exist only
+  for nearest-area detection and the "Copy my location" fallback.
 - The burger menu has a "Copy my location" action: it copies a shareable map link
   (`https://maps.google.com/?q=lat,lng`) to the clipboard so the reader can paste
   it into a message. It shows no coordinates in the app. If GPS is denied or
@@ -92,14 +96,37 @@ When the user requests a durable behavior change, record it here or in the relev
   shows the coordinates. The `areas` town-centre `lat`/`lng` values in
   `data.js` exist only for nearest-area detection and as the "Copy my location"
   fallback; never display them.
+- The header's 4 emergency items (`APP.lifeline`) are expandable accordion
+  rows: tapping a row reveals its service line and a big call button, while
+  tapping the number itself still dials immediately (one-tap preserved). Crisis
+  red stays limited to those tiles, their expansion panel and the call button.
 - The app follows the Notion-inspired design system in `DESIGN.md` (warm paper
   canvas, near-black ink type, hairline borders, one blue accent for chrome).
   Crisis red is reserved strictly for emergency call actions (lifeline tiles,
   dial buttons, first-aid & helpline badges). Display headings use the
   self-hosted Space Grotesk font (`fonts/`); body and phone numbers stay Inter.
+- Directory cards may show a small brand-logo chip (top-right, beside the star)
+  for entries whose id is a key in `APP.logos`. Logos are full-colour brand
+  marks — content, not chrome — set in a small white hairline chip, rendered
+  decorative (`alt=""`); the title always carries the name. No logo ever
+  replaces a dial row or the star, and lifeline tiles stay logo-free red call
+  buttons.
+- Cards render an `email` field as a light mailto row (blue accent — only dial
+  and lifeline actions use crisis red), an `hours` field on its own line under
+  the meta with a small clock glyph, and any WhatsApp-capable number as a
+  light green WhatsApp row (green icon + number → wa.me, mirroring the email
+  row's shape). A `geo` entry's address renders as a light blue navigate row
+  (nav icon + address → Google Maps) in the same action stack; the card header
+  holds only the title, logo chip and star.
 - No emojis anywhere in the app or its data — use inline SVG icons only
   (`index.html` ICONS map, menu SVGs). Do not re-add `ic:`/`e:`/`icons` emoji
   fields to `data.js`.
+- The app is mobile-first: every change must keep it mobile friendly. Layouts
+  must avoid horizontal scroll on phone viewports, touch targets stay
+  thumb-sized, text remains legible at small sizes, and desktop layouts are a
+  progressive enhancement of the mobile experience, never the primary target.
+  Verify responsive behaviour on a phone viewport before considering a change
+  done.
 
 ## Deployment
 

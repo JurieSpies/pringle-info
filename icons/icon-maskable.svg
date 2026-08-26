@@ -1,6 +1,33 @@
+<!-- Overstrand Lifeline maskable app icon — same mark as icon.svg, full-bleed
+     tile and ring scaled 0.85 so it survives circular/rounded launcher masks
+     (Google safe zone = central 66%). Tokens match icon.svg. -->
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <rect width="512" height="512" fill="#C12F1E"/>
-  <g transform="translate(80 80) scale(14.5)">
-    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#F3EFE4"/>
+  <!-- full-bleed tile -->
+  <rect width="512" height="512" fill="#EFE7D5"/>
+
+  <!-- ring base (R 168.3, r 108.8 = 0.85x the regular icon) -->
+  <circle cx="256" cy="256" r="168.3" fill="#F9F5EA"/>
+
+  <!-- crisis-red quadrants (top-right & bottom-left; the other two stay paper) -->
+  <path d="M256 87.7 A168.3 168.3 0 0 1 424.3 256 L364.8 256 A108.8 108.8 0 0 0 256 147.2 Z" fill="#C1292E"/>
+  <path d="M256 424.3 A168.3 168.3 0 0 1 87.7 256 L147.2 256 A108.8 108.8 0 0 0 256 364.8 Z" fill="#C1292E"/>
+
+  <!-- hole -->
+  <circle cx="256" cy="256" r="108.8" fill="#EFE7D5"/>
+
+  <!-- webbing straps -->
+  <g fill="#F9F5EA" stroke="#C1292E" stroke-width="4">
+    <rect x="244" y="88" width="24" height="59" rx="12"/>
+    <rect x="244" y="365" width="24" height="59" rx="12"/>
+    <rect x="88" y="244" width="59" height="24" rx="12"/>
+    <rect x="365" y="244" width="59" height="24" rx="12"/>
   </g>
+
+  <!-- phone handset (scale 0.85x too) -->
+  <path transform="translate(180.9 193.4) scale(5.44)" fill="#12100E"
+    d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+
+  <!-- hairline ring edges -->
+  <circle cx="256" cy="256" r="168.3" fill="none" stroke="#12100E" stroke-opacity="0.08" stroke-width="3.5"/>
+  <circle cx="256" cy="256" r="108.8" fill="none" stroke="#12100E" stroke-opacity="0.08" stroke-width="3.5"/>
 </svg>
