@@ -1,0 +1,8 @@
+# Dependencies
+node_modules/
+
+# Local publish folder (mirrors the GitHub Pages workflow build)
+_site/
+
+# macOS
+.DS_Store
