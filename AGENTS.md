@@ -96,10 +96,11 @@ When the user requests a durable behavior change, record it here or in the relev
   shows the coordinates. The `areas` town-centre `lat`/`lng` values in
   `data.js` exist only for nearest-area detection and as the "Copy my location"
   fallback; never display them.
-- The header's 4 emergency items (`APP.lifeline`) are expandable accordion
-  rows: tapping a row reveals its service line and a big call button, while
-  tapping the number itself still dials immediately (one-tap preserved). Crisis
-  red stays limited to those tiles, their expansion panel and the call button.
+- The header's 4 emergency items (`APP.lifeline`) live in a single collapsible
+  red section: tapping the section header expands/collapses the whole list,
+  open reveals each number with its own one-tap dial row (dials immediately)
+  and a big call button. There is no per-item expansion. Crisis red stays
+  limited to the section, the rows and the call buttons.
 - The app follows the Notion-inspired design system in `DESIGN.md` (warm paper
   canvas, near-black ink type, hairline borders, one blue accent for chrome).
   Crisis red is reserved strictly for emergency call actions (lifeline tiles,

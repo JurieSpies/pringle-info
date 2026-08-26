@@ -72,8 +72,8 @@
       </div>
     </div>
 
-    <!-- Lifeline: expandable emergency numbers (tap the number to call) -->
-    <div id="lifelineGrid" class="space-y-2" role="list" aria-label="Emergency numbers"></div>
+    <!-- Lifeline: one collapseable section holding all emergency numbers -->
+    <div id="lifelineGrid"></div>
 
     <!-- Search -->
     <div id="searchRow" class="relative mt-2.5">
@@ -222,31 +222,28 @@
     return "27" + n.slice(1);
   };
 
-  /* Lifeline: 4 expandable emergency items. Tap a row to reveal the service
-     line + big call button; tapping the number itself still dials straight
-     away (no expansion) so one-tap emergency calls stay one tap. */
-  $("#lifelineGrid").innerHTML = APP.lifeline.map((t) => `
-    <details id="ll-${esc(t.id)}" class="lifeline rounded-lg bg-crisis text-white shadow-sm overflow-hidden" role="listitem">
+  /* Lifeline: a single collapseable section holding every emergency number.
+     Collapsing hides the whole list; open reveals each number with its own
+     one-tap dial row and call button (no per-item expansion). */
+  $("#lifelineGrid").innerHTML = `
+    <details id="lifelinePanel" class="lifeline rounded-lg bg-crisis text-white shadow-sm overflow-hidden" role="list" aria-label="Emergency numbers">
       <summary class="flex cursor-pointer select-none items-center gap-2.5 px-3 py-2 hover:bg-crisis-dark active:bg-crisis-dark">
         <span class="min-w-0 flex-1">
-          <span class="font-display block text-[13px] font-bold leading-tight">${esc(t.l)}</span>
-          <a class="block text-[15px] font-extrabold leading-tight tracking-tight tabular-nums hover:underline" href="${telFrom(t.d)}" aria-label="Call ${esc(t.l)} on ${esc(t.d)}">${esc(t.d)}</a>
+          <span class="font-display block text-[13px] font-bold leading-tight">Emergency numbers</span>
+          <span class="block text-[11px] leading-tight text-white/85">tap a number to call</span>
         </span>
         <span class="chevron shrink-0 p-2 text-white/70">${ICONS.chev}</span>
       </summary>
-      <div class="border-t border-white/20 bg-crisis-dark px-3 pt-2 pb-3">
-        ${t.s ? `<p class="text-[11px] leading-snug text-white/85">${esc(t.s)}</p>` : ""}
-        <a class="mt-2 flex items-center justify-center gap-2 rounded-lg bg-white px-3 py-2.5 text-[15px] font-extrabold leading-tight tracking-tight text-crisis hover:bg-red-50 active:bg-crisis-light" href="${telFrom(t.d)}">${ICONS.phone}<span>Call ${esc(t.d)}</span></a>
+      <div class="border-t border-white/20 bg-crisis-dark px-3 pt-2 pb-3 space-y-2">
+        ${APP.lifeline.map((t) => `
+        <div class="rounded-lg bg-crisis px-3 py-2" role="listitem">
+          <span class="font-display block text-[13px] font-bold leading-tight">${esc(t.l)}</span>
+          <a class="block text-[15px] font-extrabold leading-tight tracking-tight tabular-nums hover:underline" href="${telFrom(t.d)}" aria-label="Call ${esc(t.l)} on ${esc(t.d)}">${esc(t.d)}</a>
+          ${t.s ? `<p class="mt-1 text-[11px] leading-snug text-white/85">${esc(t.s)}</p>` : ""}
+          <a class="mt-2 flex items-center justify-center gap-2 rounded-lg bg-white px-3 py-2.5 text-[15px] font-extrabold leading-tight tracking-tight text-crisis hover:bg-red-50 active:bg-crisis-light" href="${telFrom(t.d)}">${ICONS.phone}<span>Call ${esc(t.d)}</span></a>
+        </div>`).join("")}
       </div>
-    </details>`).join("");
-
-  // Dialing the number inside a summary must call, not expand the item.
-  $("#lifelineGrid").addEventListener("click", (e) => {
-    const a = e.target.closest("summary a[href]");
-    if (!a) return;
-    e.preventDefault();
-    window.location.assign(a.href);
-  });
+    </details>`;
 
   /* ---------- card HTML ---------- */
   function cardHTML(e, catQ) {
