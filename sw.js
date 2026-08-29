@@ -64,6 +64,27 @@ self.addEventListener("activate", (e) => {
 
 self.addEventListener("fetch", (e) => {
     if (e.request.method !== "GET") return;
+    // Navigation: network-first so a deployed update lands on the next open;
+    // offline falls back to the cached shell. Everything else stays cache-first
+    // (it is refreshed in bulk when the new cache is filled on install).
+    if (e.request.mode === "navigate") {
+        e.respondWith(
+            fetch(e.request)
+                .then((res) => {
+                    if (res.ok) {
+                        const copy = res.clone();
+                        caches.open(CACHE).then((c) => c.put(e.request, copy));
+                    }
+                    return res;
+                })
+                .catch(() =>
+                    caches
+                        .match(e.request)
+                        .then((hit) => hit || caches.match("./index.html")),
+                ),
+        );
+        return;
+    }
     e.respondWith(
         caches.match(e.request).then((hit) => {
             if (hit) return hit;

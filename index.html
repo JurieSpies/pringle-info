@@ -162,6 +162,18 @@
 <!-- Confirmation toast (aria-live so screen readers announce it) -->
 <div id="toast" role="status" aria-live="polite" class="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white shadow-lg dark:bg-white dark:text-stone-900" hidden></div>
 
+<!-- Update banner: shown when a deployed service worker takes over -->
+<div id="updateBanner" class="fixed inset-x-0 bottom-0 z-50" role="status" hidden>
+  <div class="mx-auto flex max-w-2xl items-center gap-3 border-t border-hairline bg-paper/95 px-4 py-3 backdrop-blur dark:border-stone-800 dark:bg-stone-950/95" style="padding-bottom: calc(0.75rem + env(safe-area-inset-bottom))">
+    <svg class="w-4 h-4 shrink-0 text-primary dark:text-primary-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
+    <p class="min-w-0 flex-1 text-sm font-semibold text-ink dark:text-stone-200">New version available</p>
+    <button id="updateReload" type="button" class="shrink-0 rounded-full bg-primary px-4 py-2 text-xs font-bold text-white hover:bg-primary-dark">Reload</button>
+    <button id="updateDismiss" type="button" aria-label="Dismiss update prompt" title="Dismiss" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-ink-muted hover:bg-black/5 dark:text-stone-400 dark:hover:bg-white/10">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+</div>
+
 <script src="data.js"></script>
 <script>
 (() => {
@@ -763,9 +775,25 @@
   // while it's active the app cache is bypassed so edits show immediately.
   // Production never sets it, so the offline cache keeps working as before.
   if ("serviceWorker" in navigator && !window.__PRINGLE_HOT__) {
+    // updateViaCache: "none" — GitHub Pages HTTP-caches sw.js (max-age=600);
+    // bypass that so a deploy is picked up on the next open, not 10 min later.
     window.addEventListener("load", () => {
-      navigator.serviceWorker.register("sw.js").catch(() => {});
+      navigator.serviceWorker
+        .register("sw.js", { updateViaCache: "none" })
+        .catch(() => {});
     });
+    // A deployed update takes over via skipWaiting + clients.claim; offer an
+    // instant reload so the visible UI matches the fresh cache. First-ever
+    // installs also fire controllerchange, so only react when a controller
+    // already existed — i.e. a real update, not the initial install.
+    const updateBanner = $("#updateBanner");
+    const hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (!hadController || !updateBanner.hidden) return;
+      updateBanner.hidden = false;
+    });
+    $("#updateReload").addEventListener("click", () => location.reload());
+    $("#updateDismiss").addEventListener("click", () => (updateBanner.hidden = true));
   }
 })();
 </script>

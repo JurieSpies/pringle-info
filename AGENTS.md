@@ -93,7 +93,14 @@ When the user requests a durable behavior change, record it here or in the relev
 - The burger menu has a "Share this page" action: it opens the native
   share sheet (`navigator.share`) where available so the reader can share the
   app's URL; where sharing isn't supported it falls back to copying the link to
-  the clipboard. It never renders coordinates.
+  clipboard. It never renders coordinates.
+- Installed users receive deployed updates automatically without reinstalling:
+  navigation loads are network-first (offline falls back to the cached shell), sw.js
+  registers with `updateViaCache: "none"` so GitHub Pages' 10-minute HTTP cache never
+  delays a deploy, and when a new version takes over the page shows a small update
+  banner (paper background, hairline top border, `primary` blue Reload button, inline
+  refresh icon — no crisis red) offering a one-tap reload. First-time installs show no
+  banner.
 - Category lists can be reordered so entries in the reader's area appear first
   ("My area" selector). The app requests the browser location once to pick the
   nearest area, stores the choice in `localStorage` under `pi:area`, and never
