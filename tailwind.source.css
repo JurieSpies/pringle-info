@@ -1,14 +1,39 @@
 /* Source for the compiled `tailwind.css`. Rebuild with:
    npx tailwindcss -i tailwind.source.css -o tailwind.css -m -c tailwind.config.js */
 
-/* Space Grotesk — display headings. Self-hosted (latin subset, variable 300–700)
-   so the brand look survives offline; Inter stays the body/number face. */
+/* Display serif — wordmark, headings, category & section titles. Self-hosted (latin) so the brand look survives offline. */
 @font-face {
-  font-family: "Space Grotesk";
+  font-family: "Fraunces";
   font-style: normal;
-  font-weight: 300 700;
+  font-weight: 400 900;
   font-display: swap;
-  src: url("fonts/space-grotesk-latin.woff2") format("woff2");
+  src: url("fonts/fraunces-latin.woff2") format("woff2");
+}
+
+/* Numerals — every dialable phone number, counts and badges (tabular, unmistakable). */
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/space-mono-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/space-mono-700-latin.woff2") format("woff2");
+}
+
+/* Body — all copy, labels, meta, buttons, search placeholder. */
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("fonts/instrumentsans-latin.woff2") format("woff2");
 }
 
 @tailwind base;

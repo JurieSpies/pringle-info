@@ -1,0 +1,135 @@
+<h2>Refined: "Coastal calm" teal — with crisis red kept on emergency</h2>
+<p class="subtitle">Research-backed decisions: red stays ONLY on emergency actions (universal convention) · teal/oceanic blue replaces blue as the chrome accent (2026 color of the year, calm-tech trend) · softer radii, airier spacing, larger touch targets. Light + dark shown.</p>
+
+<style>
+  .cards { gap: 20px; }
+  .card { flex: 1 1 46%; max-width: 46%; }
+  .card-image { padding: 0; overflow: hidden; background: #eef4f3; }
+  .phone { width: 100%; }
+  .phone-frame { width: 220px; margin: 18px auto 8px; background: #fff; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.16), 0 0 0 1px rgba(0,0,0,.06); overflow: hidden; }
+  .phone-frame.dark { background: #101513; box-shadow: 0 10px 30px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.06); }
+  .status { height: 12px; }
+  .appbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px 4px; }
+  .appbar .logo { width: 18px; height: 18px; border-radius: 6px; }
+  .appbar .title { font-family: Inter; font-weight: 700; font-size: 13px; letter-spacing: -.01em; }
+  .appbar .actions { display: flex; gap: 6px; }
+  .appbar .actions span { width: 18px; height: 18px; border-radius: 50%; background: rgba(0,0,0,.05); display: block; }
+  .lifeline { margin: 10px 14px 0; border-radius: 14px; color: #fff; font-family: Inter; font-size: 11px; font-weight: 700; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; }
+  .lifeline .cnt { display: flex; gap: 5px; align-items: center; }
+  .lifeline .cnt span { width: 16px; height: 16px; border-radius: 5px; background: rgba(255,255,255,.22); display: block; }
+  .search { margin: 10px 14px 0; background: #fff; border-radius: 12px; height: 34px; display: flex; align-items: center; padding: 0 10px; border: 1px solid #e3eeec; }
+  .search i { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid #4a8d86; margin-right: 7px; display: block; position: relative; }
+  .search i:after { content: ''; position: absolute; width: 5px; height: 1.5px; background: #4a8d86; transform: rotate(45deg); left: 6px; top: 6px; border-radius: 2px; }
+  .search em { width: 42%; height: 6px; border-radius: 3px; background: #dfe8e6; display: block; }
+  .area { margin: 10px 14px 0; display: flex; align-items: center; gap: 7px; }
+  .area i { width: 10px; height: 10px; border-radius: 50%; background: #0e7a70; display: block; }
+  .area em { width: 54%; height: 5px; border-radius: 3px; background: #dfe8e6; display: block; }
+  .card-row { margin: 10px 14px 0; background: #fff; border-radius: 14px; padding: 11px 12px; border: 1px solid #e8eceb; box-shadow: 0 1px 2px rgba(0,0,0,.03); }
+  .card-row .h { font-family: Inter; font-weight: 700; font-size: 11.5px; margin-bottom: 5px; }
+  .card-row .l { height: 5px; width: 66%; background: #ecefee; border-radius: 3px; margin-bottom: 7px; }
+  .card-row .rows { display: flex; flex-direction: column; gap: 6px; }
+  .act { height: 30px; border-radius: 10px; display: flex; align-items: center; padding: 0 9px; font-family: Inter; font-size: 9px; font-weight: 700; gap: 6px; }
+  .act i { width: 16px; height: 16px; border-radius: 50%; display: block; flex-shrink: 0; }
+  .act em { width: 52%; height: 4px; border-radius: 2px; }
+  .act.dial { background: #c1292e; color: #fff; }
+  .act.dial i { background: #fff; opacity: .95; }
+  .act.dial em { background: rgba(255,255,255,.9); }
+  .act.mail { background: #eef6f5; color: #0e7a70; border: 1px solid #d9ece8; }
+  .act.mail i { background: #0e7a70; }
+  .act.mail em { background: #0e7a70; opacity: .35; }
+  .cat-bar { margin: 10px 14px 0; border-radius: 14px; border: 1px solid #e8eceb; background: #fff; padding: 11px 12px; display: flex; align-items: center; gap: 8px; box-shadow: 0 1px 2px rgba(0,0,0,.03); }
+  .cat-bar .pill { font-family: Inter; font-size: 9px; font-weight: 700; padding: 3px 6px; border-radius: 20px; background: #e2f1ef; color: #0e7a70; }
+  .cat-bar .t { flex: 1; font-family: Inter; font-weight: 700; font-size: 11.5px; }
+  .cat-bar .ch { width: 8px; height: 8px; border-right: 1.6px solid #b7c4c2; border-bottom: 1.6px solid #b7c4c2; transform: rotate(45deg); }
+  .navdots { display: flex; justify-content: center; gap: 6px; padding: 12px 0 14px; }
+  .navdots span { width: 6px; height: 6px; border-radius: 50%; background: #d7e2e0; }
+  .navdots span.on { background: #0e7a70; width: 16px; border-radius: 4px; }
+  /* dark overrides */
+  .phone-frame.dark .appbar .title { color: #e8f0ee; }
+  .phone-frame.dark .appbar .actions span { background: rgba(255,255,255,.1); }
+  .phone-frame.dark .search { background: #1a211e; border-color: #2a3532; }
+  .phone-frame.dark .search em { background: #2c3834; }
+  .phone-frame.dark .search i { border-color: #7fd0c6; }
+  .phone-frame.dark .area em { background: #2c3834; }
+  .phone-frame.dark .card-row { background: #1a211e; border-color: #27332f; }
+  .phone-frame.dark .card-row .h { color: #e8f0ee; }
+  .phone-frame.dark .card-row .l { background: #2c3834; }
+  .phone-frame.dark .cat-bar { background: #1a211e; border-color: #27332f; }
+  .phone-frame.dark .cat-bar .t { color: #e8f0ee; }
+  .phone-frame.dark .cat-bar .pill { background: #1d3b37; color: #7fd0c6; }
+  .phone-frame.dark .navdots span { background: #2c3834; }
+  .phone-frame.dark .navdots span.on { background: #38a397; }
+  .card-body h3 { font-size: 15px; }
+  .card-body p { font-size: 12.5px; color: #555; line-height: 1.45; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; margin-bottom: 4px; letter-spacing: .02em; }
+</style>
+
+<div class="cards">
+  <div class="card" data-choice="light" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="phone">
+        <div class="phone-frame">
+          <div class="status"></div>
+          <div class="appbar">
+            <span class="logo" style="background:linear-gradient(135deg,#0e7a70,#1aa79b)"></span>
+            <span class="title">Overstrand Lifeline</span>
+            <span class="actions"><span></span><span></span></span>
+          </div>
+          <div class="lifeline" style="background:#c1292e">Emergency numbers <span class="cnt"><span></span><span></span><span></span><span></span></span></div>
+          <div class="search"><i></i><em></em></div>
+          <div class="area"><i></i><em></em></div>
+          <div class="card-row">
+            <div class="h">Fire &amp; Rescue</div>
+            <div class="l"></div>
+            <div class="rows">
+              <div class="act dial"><i></i><em></em></div>
+              <div class="act mail"><i></i><em></em></div>
+            </div>
+          </div>
+          <div class="cat-bar"><span class="pill">1</span><span class="t">Fire &amp; Rescue</span><span class="ch"></span></div>
+          <div class="cat-bar"><span class="pill">2</span><span class="t">Medical</span><span class="ch"></span></div>
+          <div class="navdots"><span class="on"></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <span class="badge" style="background:#e2f1ef;color:#0e7a70">Light · Coastal calm</span>
+      <h3>Warm paper + teal chrome + red emergency</h3>
+      <p>Softer 14px radii, airier spacing, teal accents on search/links/area/email rows. The lifeline and dial buttons stay crisis red — the strongest, most universal emergency signal.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="dark" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="phone">
+        <div class="phone-frame dark">
+          <div class="status"></div>
+          <div class="appbar">
+            <span class="logo" style="background:linear-gradient(135deg,#0e7a70,#1aa79b)"></span>
+            <span class="title">Overstrand Lifeline</span>
+            <span class="actions"><span></span><span></span></span>
+          </div>
+          <div class="lifeline" style="background:#c1292e">Emergency numbers <span class="cnt"><span></span><span></span><span></span><span></span></span></div>
+          <div class="search"><i></i><em></em></div>
+          <div class="area"><i style="background:#38a397"></i><em></em></div>
+          <div class="card-row">
+            <div class="h">Fire &amp; Rescue</div>
+            <div class="l"></div>
+            <div class="rows">
+              <div class="act dial"><i></i><em></em></div>
+              <div class="act mail" style="background:#16302c;border-color:#25504a;color:#7fd0c6"><i style="background:#7fd0c6"></i><em style="background:#7fd0c6"></em></div>
+            </div>
+          </div>
+          <div class="cat-bar"><span class="pill">1</span><span class="t">Fire &amp; Rescue</span><span class="ch"></span></div>
+          <div class="cat-bar"><span class="pill">2</span><span class="t">Medical</span><span class="ch"></span></div>
+          <div class="navdots"><span class="on"></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <span class="badge" style="background:#e2f1ef;color:#0e7a70">Dark · Coastal calm</span>
+      <h3>Dark mode as a first-class surface</h3>
+      <p>Deep blue-green-charcoal surfaces with tuned teal accents — not just an inverted light theme. Red emergency actions stay red in both modes.</p>
+    </div>
+  </div>
+</div>

@@ -33,42 +33,37 @@ assert(
     (await page.locator("article[data-q]").count()) === 106,
     "106 contact cards",
 );
+// ---- lifeline (single collapsible section) ----
 assert(
-    (await page.locator("#lifelineGrid details").count()) === 4,
-    "lifeline: 4 expandable items",
+    (await page.locator("#lifelineGrid details").count()) === 1,
+    "lifeline: one collapsible section",
 );
 assert(
     (await page.locator("#lifelineGrid a[href^='tel:']").count()) === 8,
     "lifeline: 4 direct-dial numbers + 4 call buttons",
 );
 assert((await page.locator('a[href^="tel:"]').count()) === 147, "tel: links");
-
-// ---- lifeline expand/collapse ----
 assert(
-    !(await page.locator("#ll-fire").evaluate((el) => el.open)),
-    "lifeline: items start collapsed",
+    !(await page.locator("#lifelinePanel").evaluate((el) => el.open)),
+    "lifeline: section starts collapsed",
 );
-await page.click("#ll-fire .chevron");
+await page.click("#lifelinePanel summary");
 await page.waitForTimeout(200);
 assert(
-    await page.locator("#ll-fire div.bg-crisis-dark").isVisible(),
-    "lifeline: tapping the row expands it",
+    await page.locator("#lifelinePanel").evaluate((el) => el.open),
+    "lifeline: tapping the header expands the section",
 );
-assert(
-    await page.locator("#ll-fire").evaluate((el) => el.open),
-    "lifeline: expanded item is open",
-);
-await page.click("#ll-fire summary a[href^='tel:']");
+await page.click("#lifelinePanel a[href^='tel:']");
 await page.waitForTimeout(200);
 assert(
-    await page.locator("#ll-fire").evaluate((el) => el.open),
-    "lifeline: tapping the number dials without collapsing",
+    await page.locator("#lifelinePanel").evaluate((el) => el.open),
+    "lifeline: tapping a number dials without collapsing",
 );
-await page.click("#ll-fire .chevron");
+await page.click("#lifelinePanel summary");
 await page.waitForTimeout(200);
 assert(
-    !(await page.locator("#ll-fire").evaluate((el) => el.open)),
-    "lifeline: tapping the row collapses it again",
+    !(await page.locator("#lifelinePanel").evaluate((el) => el.open)),
+    "lifeline: tapping the header collapses the section",
 );
 assert(
     (await page.locator('a[href^="https://wa.me/"]').count()) === 62,
@@ -98,8 +93,8 @@ assert(
     "tools menu: dropdown paints above the search bar",
 );
 assert(
-    (await page.locator("#menuDropdown [data-action]").count()) === 5,
-    "tools menu: 5 items (directory + 3 sections + copy location)",
+    (await page.locator("#menuDropdown [data-action]").count()) === 6,
+    "tools menu: 6 items (directory + 4 sections + copy location + share)",
 );
 await page.locator('#menuDropdown [data-action="firstaid"]').click();
 await page.waitForTimeout(300);

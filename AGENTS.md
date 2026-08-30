@@ -79,7 +79,7 @@ Default section order:
 When the user requests a durable behavior change, record it here or in the relevant child AGENTS.md
 
 - The app never displays GPS coordinates as text anywhere. Navigation is a
-  light blue navigate row (nav icon + street address) that appears when a
+  light teal navigate row (nav icon + street address) that appears when a
   `data.js` entry has a `geo` field (a real street address), and tapping it
   opens a map navigation link (`https://maps.google.com/?q=<address>`). Cards
   without a `geo` field (mobile/at-home practitioners, town-only) get no row.
@@ -98,7 +98,7 @@ When the user requests a durable behavior change, record it here or in the relev
   navigation loads are network-first (offline falls back to the cached shell), sw.js
   registers with `updateViaCache: "none"` so GitHub Pages' 10-minute HTTP cache never
   delays a deploy, and when a new version takes over the page shows a small update
-  banner (paper background, hairline top border, `primary` blue Reload button, inline
+  banner (paper background, hairline top border, `primary` sage-teal Reload button, inline
   refresh icon — no crisis red) offering a one-tap reload. First-time installs show no
   banner.
 - Category lists can be reordered so entries in the reader's area appear first
@@ -112,22 +112,24 @@ When the user requests a durable behavior change, record it here or in the relev
   open reveals each number with its own one-tap dial row (dials immediately)
   and a big call button. There is no per-item expansion. Crisis red stays
   limited to the section, the rows and the call buttons.
-- The app follows the Notion-inspired design system in `DESIGN.md` (warm paper
-  canvas, near-black ink type, hairline borders, one blue accent for chrome).
+- The app follows The Shore design system in `DESIGN.md` (warm sand canvas
+  `#F5F2EC`, near-black ink type `#26221B`, hairline borders, sage-teal
+  `#2E6E62` chrome accent).
   Crisis red is reserved strictly for emergency call actions (lifeline tiles,
   dial buttons, first-aid & helpline badges). Display headings use the
-  self-hosted Space Grotesk font (`fonts/`); body and phone numbers stay Inter.
+  self-hosted Fraunces font (`fonts/`); numerals use Space Mono; body stays
+  Instrument Sans.
 - Directory cards may show a small brand-logo chip (top-right, beside the star)
   for entries whose id is a key in `APP.logos`. Logos are full-colour brand
   marks — content, not chrome — set in a small white hairline chip, rendered
   decorative (`alt=""`); the title always carries the name. No logo ever
   replaces a dial row or the star, and lifeline tiles stay logo-free red call
   buttons.
-- Cards render an `email` field as a light mailto row (blue accent — only dial
+- Cards render an `email` field as a light mailto row (teal accent — only dial
   and lifeline actions use crisis red), an `hours` field on its own line under
   the meta with a small clock glyph, and any WhatsApp-capable number as a
   light green WhatsApp row (green icon + number → wa.me, mirroring the email
-  row's shape). A `geo` entry's address renders as a light blue navigate row
+  row's shape). A `geo` entry's address renders as a light teal navigate row
   (nav icon + address → Google Maps) in the same action stack; the card header
   holds only the title, logo chip and star.
 - No emojis anywhere in the app or its data — use inline SVG icons only

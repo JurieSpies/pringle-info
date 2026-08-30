@@ -22,12 +22,12 @@ area** selector; coordinates are never shown).
 | `server.ts` | Bun dev server — static files with correct MIME types (SW + manifest) and **live reload** |
 | `tests/smoke.ts` | Playwright smoke tests (`bun run test`) |
 | `tailwind.css` | Compiled Tailwind utility classes (generated, ~19 KB) |
-| `DESIGN.md` | Notion-style design system reference the UI follows (colors, type, components) |
+| `DESIGN.md` | The Shore design-system reference the UI follows (colors, type, components) |
 | `tailwind.config.js` + `tailwind.source.css` | Source for rebuilding `tailwind.css` |
 | `manifest.json` | Enables "Add to Home Screen" |
 | `sw.js` | Service worker — caches the app for offline use |
 | `icons/` | App icons + partner logos — `icon.svg` / `icon-maskable.svg` are the source of truth; `make_icons.py` rasterizes the PNGs (requires ImageMagick) |
-| `fonts/` | Self-hosted Space Grotesk display font (woff2) — keeps headings branded offline |
+| `fonts/` | Self-hosted display + numeral fonts (Fraunces, Space Mono, Instrument Sans woff2) — keeps the look branded offline |
 | `.github/workflows/deploy-pages.yml` | GitHub Actions — publishes the app to GitHub Pages on push to `develop` |
 
 To rebuild the compiled CSS after editing `index.html`:
@@ -117,6 +117,10 @@ All content lives in `data.js`. An entry looks like:
   feeds National Helplines. Both are searchable like any category.
 - Search matches the title, sub-line, notes, numbers and the category title —
   so searching "Snake" surfaces the whole Snake Removal section.
+
+> Design follows `DESIGN.md` — The Shore system: warm sand canvas, sage-teal
+> chrome, crisis red for emergency calls, Fraunces/Space Mono/Instrument Sans
+> type.
 
 > Numbers are from Overstrand Municipality and community notices. Check the
 > [official list](https://www.overstrand.gov.za/important-numbers-2/) for

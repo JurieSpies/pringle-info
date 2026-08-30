@@ -1,0 +1,172 @@
+<h2>Which visual direction feels right?</h2>
+<p class="subtitle">Overstrand Lifeline — current look is the "Notion calm" (warm paper + one blue accent). Four directions to compare. Click to select your favorite, or reply in the terminal.</p>
+
+<style>
+  .cards { gap: 18px; }
+  .card { flex: 1 1 46%; max-width: 46%; }
+  .card-image { padding: 0; overflow: hidden; background: #f6f5f4; }
+  .phone { width: 100%; background: #f6f5f4; border-radius: 0; }
+  .phone-frame { width: 210px; margin: 18px auto 8px; background: #fff; border-radius: 26px; box-shadow: 0 8px 24px rgba(0,0,0,.14), 0 0 0 1px rgba(0,0,0,.08); overflow: hidden; padding-bottom: 4px; }
+  .status { height: 10px; background: transparent; }
+  .appbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 4px; }
+  .appbar .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .appbar .title { font-family: Inter; font-weight: 700; font-size: 12px; letter-spacing: -.01em; }
+  .appbar .actions { display: flex; gap: 5px; }
+  .appbar .actions span { width: 16px; height: 16px; border-radius: 50%; background: rgba(0,0,0,.06); display: block; }
+  .lifeline { margin: 8px 12px; border-radius: 10px; color: #fff; font-family: Inter; font-size: 10px; font-weight: 700; padding: 8px 10px; display: flex; align-items: center; justify-content: space-between; }
+  .lifeline .cnt { display: flex; gap: 4px; align-items: center; }
+  .lifeline .cnt span { width: 14px; height: 14px; border-radius: 4px; background: rgba(255,255,255,.2); display: block; }
+  .search { margin: 8px 12px 12px; background: #fff; border-radius: 8px; height: 20px; display: flex; align-items: center; padding: 0 8px; }
+  .search i { width: 8px; height: 8px; border-radius: 50%; border: 1.4px solid #999; margin-right: 6px; display: block; position: relative; }
+  .search i:after { content: ''; position: absolute; width: 5px; height: 1.4px; background: #999; transform: rotate(45deg); left: 5px; top: 5px; border-radius: 2px; }
+  .search em { width: 40%; height: 5px; border-radius: 3px; background: #e2e0dd; display: block; }
+  .area { margin: 0 12px 10px; display: flex; align-items: center; gap: 6px; }
+  .area i { width: 9px; height: 9px; border-radius: 50%; background: #0075de; display: block; }
+  .area em { width: 56%; height: 5px; border-radius: 3px; background: #e2e0dd; display: block; }
+  .card-row { margin: 0 12px 8px; background: #fff; border-radius: 10px; padding: 9px 10px; border: 1px solid #e6e6e6; }
+  .card-row .h { font-family: Inter; font-weight: 700; font-size: 10.5px; margin-bottom: 4px; }
+  .card-row .l { height: 4px; width: 70%; background: #eee; border-radius: 2px; margin-bottom: 5px; }
+  .card-row .btn { height: 12px; border-radius: 6px; display: flex; align-items: center; padding: 0 6px; font-family: Inter; font-size: 7.5px; font-weight: 700; }
+  .card-row .btn i { width: 5px; height: 5px; border-radius: 50%; margin-right: 3px; }
+  .card-row .btn em { width: 22px; height: 3px; border-radius: 2px; background: rgba(255,255,255,.85); }
+  .cat-bar { margin: 0 12px 8px; border-radius: 10px; border: 1px solid #e6e6e6; background: #fff; padding: 9px 10px; display: flex; align-items: center; gap: 6px; }
+  .cat-bar .pill { font-family: Inter; font-size: 8px; font-weight: 700; padding: 2px 5px; border-radius: 20px; }
+  .cat-bar .t { flex: 1; font-family: Inter; font-weight: 700; font-size: 10.5px; }
+  .cat-bar .ch { width: 7px; height: 7px; border-right: 1.5px solid #aaa; border-bottom: 1.5px solid #aaa; transform: rotate(45deg); }
+  .navdots { display: flex; justify-content: center; gap: 5px; padding: 2px 0 10px; }
+  .navdots span { width: 5px; height: 5px; border-radius: 50%; background: #ddd; }
+  .navdots span.on { background: #0075de; }
+  .card-body h3 { font-size: 15px; }
+  .card-body p { font-size: 12.5px; color: #666; line-height: 1.45; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; margin-bottom: 4px; letter-spacing: .02em; }
+</style>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="phone">
+        <div class="phone-frame">
+          <div class="status"></div>
+          <div class="appbar">
+            <span class="dot" style="background:#C1292E"></span>
+            <span class="title">Overstrand Lifeline</span>
+            <span class="actions"><span></span><span></span></span>
+          </div>
+          <div class="lifeline" style="background:#C1292E">Emergency numbers <span class="cnt"><span></span><span></span><span></span><span></span></span></div>
+          <div class="search"><i></i><em></em></div>
+          <div class="area"><i></i><em></em></div>
+          <div class="card-row">
+            <div class="h">Fire &amp; Rescue</div>
+            <div class="l"></div>
+            <div class="btn" style="background:#C1292E;color:#fff"><i style="background:#fff"></i><em></em></div>
+          </div>
+          <div class="cat-bar"><span class="pill" style="background:#e8f1fb;color:#0075de">1</span><span class="t">Fire &amp; Rescue</span><span class="ch"></span></div>
+          <div class="cat-bar"><span class="pill" style="background:#e8f1fb;color:#0075de">2</span><span class="t">Medical</span><span class="ch"></span></div>
+          <div class="cat-bar"><span class="pill" style="background:#e8f1fb;color:#0075de">3</span><span class="t">Police &amp; Security</span><span class="ch"></span></div>
+          <div class="navdots"><span class="on"></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <span class="badge" style="background:#e8f1fb;color:#0075de">A · Current — "Notion calm"</span>
+      <h3>Keep it, polish it</h3>
+      <p>Same warm-paper + single blue + crisis red system. We refine spacing, typography, cards and motion so it feels more confident and modern without a visual reboot.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="phone">
+        <div class="phone-frame">
+          <div class="status"></div>
+          <div class="appbar" style="background:#12100e">
+            <span class="dot" style="background:#fff;opacity:.9"></span>
+            <span class="title" style="color:#fff">Overstrand Lifeline</span>
+            <span class="actions"><span style="background:rgba(255,255,255,.15)"></span><span style="background:rgba(255,255,255,.15)"></span></span>
+          </div>
+          <div class="lifeline" style="background:#C1292E;box-shadow:0 2px 10px rgba(193,41,46,.35)">SOS <span class="cnt"><span></span><span></span><span></span><span></span></span></div>
+          <div class="search"><i></i><em></em></div>
+          <div class="area"><i style="background:#62aef0"></i><em></em></div>
+          <div class="card-row" style="background:#12100e;border-color:rgba(255,255,255,.1)">
+            <div class="h" style="color:#fff">Fire &amp; Rescue</div>
+            <div class="l" style="background:rgba(255,255,255,.15)"></div>
+            <div class="btn" style="background:#C1292E;color:#fff"><i style="background:#fff"></i><em></em></div>
+          </div>
+          <div class="cat-bar" style="background:#12100e;border-color:rgba(255,255,255,.1)"><span class="pill" style="background:#C1292E;color:#fff">01</span><span class="t" style="color:#fff">Fire &amp; Rescue</span><span class="ch" style="border-color:#888"></span></div>
+          <div class="cat-bar" style="background:#12100e;border-color:rgba(255,255,255,.1)"><span class="pill" style="background:#C1292E;color:#fff">02</span><span class="t" style="color:#fff">Medical</span><span class="ch" style="border-color:#888"></span></div>
+          <div class="cat-bar" style="background:#12100e;border-color:rgba(255,255,255,.1)"><span class="pill" style="background:#C1292E;color:#fff">03</span><span class="t" style="color:#fff">Police &amp; Security</span><span class="ch" style="border-color:#888"></span></div>
+          <div class="navdots"><span style="background:#444"></span><span style="background:#C1292E"></span><span style="background:#444"></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <span class="badge" style="background:#ffe9ea;color:#C1292E">B · "Crisis mode" dark</span>
+      <h3>Dark, urgent, big type</h3>
+      <p>A near-black canvas with the lifeline red doing the heavy lifting. Feels like a serious emergency tool — high contrast, calm-under-pressure, modern app-like.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="phone">
+        <div class="phone-frame">
+          <div class="status"></div>
+          <div class="appbar" style="background:#f0f5f8">
+            <span class="dot" style="background:#0b6e7a"></span>
+            <span class="title">Overstrand Lifeline</span>
+            <span class="actions"><span></span><span></span></span>
+          </div>
+          <div class="lifeline" style="background:#0b6e7a">Emergency numbers <span class="cnt"><span></span><span></span><span></span><span></span></span></div>
+          <div class="search"><i></i><em></em></div>
+          <div class="area"><i style="background:#0b6e7a"></i><em></em></div>
+          <div class="card-row" style="border-radius:14px">
+            <div class="h">Fire &amp; Rescue</div>
+            <div class="l"></div>
+            <div class="btn" style="background:#C1292E;color:#fff"><i style="background:#fff"></i><em></em></div>
+          </div>
+          <div class="cat-bar" style="border-radius:14px"><span class="pill" style="background:#e3f2f4;color:#0b6e7a">1</span><span class="t">Fire &amp; Rescue</span><span class="ch"></span></div>
+          <div class="cat-bar" style="border-radius:14px"><span class="pill" style="background:#e3f2f4;color:#0b6e7a">2</span><span class="t">Medical</span><span class="ch"></span></div>
+          <div class="cat-bar" style="border-radius:14px"><span class="pill" style="background:#e3f2f4;color:#0b6e7a">3</span><span class="t">Police &amp; Security</span><span class="ch"></span></div>
+          <div class="navdots"><span class="on" style="background:#0b6e7a"></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <span class="badge" style="background:#e3f2f4;color:#0b6e7a">C · "Coastal calm" teal</span>
+      <h3>Ocean-inspired, friendly</h3>
+      <p>Soft sea-teal accent replacing blue, softer radii and airier spacing. A warmer, more community-oriented, approachable feel.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="d" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="phone">
+        <div class="phone-frame">
+          <div class="status"></div>
+          <div class="appbar" style="background:#fff;border-bottom:1px solid #f0f0f0">
+            <span class="dot" style="background:#ff5c1a"></span>
+            <span class="title">Overstrand Lifeline</span>
+            <span class="actions"><span></span><span></span></span>
+          </div>
+          <div class="lifeline" style="background:#ff5c1a">Emergency numbers <span class="cnt"><span></span><span></span><span></span><span></span></span></div>
+          <div class="search"><i></i><em></em></div>
+          <div class="area"><i style="background:#ff5c1a"></i><em></em></div>
+          <div class="card-row" style="box-shadow:0 1px 3px rgba(0,0,0,.06)">
+            <div class="h">Fire &amp; Rescue</div>
+            <div class="l"></div>
+            <div class="btn" style="background:#C1292E;color:#fff"><i style="background:#fff"></i><em></em></div>
+          </div>
+          <div class="cat-bar" style="box-shadow:0 1px 3px rgba(0,0,0,.06)"><span class="pill" style="background:#fff1ea;color:#ff5c1a">1</span><span class="t">Fire &amp; Rescue</span><span class="ch"></span></div>
+          <div class="cat-bar" style="box-shadow:0 1px 3px rgba(0,0,0,.06)"><span class="pill" style="background:#fff1ea;color:#ff5c1a">2</span><span class="t">Medical</span><span class="ch"></span></div>
+          <div class="cat-bar" style="box-shadow:0 1px 3px rgba(0,0,0,.06)"><span class="pill" style="background:#fff1ea;color:#ff5c1a">3</span><span class="t">Police &amp; Security</span><span class="ch"></span></div>
+          <div class="navdots"><span class="on" style="background:#ff5c1a"></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <span class="badge" style="background:#fff1ea;color:#ff5c1a">D · "Community board" warm</span>
+      <h3>Warm local-trust look</h3>
+      <p>Warmer cream canvas, terracotta/orange accent, friendlier radius and a soft shadow on cards. Feels like a trusted community noticeboard.</p>
+    </div>
+  </div>
+</div>

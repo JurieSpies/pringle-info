@@ -22,27 +22,30 @@ is `data.js`; the canonical design rules are `DESIGN.md` and `AGENTS.md`.
 | `manifest.json` | Enables "Add to Home Screen" (standalone, portrait, 192/512/maskable icons) |
 | `sw.js` | Service worker (versioned cache) — precaches the app shell, brand logos and fonts; runtime-caches same-origin GETs; offline fallback to `index.html`. Bypassed while the dev server's live reload is active |
 | `icons/` | App icons + `logos/` brand marks; `icon.svg` / `icon-maskable.svg` are the source of truth, `make_icons.py` rasterizes the PNGs |
-| `fonts/` | Self-hosted Space Grotesk display font (woff2) — keeps headings branded offline |
+| `fonts/` | Self-hosted display + numeral fonts (Fraunces, Space Mono, Instrument Sans woff2) — keeps the look branded offline |
 | `server.ts` | Bun dev server — correct MIME types (SW + manifest) and live reload (`HOT=0` or `/?hot=0` disables it) |
 | `tests/smoke.ts` | Playwright smoke tests (`bun run test`; dev server must be running) |
 | `.github/workflows/deploy-pages.yml` | GitHub Actions — publishes the app to GitHub Pages on push to `develop` |
 
 ## Design system
 
-The app follows the Notion-inspired system in `DESIGN.md`:
+The app follows The Shore system in `DESIGN.md`:
 
-- **Warm paper canvas** (`#f6f5f4`-family surfaces), near-black ink type,
-  hairline borders, minimal elevation.
-- **One blue accent** (`primary`, ~`#0075de`) for chrome: search focus, links,
-  the install pill, mail/navigate rows, checklist progress, the area pin.
+- **Warm sand canvas** (`#F5F2EC`), near-black ink type (`#26221B`), warm
+  hairline borders (`#E4DCCB`), minimal elevation.
+- **Sage-teal accent** (`primary`, `#2E6E62`, with `#22544B` pressed /
+  `#7FBFB2` light / `#E6EFEC` soft) for chrome: search focus, links, the
+  install pill, mail/navigate rows, checklist progress, the area pin.
 - **Crisis red** (`crisis`, ~`#C1292E`) is reserved strictly for emergency call
   actions: the lifeline section, dial buttons, first-aid and helpline badges.
 - **Amber** carries warning alerts (snake / bee / reporting notices); **green**
-  stays on WhatsApp rows (green icon + number → `wa.me`, mirroring the blue
+  stays on WhatsApp rows (green icon + number → `wa.me`, mirroring the teal
   email row's shape).
-- **Typography**: Space Grotesk (self-hosted in `fonts/`) is the display face
-  for the wordmark, headings and category titles (`font-display`); Inter is the
-  body and phone-number face for legibility and tabular digits.
+- **Typography** — three faces, all self-hosted in `fonts/`: **Fraunces**
+  (display serif) for the wordmark, headings and category titles
+  (`font-display`); **Space Mono** (mono) for every dialable number, count and
+  badge (`font-num`); **Instrument Sans** (sans) for body copy and
+  phone-number labels (`font-sans`).
 - **Emoji-free**: every icon is an inline SVG from the `ICONS` map in
   `index.html`. No emoji glyphs anywhere in the app or its data.
 - **Mobile-first**: no horizontal scroll on phone viewports, thumb-sized touch
@@ -80,7 +83,7 @@ The app follows the Notion-inspired system in `DESIGN.md`:
    - a **dial row per number** (`tel:` link; short 3–5-digit numbers like
      `10177` / `084 124` get a bigger dial-pad look);
    - a **WhatsApp row** for every SA mobile number (icon + number →
-     `https://wa.me/<number>`), green to match the blue email row;
+     `https://wa.me/<number>`), green to match the teal email row;
    - an **email row** (`mailto:`) when the entry has an `email` field;
    - a **navigate row** (nav icon + street address → Google Maps) only when the
      entry has a real street-address `geo` field. Cards without `geo` get no
@@ -112,11 +115,13 @@ The app follows the Notion-inspired system in `DESIGN.md`:
   display, portrait orientation, theme/background colours, 192/512/maskable
   icons, Apple touch icon and meta tags.
 - `sw.js`: precaches `index.html`, `tailwind.css`, `data.js`, `manifest.json`,
-  all `icons/` (including `logos/`) and the Space Grotesk font; cache-first
+  all `icons/` (including `logos/`) and the three fonts (Fraunces, Space Mono,
+  Instrument Sans); cache-first
   reads with runtime caching of successful same-origin GETs and a fallback to
   `index.html` offline. Cache version is bumped on release
-  (`v2.9.0` — email rows + hours line; `v2.8.0` — brand logos on cards;
-  `v2.7.0` — Space Grotesk; `v2.6.0` — Notion redesign).
+  (`v3.0.0` — The Shore redesign: Fraunces / Space Mono / Instrument Sans,
+  sage-teal chrome; `v2.9.0` — email rows + hours line; `v2.8.0` — brand logos
+  on cards).
 - Registration happens on `load` unless the dev live-reload flag
   (`window.__PRINGLE_HOT__`) is set, so production keeps working offline.
 
@@ -131,7 +136,7 @@ The app follows the Notion-inspired system in `DESIGN.md`:
 - `APP.logos` — entry id → logo file path. Rendered as a small chip on cards
   whose id is a key; already cached by the service worker.
 - `APP.categories` — **10 numbered accordion sections**. Each may have an
-  `intro` (blue-ish guidance line) and/or `alert` (amber notice) above its
+  `intro` (grey guidance line) and/or `alert` (amber notice) above its
   `entries`.
 - `APP.firstAid.groups[].guides[]` — guides with `t`, `signs[]`, `do[]`,
   `dont[]`, `call[]` (numbers to dial for that scenario).
@@ -316,7 +321,7 @@ Each guide carries one-line signs / what-to-do / avoid / call numbers (typically
 
 ## Data rules (privacy & trust)
 
-- The app never displays GPS coordinates as text anywhere. Only real street addresses (`geo`) may render, as a light blue navigate row that opens Google Maps.
+- The app never displays GPS coordinates as text anywhere. Only real street addresses (`geo`) may render, as a light teal navigate row that opens Google Maps.
 - `APP.areas` `lat`/`lng` town centres exist solely for nearest-area detection and the "Copy my location" fallback (which labels the copy as an approximate link when it uses the town centre).
 - No emojis in the app or its data — inline SVG icons only.
 - Directory numbers come from Overstrand Municipality and community notices; verified details (addresses, hours, emails, websites) were added from official sources (municipality, SAPS, NSRI, practices, Medpages). Keep `data.js` aligned with the official list: overstrand.gov.za/important-numbers-2.

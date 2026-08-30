@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Schibsted+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Instrument Sans', sans-serif; background: #EDEAE3; color: #222; margin: 0; padding: 24px; }
+  h2 { font-size: 20px; font-weight: 700; letter-spacing: -.02em; margin: 0 0 4px; }
+  .subtitle { color: #666; font-size: 13.5px; margin: 0 0 20px; max-width: 780px; line-height: 1.5; }
+  .cards { display: flex; gap: 20px; flex-wrap: wrap; }
+  .card { flex: 1 1 300px; max-width: 330px; cursor: pointer; border-radius: 14px; background: #fff; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06); border: 1.5px solid transparent; transition: border-color .15s; }
+  .card.sel { border-color: #0B5D55; }
+  .phone-wrap { background: #ECEAE4; padding: 16px 0 8px; }
+  .phone { width: 230px; margin: 0 auto; border-radius: 30px; overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,.08), 0 12px 32px rgba(0,0,0,.15); }
+  .inner { padding: 12px 14px 14px; min-height: 430px; }
+  .card h3 { font-size: 14.5px; font-weight: 700; margin: 12px 14px 2px; letter-spacing: -.01em; }
+  .card .tag { font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin: 0 14px; color: #888; }
+  .card .desc { font-size: 12.5px; color: #555; line-height: 1.45; margin: 6px 14px 14px; }
+  .swatches { display: flex; gap: 5px; margin: 0 14px 14px; }
+  .sw { width: 22px; height: 22px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(0,0,0,.1) inset; }
+  .swb { font-size: 9.5px; color: #999; margin: 0 14px 14px; }
+  /* ---- generic mini UI helpers ---- */
+  .top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .top .brand { font-weight: 700; font-size: 12px; letter-spacing: -.01em; }
+  .top .icons { display: flex; gap: 4px; }
+  .top .ic { width: 20px; height: 20px; border-radius: 7px; display: block; }
+</style>
+</head>
+<body>
+<h2>Three hand-crafted directions — real type, real palettes, zero AI tells</h2>
+<p class="subtitle">Research: AI tells are Inter/DM Sans, blue-to-indigo gradients, uniform <code>rounded-2xl</code>, glassy blur navs, three identical cards, em-dash copy, centered everything. All three below avoid them with a chosen display face + mono for numbers + a derived palette. Click to select a favorite, or reply in the terminal.</p>
+
+<div class="cards">
+
+  <!-- A: COASTAL DISPATCH -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="phone-wrap">
+      <div class="phone">
+        <div style="background:#F4F1EA">
+          <div class="inner" style="font-family:'Instrument Sans'">
+            <div class="top">
+              <span class="brand" style="font-family:'Bricolage Grotesque';font-weight:700;font-size:13px">Overstrand Lifeline</span>
+              <span class="icons"><span class="ic" style="background:#0B5D55"></span><span class="ic" style="background:rgba(0,0,0,.06)"></span></span>
+            </div>
+            <div style="background:#C1292E;border-radius:10px;color:#fff;padding:8px 10px;margin-bottom:8px">
+              <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:10.5px;display:flex;justify-content:space-between;align-items:center"><span>Emergency numbers</span><span style="opacity:.7">▾</span></div>
+              <div style="font-size:9px;opacity:.85;margin-top:2px">Tap a number to call</div>
+            </div>
+            <div style="background:#fff;border:1px solid #E4DFD4;border-radius:10px;height:26px;display:flex;align-items:center;padding:0 9px;margin-bottom:8px"><span style="font-size:9px;color:#0B5D55">⌕</span><span style="width:52%;height:5px;border-radius:3px;background:#ECE8DF;margin-left:6px"></span></div>
+            <div style="background:#fff;border:1px solid #E4DFD4;border-radius:12px;padding:9px 10px;margin-bottom:8px">
+              <div style="font-family:'Bricolage Grotesque';font-weight:600;font-size:11px">Fire &amp; Rescue</div>
+              <div style="font-family:'IBM Plex Mono';font-weight:600;font-size:13px;letter-spacing:-.02em;color:#15130F">028 312 2400</div>
+              <div style="margin-top:7px;display:flex;gap:6px">
+                <div style="flex:1;background:#C1292E;border-radius:8px;color:#fff;font-size:9.5px;font-weight:600;text-align:center;padding:5px 0">Call</div>
+                <div style="width:20%;background:#EAF3F2;border:1px solid #CEE5E2;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#0B5D55;font-size:10px">✉</div>
+              </div>
+            </div>
+            <div style="background:#fff;border:1px solid #E4DFD4;border-radius:12px;padding:9px 10px;margin-bottom:8px;display:flex;align-items:center;gap:7px">
+              <span style="background:#EAF3F2;color:#0B5D55;font-family:'IBM Plex Mono';font-size:9px;font-weight:600;border-radius:6px;padding:3px 5px">01</span>
+              <span style="font-family:'Bricolage Grotesque';font-weight:600;font-size:11px;flex:1">Fire &amp; Rescue</span>
+              <span style="color:#B0ACA2;font-size:10px">7</span>
+              <span style="color:#B0ACA2;font-size:8px">▾</span>
+            </div>
+            <div style="background:#fff;border:1px solid #E4DFD4;border-radius:12px;padding:9px 10px;display:flex;align-items:center;gap:7px">
+              <span style="background:#EAF3F2;color:#0B5D55;font-family:'IBM Plex Mono';font-size:9px;font-weight:600;border-radius:6px;padding:3px 5px">02</span>
+              <span style="font-family:'Bricolage Grotesque';font-weight:600;font-size:11px;flex:1">Medical</span>
+              <span style="color:#B0ACA2;font-size:10px">11</span>
+              <span style="color:#B0ACA2;font-size:8px">▾</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3>Coastal Dispatch</h3>
+    <div class="tag">Bricolage Grotesque · IBM Plex Mono · Instrument Sans</div>
+    <div class="swatches"><span class="sw" style="background:#F4F1EA"></span><span class="sw" style="background:#0B5D55"></span><span class="sw" style="background:#C1292E"></span><span class="sw" style="background:#15130F"></span></div>
+    <p class="desc">Maritime-rescue identity. Sand paper, deep ocean teal, crisis red. Phone numbers set in mono — the whole app is numbers, so they're the hero. Editorial grotesque display, plain humanist body. Solid opaque header, varied radii (10/12px), no blur, no gradients.</p>
+  </div>
+
+  <!-- B: NOTICEBOARD -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="phone-wrap">
+      <div class="phone">
+        <div style="background:#FAF6EF">
+          <div class="inner" style="font-family:'Schibsted Grotesk'">
+            <div class="top">
+              <span class="brand" style="font-family:'Fraunces';font-weight:600;font-size:14px;letter-spacing:-.01em">Overstrand Lifeline</span>
+              <span class="icons"><span class="ic" style="background:#B5532D"></span><span class="ic" style="background:rgba(0,0,0,.05)"></span></span>
+            </div>
+            <div style="border:1.5px solid #C1292E;border-radius:4px;padding:8px 10px;margin-bottom:8px;background:#FFF8F6">
+              <div style="font-family:'Fraunces';font-weight:600;font-size:11px;display:flex;justify-content:space-between;align-items:center;color:#A01E23"><span>Emergency numbers</span><span>▾</span></div>
+              <div style="font-size:9px;color:#A01E23;opacity:.8;margin-top:2px">Tap a number to call</div>
+            </div>
+            <div style="border-bottom:1px solid #E4DCCB;height:26px;display:flex;align-items:center;margin-bottom:8px"><span style="font-size:9px;color:#B5532D">⌕</span><span style="width:52%;height:4px;background:#EEE7D9;margin-left:6px"></span></div>
+            <div style="border:1px solid #E4DCCB;border-radius:4px;padding:9px 10px;margin-bottom:8px;background:#fff">
+              <div style="font-family:'Fraunces';font-weight:600;font-size:12px">Fire &amp; Rescue</div>
+              <div style="font-family:'Space Mono';font-weight:700;font-size:12.5px;color:#3A3126">028 312 2400</div>
+              <div style="margin-top:7px;display:flex;gap:6px">
+                <div style="flex:1;background:#C1292E;border-radius:3px;color:#fff;font-size:9.5px;font-weight:600;text-align:center;padding:5px 0">Call</div>
+                <div style="width:20%;background:#F7F2E8;border:1px solid #E4DCCB;border-radius:3px;display:flex;align-items:center;justify-content:center;color:#B5532D;font-size:10px">✉</div>
+              </div>
+            </div>
+            <div style="border-bottom:1px solid #E4DCCB;display:flex;align-items:center;justify-content:space-between;padding:9px 2px;font-family:'Fraunces';font-weight:600;font-size:12px"><span>Fire &amp; Rescue</span><span style="font-family:'Space Mono';font-size:9.5px;color:#B0A796">07</span></div>
+            <div style="border-bottom:1px solid #E4DCCB;display:flex;align-items:center;justify-content:space-between;padding:9px 2px;font-family:'Fraunces';font-weight:600;font-size:12px"><span>Medical</span><span style="font-family:'Space Mono';font-size:9.5px;color:#B0A796">11</span></div>
+            <div style="border-bottom:1px solid #E4DCCB;display:flex;align-items:center;justify-content:space-between;padding:9px 2px;font-family:'Fraunces';font-weight:600;font-size:12px"><span>Police &amp; Security</span><span style="font-family:'Space Mono';font-size:9.5px;color:#B0A796">08</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3>The Noticeboard</h3>
+    <div class="tag">Fraunces · Space Mono · Schibsted Grotesk</div>
+    <div class="swatches"><span class="sw" style="background:#FAF6EF"></span><span class="sw" style="background:#B5532D"></span><span class="sw" style="background:#C1292E"></span><span class="sw" style="background:#3A3126"></span></div>
+    <p class="desc">Municipal-notice-board / printed leaflet. Warm cream, terracotta accent, serif headlines (Fraunces), hairline rules instead of cards, mono counts. Category list as a bordered index — scannable, editorial, clearly hand-set. Crisis red outlined to stay unmistakable.</p>
+  </div>
+
+  <!-- C: SHORE (refined coastal, current structure) -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="phone-wrap">
+      <div class="phone">
+        <div style="background:#F5F2EC">
+          <div class="inner" style="font-family:'Instrument Sans'">
+            <div class="top">
+              <span class="brand" style="font-family:'Fraunces';font-weight:600;font-size:13.5px">Overstrand Lifeline</span>
+              <span class="icons"><span class="ic" style="background:#2E6E62"></span><span class="ic" style="background:rgba(0,0,0,.06)"></span></span>
+            </div>
+            <div style="background:#2E6E62;border-radius:12px;color:#fff;padding:8px 10px;margin-bottom:8px">
+              <div style="font-family:'Fraunces';font-weight:600;font-size:11px;display:flex;justify-content:space-between;align-items:center"><span>Emergency numbers</span><span style="opacity:.7">▾</span></div>
+              <div style="font-size:9px;opacity:.85;margin-top:2px">Tap a number to call</div>
+            </div>
+            <div style="background:#fff;border:1px solid #E7E2D8;border-radius:10px;height:26px;display:flex;align-items:center;padding:0 9px;margin-bottom:8px"><span style="font-size:9px;color:#2E6E62">⌕</span><span style="width:52%;height:5px;border-radius:3px;background:#EEE9E0;margin-left:6px"></span></div>
+            <div style="background:#fff;border:1px solid #E7E2D8;border-radius:12px;padding:9px 10px;margin-bottom:8px">
+              <div style="font-family:'Fraunces';font-weight:600;font-size:11.5px">Fire &amp; Rescue</div>
+              <div style="font-family:'Space Mono';font-weight:700;font-size:12.5px;color:#26221B">028 312 2400</div>
+              <div style="margin-top:7px;display:flex;gap:6px">
+                <div style="flex:1;background:#C1292E;border-radius:8px;color:#fff;font-size:9.5px;font-weight:600;text-align:center;padding:5px 0">Call</div>
+                <div style="width:20%;background:#EFF6F4;border:1px solid #D9E8E3;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#2E6E62;font-size:10px">✉</div>
+              </div>
+            </div>
+            <div style="background:#fff;border:1px solid #E7E2D8;border-radius:12px;padding:9px 10px;display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Space Mono';font-size:9px;font-weight:700;color:#2E6E62">01</span>
+              <span style="font-family:'Fraunces';font-weight:600;font-size:11.5px;flex:1">Fire &amp; Rescue</span>
+              <span style="color:#B0ACA2;font-size:10px">7</span>
+              <span style="color:#B0ACA2;font-size:8px">▾</span>
+            </div>
+            <div style="background:#fff;border:1px solid #E7E2D8;border-radius:12px;padding:9px 10px;margin-top:8px;display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Space Mono';font-size:9px;font-weight:700;color:#2E6E62">02</span>
+              <span style="font-family:'Fraunces';font-weight:600;font-size:11.5px;flex:1">Medical</span>
+              <span style="color:#B0ACA2;font-size:10px">11</span>
+              <span style="color:#B0ACA2;font-size:8px">▾</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3>The Shore</h3>
+    <div class="tag">Fraunces · Space Mono · Instrument Sans</div>
+    <div class="swatches"><span class="sw" style="background:#F5F2EC"></span><span class="sw" style="background:#2E6E62"></span><span class="sw" style="background:#C1292E"></span><span class="sw" style="background:#26221B"></span></div>
+    <p class="desc">Closest to the current structure — keeps the card-and-accordion model — but re-skinned: serif headings, mono numbers, sage-teal accent, softer warm paper. The safe middle option: familiar interactions, distinctive look.</p>
+  </div>
+
+</div>
+</body>
+</html>

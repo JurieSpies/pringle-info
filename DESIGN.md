@@ -501,16 +501,22 @@ Product screenshots are framed in rounded `{rounded.lg}` / `{rounded.xl}` wells,
 
 ## Local Adaptations (Overstrand Lifeline)
 
-This project — a coastal community emergency & directory PWA — follows the Notion
-system above with one deliberate addition: a **crisis red** (`crisis` ~`#C1292E`)
-applied only to emergency call actions (lifeline tiles, dial buttons, first-aid
-& helpline badges). Everything else stays monochrome-plus-blue: the blue
-`primary` paints search focus, links, the install pill and the checklist
-progress; amber carries warning alerts; green stays on WhatsApp rows (the
-WhatsApp icon + number row mirrors the blue email row's shape). The
-app is emoji-free — all icons are inline SVG, never emoji glyphs.
+This project — a coastal community emergency & directory PWA — operates **The
+Shore** system, evolved from the Notion reference above but no longer following
+it: Notion's single blue accent and Inter type are gone, replaced by a warm
+shore palette and a three-face type system. The **crisis red** (`crisis`
+~`#C1292E`) stays reserved for emergency call actions only (lifeline tiles,
+dial buttons, first-aid & helpline badges). Everything else is warm-sand and
+sage-teal: the `primary` ramp `#2E6E62` / `#22544B` / `#7FBFB2` / `#E6EFEC`
+paints search focus, links, the install pill, mail/navigate rows and the
+checklist progress; amber carries warning alerts; green stays on WhatsApp rows
+(the WhatsApp icon + number row mirrors the teal email row's shape). The app is
+emoji-free — all icons are inline SVG, never emoji glyphs — never renders
+coordinates, and stays mobile-first.
 
-Typography adds one face beyond the Notion base: **Space Grotesk** (variable,
-self-hosted in `fonts/`) is the display face for the wordmark, all headings,
-eyebrows and section titles — `font-display` in `index.html`. Inter stays the
-body and phone-number face for maximum legibility and tabular digits.
+Typography is three faces doing three jobs, all self-hosted in `fonts/`:
+**Fraunces** (display serif) for the wordmark, headings, eyebrows and section &
+category titles; **Space Mono** (mono) for every dialable phone number, count
+and badge — numbers are the hero, tabular and unmistakable; **Instrument Sans**
+(sans) for body copy, labels and phone-number labels. These map to
+`font-display`, `font-num` and `font-sans` in `index.html`.

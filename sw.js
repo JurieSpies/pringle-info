@@ -1,5 +1,5 @@
 /* Overstrand Lifeline — service worker: cache the app shell for offline use */
-const VERSION = "v2.9.0"; // v2.9.0 — email rows + hours line; v2.8.0 — brand logos on cards; v2.7.0 — Space Grotesk display font; v2.6.0 — Notion redesign
+const VERSION = "v3.0.0"; // v3.0.0 — The Shore redesign (Fraunces / Space Mono / Instrument Sans, sage-teal)
 const CACHE = `pringle-info-${VERSION}`;
 
 const ASSETS = [
@@ -13,7 +13,10 @@ const ASSETS = [
     "./icons/icon-512.png",
     "./icons/icon-maskable-512.png",
     "./icons/apple-touch-icon.png",
-    "./fonts/space-grotesk-latin.woff2",
+    "./fonts/fraunces-latin.woff2",
+    "./fonts/space-mono-latin.woff2",
+    "./fonts/space-mono-700-latin.woff2",
+    "./fonts/instrumentsans-latin.woff2",
     // brand logos rendered on directory cards (icons/logos/*)
     "./icons/logos/birdflu.png",
     "./icons/logos/capenature.svg",

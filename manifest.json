@@ -6,8 +6,8 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#F5F5F4",
-  "theme_color": "#f6f5f4",
+  "background_color": "#F5F2EC",
+  "theme_color": "#F5F2EC",
   "lang": "en",
   "categories": ["utilities", "health", "safety"],
   "icons": [
