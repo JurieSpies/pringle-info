@@ -36,6 +36,9 @@
   @supports (padding-top: env(safe-area-inset-top)) {
     .safe-top { padding-top: env(safe-area-inset-top); }
   }
+  /* Keep the last content clear of the fixed bottom tab bar: its own height
+     includes the device's bottom safe-area inset, so the page padding must too. */
+  #main { padding-bottom: calc(7rem + env(safe-area-inset-bottom)); }
   .lnk { color: #2E6E62; text-decoration: underline; text-underline-offset: 2px; }
   .dark .lnk { color: #7FBFB2; }
   .dial:active { transform: scale(.98); }
@@ -174,7 +177,7 @@
 </noscript>
 
 <!-- Confirmation toast (aria-live so screen readers announce it) -->
-<div id="toast" role="status" aria-live="polite" class="fixed bottom-24 left-1/2 z-50 -translate-x-1/2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white shadow-lg dark:bg-white dark:text-stone-900" hidden></div>
+<div id="toast" role="status" aria-live="polite" class="fixed bottom-28 left-1/2 z-50 -translate-x-1/2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white shadow-lg dark:bg-white dark:text-stone-900" hidden></div>
 
 <!-- Update banner: shown when a deployed service worker takes over -->
 <div id="updateBanner" class="fixed inset-x-0 bottom-0 z-50" role="status" hidden>
