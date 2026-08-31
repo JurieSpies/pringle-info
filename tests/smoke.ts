@@ -70,16 +70,31 @@ assert(
     "WhatsApp links (mobile numbers only)",
 );
 
-// ---- tools & guides menu ----
+// ---- bottom navigation tabs ----
+assert(
+    (await page.locator("#bottomNav [data-tab]").count()) === 4,
+    "bottom nav: 4 tabs",
+);
+assert(
+    (await page.locator('#bottomNav [data-tab="directory"] span').innerText()) ===
+        "Directory" &&
+        (await page.locator('#bottomNav [data-tab="checklist"] span').innerText()) ===
+            "Checklist" &&
+        (await page.locator('#bottomNav [data-tab="firstaid"] span').innerText()) ===
+            "First Aid" &&
+        (await page.locator('#bottomNav [data-tab="helplines"] span').innerText()) ===
+            "Helplines",
+    "bottom nav: tabs carry visible names",
+);
 assert(
     await page.locator("#menuDropdown").isHidden(),
-    "tools menu: hidden by default",
+    "burger: hidden by default",
 );
 await page.click("#menuBtn");
 await page.waitForTimeout(200);
 assert(
     await page.locator("#menuDropdown").isVisible(),
-    "tools menu: burger opens dropdown",
+    "burger: opens dropdown",
 );
 assert(
     await page.evaluate(() => {
@@ -90,33 +105,33 @@ assert(
             ) || 0;
         return zi("#menuDropdown") > zi("#searchRow");
     }),
-    "tools menu: dropdown paints above the search bar",
+    "burger: dropdown paints above the search bar",
 );
 assert(
-    (await page.locator("#menuDropdown [data-action]").count()) === 6,
-    "tools menu: 6 items (directory + 4 sections + copy location + share)",
+    (await page.locator("#menuDropdown [data-action]").count()) === 2,
+    "burger: 2 items (copy location + share)",
 );
-await page.locator('#menuDropdown [data-action="firstaid"]').click();
+await page.click("#menuBtn");
+await page.waitForTimeout(200);
+
+// ---- First Aid tab ----
+await page.click('#bottomNav [data-tab="firstaid"]');
 await page.waitForTimeout(300);
 assert(
-    await page.locator("#menuDropdown").isHidden(),
-    "tools menu: closes after picking",
-);
-assert(
     await page.locator("#toolsPanel").isVisible(),
-    "tools view: panel visible",
+    "tab: tools panel visible on First Aid",
 );
 assert(
     await page.locator("#cat-firstaid").isVisible(),
-    "tools view: first aid section shown",
+    "tab: first aid section shown",
 );
 assert(
-    await page.locator("#cat-checklist").isVisible(),
-    "tools view: checklist section shown",
+    await page.locator("#cat-checklist").isHidden(),
+    "tab: checklist section hidden on First Aid",
 );
 assert(
     await page.locator("#results").isHidden(),
-    "tools view: contacts hidden",
+    "tab: contacts hidden on First Aid",
 );
 assert(
     (await page.locator("#cat-firstaid").innerText()).includes(
@@ -129,17 +144,32 @@ assert(
     "first aid: 19 expandable guides",
 );
 
-// ---- tools search ----
+// ---- tools search (filters the active tab only) ----
 await page.fill("#toolsSearch", "aspirin");
 await page.waitForTimeout(300);
 assert(
     (await page.locator("#cat-firstaid details.cat:not([hidden])").count()) ===
         3,
-    "tools search 'aspirin' → 3 first-aid guides (heart attack, stroke, head injury)",
+    "first-aid search 'aspirin' → 3 guides (heart attack, stroke, head injury)",
+);
+await page.fill("#toolsSearch", "");
+await page.waitForTimeout(300);
+assert(
+    (await page.locator("#cat-firstaid details.cat:not([hidden])").count()) ===
+        19,
+    "first-aid search: cleared → all guides back",
+);
+
+// ---- Helplines tab ----
+await page.click('#bottomNav [data-tab="helplines"]');
+await page.waitForTimeout(300);
+assert(
+    await page.locator("#cat-helplines").isVisible(),
+    "tab: helplines section shown",
 );
 assert(
-    await page.locator("#cat-helplines").isHidden(),
-    "tools search: helplines hidden when no match",
+    (await page.locator("#cat-helplines article[data-q]").count()) === 9,
+    "helplines: 9 national numbers",
 );
 await page.fill("#toolsSearch", "poison");
 await page.waitForTimeout(300);
@@ -147,30 +177,19 @@ assert(
     (await page
         .locator("#cat-helplines article[data-q]:not([hidden])")
         .count()) >= 1,
-    "tools search 'poison' → Poisons helpline shown",
+    "helplines search 'poison' → Poisons helpline shown",
 );
 await page.fill("#toolsSearch", "");
 await page.waitForTimeout(300);
-assert(
-    (await page.locator("#cat-firstaid details.cat:not([hidden])").count()) ===
-        19,
-    "tools search: cleared → all guides back",
-);
-assert(
-    (await page.locator("#cat-helplines article[data-q]").count()) === 9,
-    "helplines: 9 national numbers",
-);
 
-// ---- back to directory via menu ----
-await page.click("#menuBtn");
-await page.waitForTimeout(200);
-await page.locator('#menuDropdown [data-action="contacts"]').click();
+// ---- back to directory via tab ----
+await page.click('#bottomNav [data-tab="directory"]');
 await page.waitForTimeout(300);
 assert(
     await page.locator("#toolsPanel").isHidden(),
-    "tools menu: directory item closes tools view",
+    "tab: Directory closes tools panel",
 );
-assert(await page.locator("#results").isVisible(), "tools menu: contacts back");
+assert(await page.locator("#results").isVisible(), "tab: Directory shows contacts");
 
 // ---- search ----
 await page.fill("#search", "Snake");

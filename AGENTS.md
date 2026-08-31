@@ -94,6 +94,13 @@ When the user requests a durable behavior change, record it here or in the relev
   share sheet (`navigator.share`) where available so the reader can share the
   app's URL; where sharing isn't supported it falls back to copying the link to
   clipboard. It never renders coordinates.
+- Primary navigation is a fixed bottom tab bar with four labelled tabs —
+  **Directory**, **Checklist**, **First Aid**, **Helplines** — shown on all
+  screen sizes (mobile and desktop), each an inline SVG icon over a name.
+  The Directory tab shows search + My area + Quick access + the category
+  lists; each tool tab shows only its own section with a search box that
+  filters just that tab's content. The header burger menu holds only the two
+  utility actions (Copy my location, Share).
 - Installed users receive deployed updates automatically without reinstalling:
   navigation loads are network-first (offline falls back to the cached shell), sw.js
   registers with `updateViaCache: "none"` so GitHub Pages' 10-minute HTTP cache never
