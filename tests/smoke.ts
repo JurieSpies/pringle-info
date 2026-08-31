@@ -87,6 +87,10 @@ assert(
     "bottom nav: tabs carry visible names",
 );
 assert(
+    ((await page.locator("#bottomNav").boundingBox())?.height ?? 0) >= 56,
+    "bottom nav: has a real height (56px min touch target)",
+);
+assert(
     await page.locator("#menuDropdown").isHidden(),
     "burger: hidden by default",
 );
