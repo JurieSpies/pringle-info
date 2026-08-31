@@ -153,21 +153,21 @@
 <!-- Bottom navigation: the four main sections, shown as labelled tabs on all screen sizes -->
 <nav id="bottomNav" class="fixed inset-x-0 bottom-0 z-40 border-t border-hairline bg-paper dark:border-stone-800 dark:bg-stone-950" aria-label="Main sections" style="padding-bottom: env(safe-area-inset-bottom)">
   <div class="mx-auto flex max-w-2xl items-stretch">
-    <button type="button" data-tab="directory" aria-current="page" class="flex flex-1 flex-col items-center justify-center gap-1 py-2 text-primary dark:text-primary-light text-[10px] font-semibold">
-      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
-      <span>Directory</span>
+    <button type="button" data-tab="directory" aria-current="page" class="flex min-h-14 flex-1 flex-col items-center justify-center gap-1 px-1 text-primary dark:text-primary-light">
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+      <span class="text-[11px] font-semibold leading-none whitespace-nowrap">Directory</span>
     </button>
-    <button type="button" data-tab="checklist" class="flex flex-1 flex-col items-center justify-center gap-1 py-2 text-ink-muted dark:text-stone-400 text-[10px] font-semibold">
-      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-      <span>Checklist</span>
+    <button type="button" data-tab="checklist" class="flex min-h-14 flex-1 flex-col items-center justify-center gap-1 px-1 text-ink-muted dark:text-stone-400">
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span class="text-[11px] font-semibold leading-none whitespace-nowrap">Checklist</span>
     </button>
-    <button type="button" data-tab="firstaid" class="flex flex-1 flex-col items-center justify-center gap-1 py-2 text-ink-muted dark:text-stone-400 text-[10px] font-semibold">
-      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      <span>First Aid</span>
+    <button type="button" data-tab="firstaid" class="flex min-h-14 flex-1 flex-col items-center justify-center gap-1 px-1 text-ink-muted dark:text-stone-400">
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <span class="text-[11px] font-semibold leading-none whitespace-nowrap">First Aid</span>
     </button>
-    <button type="button" data-tab="helplines" class="flex flex-1 flex-col items-center justify-center gap-1 py-2 text-ink-muted dark:text-stone-400 text-[10px] font-semibold">
-      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      <span>Helplines</span>
+    <button type="button" data-tab="helplines" class="flex min-h-14 flex-1 flex-col items-center justify-center gap-1 px-1 text-ink-muted dark:text-stone-400">
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span class="text-[11px] font-semibold leading-none whitespace-nowrap">Helplines</span>
     </button>
   </div>
 </nav>
